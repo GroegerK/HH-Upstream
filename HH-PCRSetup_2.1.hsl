@@ -1,0 +1,287 @@
+ namespace _Method { #include "HSLTrcLib.hsl" } 
+ namespace _Method { #include "HSLInhecoTEC\\HSLInhecoTECLib.hsl" } 
+ namespace _Method { #include "STAR Tools\\STAR Tip Tools.hs_" } 
+ namespace _Method { #include "HSLSeqLib.hsl" } 
+ namespace _Method { #include "HSLTipCountingLib.hsl" } 
+ namespace _Method { #include "Visual_NTR_Library\\Visual_NTR_library_NTRdiscardEdits.hs_" } 
+ namespace _Method { #include "HSLML_STARLib.hsl" } 
+ namespace _Method { #include "HSLDeckVisualize.hsl" } 
+#include "PCRPool[2.1].res"
+/* {{ 2 "LibraryInsertLine" "" */ // }} ""
+dialog customDialogACF241AA535647ca8A803A91071B2980;
+dialog customDialog1A321E1A8DA54d13B9013B673E7286ED;
+dialog customDialogD893C0D329E743d099492F62C4ABA11E;
+variable t_intControlID;
+variable t_hdlDialogue;
+variable t_strCPACError;
+variable t_str50CountChannels;
+variable t_str8ChannelPattern;
+variable t_fltBufferDispense;
+variable t_fltTemplateDispense;
+variable t_intDeviceID;
+variable t_varDialogue;
+dialog customDialogEB45836DC7544215A36A45C83E65F822;
+variable t_intNumberOfPlates;
+variable t_str50Count96MPH;
+dialog customDialogC673F4F5D53848bd8FEA44728E805B18;
+dialog customDialog27E9A510B7A34ef4BF20F8F9C9B024DB;
+variable t_strCPACSN;
+variable t_fltTemperature;
+dialog dialogHandle912562F79C2546c6818E337673DD3BCE;
+dialog dialogHandleEFDCEB51FF184cdbB7411CA69369644E;
+dialog dialogHandle7E10303FF9284c008FE862BD1B2D6AEA;
+dialog dialogHandle27B63317AF0747b0A93AD5338F6AA2FF;
+dialog dialogHandle763F2283D3F14ba581A0C451F2A4423A;
+global device ML_STAR ("PCRPool[2.1].lay", "ML_STAR", hslTrue);
+/* {{ 2 "VariableInsertLine" "" */ // }} ""
+// {{ 2 "TemplateIncludeBlock" ""
+ namespace _Method { #include "HSLMETEDLib.hs_" } 
+ namespace _Method { #include "HSLMECCLib.hs_" } 
+ namespace _Method { #include "HSLPTLLib.hsl" } 
+// }} ""
+// {{{ 2 "LocalSubmethodInclude" ""
+ namespace _Method {  #include __filename__ ".sub"  } 
+// }} ""
+/* {{ 2 "ProcessInsertLine" "" */ // }} ""
+// {{{ 5 "main" "Begin"
+namespace _Method { method main(  ) void {
+// }} ""
+// {{ 5 "main" "InitLocals"
+// }} ""
+// {{ 2 "AutoInitBlock" ""
+PTL::SetWashingStateDefault("RinseTime1", 5);
+PTL::SetWashingStateDefault("SoakTime1", 5);
+PTL::SetWashingStateDefault("FlowRate1", 11);
+PTL::SetWashingStateDefault("RinseTime2", 0);
+PTL::SetWashingStateDefault("SoakTime2", 0);
+PTL::SetWashingStateDefault("FlowRate2", 11);
+PTL::SetWashingStateDefault("DrainingTime", 10);
+PTL::SetWashingStateDefault("StartWashLiquid", 0);
+PTL::SetLoadingStateDefault("RecoveryOptionContinue", hslTrue);
+PTL::SetLoadingStateDefault("RecoveryOptionExclude", hslTrue);
+PTL::SetLoadingStateDefault("RecoveryOptionDefault", 0);
+PTL::SetLoadingStateDefault("KitLotCheckEnabled", hslFalse);
+STAR_TIP_TOOLS::_InitLibrary();
+VISUAL_NTR_LIBRARY_NTRDISCARDEDITS::_InitLibrary();
+::RegisterAbortHandler( "OnAbort");
+// }} ""
+// {{ 1 1 0 "4789e302_3ce3_4865_b408b8a1de15936c" "{F07B0071-8EFC-11d4-A3BA-002035848439}"
+MECC::TraceComment(Translate("\n_________________________________________________________________________________________________\nGreenLight BioSciences\n\nHH- HTP PCR Setup\nLast Edit: 09/12/2022\nDesc. Creates up to 2 PCR Plates by adding the folkowing volumes per plate:\n38.5 ul Water, 7.5 ul Primer, and 50 ul Kapa HiFi, to a blue Fisher PCR Plates containing 4 ul of template DNA to be amplified.\n\nA 100ul rxn is created.\n\n\n\n_________________________________________________________________________________________________\n"));
+// }} ""
+// {{ 2 1 0 "a052310d_7795_4014_8acd9fa7254331b8" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 3 1 0 "c1b9707b_f3c8_4e48_9a611b05bb2cd906" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+t_str50Count96MPH = Translate("");
+// }} ""
+// {{ 4 1 0 "d8fa3d02_4e36_4b4b_b310996dacac5fc5" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+t_str50CountChannels = Translate("");
+// }} ""
+// {{ 5 1 0 "70dbae71_7a0e_4f1e_8c45359e0f95bfcf" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+t_str8ChannelPattern = Translate("11111111");
+// }} ""
+// {{ 6 1 0 "e13fbd13_26ce_405f_b98709feeca6f923" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+t_intNumberOfPlates = 0;
+// }} ""
+// {{ 7 1 0 "9c70adea_09e1_4e5e_88f1ba0d939c4ccb" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+t_intDeviceID = 1;
+// }} ""
+// {{ 8 1 0 "c8453d96_45bd_4224_8a01f7f00cc04e71" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+t_fltTemperature = 27;
+// }} ""
+// {{ 9 1 0 "a052310d_7795_4014_8acd9fa7254331b8" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 10 1 0 "30ccc9df_b89b_4ebf_af9ac17212675bdf" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 11 1 0 "123d3fda_05f7_412d_be2ef7361fcbad5c" "{998A7CCC-4374-484D-A6ED-E8A4F0EB71BA}"
+customDialogACF241AA535647ca8A803A91071B2980.InitCustomDialog( "123d3fda_05f7_412d_be2ef7361fcbad5c" );
+customDialogACF241AA535647ca8A803A91071B2980.ShowCustomDialog();
+// }} ""
+// {{{ 12 1 0 "b5864fd4_6e71_40af_93b6a6e3c421c00f" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+HSLInhecoTECLib::Initialize(t_intControlID, 0, t_strCPACError);
+// }} ""
+// {{{ 13 1 0 "a01e59ac_41e9_49b0_b2396a4ae3be1219" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+HSLInhecoTECLib::GetDeviceSerialNumber(t_intControlID, t_intDeviceID, t_strCPACSN, t_strCPACError);
+// }} ""
+// {{{ 14 1 0 "ab4dd66c_58e1_4e92_a4624609c7a380bb" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+TrcTrace(Translate("CPAC Serial Number: "), t_strCPACSN);
+// }} ""
+// {{ 15 1 0 "ccdb8181_cdfb_4ec5_b1b85adb8c595f48" "ML_STAR:{1C0C0CB0-7C87-11D3-AD83-0004ACB1DCB2}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._1C0C0CB0_7C87_11D3_AD83_0004ACB1DCB2("ccdb8181_cdfb_4ec5_b1b85adb8c595f48"); // Initialize
+}
+// }} ""
+// {{ 16 1 0 "8c8d6633_bb69_46c9_aacba40694605736" "ML_STAR:{EA251BFB-66DE-48D1-83E5-6884B4DD8D11}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._EA251BFB_66DE_48D1_83E5_6884B4DD8D11("8c8d6633_bb69_46c9_aacba40694605736"); // MoveAutoLoad
+}
+// }} ""
+// {{{ 17 1 0 "276d890e_2b4c_479b_a21a0a61f9154bbf" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+HSLInhecoTECLib::SetTargetTemperature(t_intControlID, t_intDeviceID, 4.0, t_strCPACError);
+// }} ""
+// {{{ 18 1 0 "d39c8989_0950_47d8_804ab691ec5b53d6" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+HSLInhecoTECLib::StartTemperatureControl(t_intControlID, t_intDeviceID, t_strCPACError);
+// }} ""
+// {{{ 19 1 0 "2e954f32_8b86_4b3e_a79ff4459c1ff78f" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+HSLInhecoTECLib::GetActualDeviceTemperature(t_intControlID, t_intDeviceID, 1, t_fltTemperature, t_strCPACError);
+// }} ""
+// {{ 20 1 0 "6fa902f8_92b4_4b60_a7e60fbab41a98e8" "ML_STAR:{81DA4252-3BA9-11d4-AE21-0004ACB1DCB2}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._81DA4252_3BA9_11d4_AE21_0004ACB1DCB2("6fa902f8_92b4_4b60_a7e60fbab41a98e8"); // MoveToPosition
+}
+// }} ""
+// {{{ 21 1 0 "c061bf0b_c774_45c0_9864ba33c7744847" "{7C4EF7A7-39BE-406a-897F-71F3A35B4093}"
+STAR_TIP_TOOLS::BuildChannelPattern(8, 8, t_str8ChannelPattern);
+// }} ""
+// {{ 22 1 0 "30ccc9df_b89b_4ebf_af9ac17212675bdf" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 23 1 0 "213fe93e_aa96_4756_a8f2955c5eadbd36" "{998A7CCC-4374-484D-A6ED-E8A4F0EB71BA}"
+customDialog27E9A510B7A34ef4BF20F8F9C9B024DB.InitCustomDialog( "213fe93e_aa96_4756_a8f2955c5eadbd36" );
+customDialog27E9A510B7A34ef4BF20F8F9C9B024DB.ShowCustomDialog();
+// }} ""
+// {{ 24 1 0 "06b8436e_693b_4cb8_b74e01110fbb349a" "{998A7CCC-4374-484D-A6ED-E8A4F0EB71BA}"
+customDialogEB45836DC7544215A36A45C83E65F822.InitCustomDialog( "06b8436e_693b_4cb8_b74e01110fbb349a" );
+customDialogEB45836DC7544215A36A45C83E65F822.SetCustomDialogProperty( "numeric1.Value", t_intNumberOfPlates );
+customDialogEB45836DC7544215A36A45C83E65F822.ShowCustomDialog();
+t_varDialogue = customDialogEB45836DC7544215A36A45C83E65F822.GetCustomDialogProperty( "ReturnValue" );
+t_intNumberOfPlates = customDialogEB45836DC7544215A36A45C83E65F822.GetCustomDialogProperty( "numeric1.Value" );
+// }} ""
+// {{ 25 1 0 "2abd11f3_77d3_455b_83eabde8127931fa" "{F07B0071-8EFC-11d4-A3BA-002035848439}"
+
+// }} ""
+// {{ 26 1 0 "7e55cf34_91ca_4bf8_b696e1b56aabd5db" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 27 1 0 "651faad6_34c8_4030_820c332bae98f569" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{{ 28 1 0 "49240f6e_c1c1_4cf0_974c482b8fba38a5" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.WaterTrough, 6, Translate("Water Trough"));
+// }} ""
+// {{ 29 1 0 "c6cdc6a2_066d_4a80_b7418280de4f9292" "{21E07B31-8D2E-11d4-A3B8-002035848439}"
+dialogHandleEFDCEB51FF184cdbB7411CA69369644E.SetOutput(Translate("Please load the NF Water trough at the indicated position."));
+dialogHandleEFDCEB51FF184cdbB7411CA69369644E.ShowOutput(Translate("Water Trough"), hslOKOnly | hslInformation | hslDefButton1, hslInfinite);
+// }} ""
+// {{{ 30 1 0 "c04dd27b_ddd9_4fcf_85baaeb755b1db27" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.WaterTrough, 5, Translate("Water Trough"));
+// }} ""
+// {{ 31 1 0 "651faad6_34c8_4030_820c332bae98f569" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 32 1 0 "33bca0da_ea8b_4204_8b2fa98040a7d6ea" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{{ 33 1 0 "49bda3f5_e4ca_41f4_95c4c6b08d8a31bb" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.KapaHiFiTrough, 6, Translate("Kapa HiFi Trough"));
+// }} ""
+// {{ 34 1 0 "c339e2ed_f352_4f33_9284ac1203352325" "{21E07B31-8D2E-11d4-A3B8-002035848439}"
+dialogHandle7E10303FF9284c008FE862BD1B2D6AEA.SetOutput(Translate("Please load the Kapa HiFi trough at the indicated position."));
+dialogHandle7E10303FF9284c008FE862BD1B2D6AEA.ShowOutput(Translate("Kapa HiFi Trough"), hslOKOnly | hslInformation | hslDefButton1, hslInfinite);
+// }} ""
+// {{{ 35 1 0 "bbfc7d2b_91a0_4a8d_9b285caeb2a58349" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.KapaHiFiTrough, 5, Translate("Kapa HiFi Trough"));
+// }} ""
+// {{ 36 1 0 "33bca0da_ea8b_4204_8b2fa98040a7d6ea" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 37 1 0 "33364198_484b_4599_b8e83c1e876f8a1c" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{{ 38 1 0 "1b9efa02_509b_4d97_b4bed7616d875a18" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.seq_PCRPlates_All, 6, Translate("Template Plates"));
+// }} ""
+// {{ 39 1 0 "a5796877_59df_4c3f_b6fe28e3b70fc4a9" "{21E07B31-8D2E-11d4-A3B8-002035848439}"
+dialogHandle27B63317AF0747b0A93AD5338F6AA2FF.SetOutput(Translate("Please load the Template Plates at the indicated position."));
+dialogHandle27B63317AF0747b0A93AD5338F6AA2FF.ShowOutput(Translate("Template Plates"), hslOKOnly | hslInformation | hslDefButton1, hslInfinite);
+// }} ""
+// {{{ 40 1 0 "071068f0_cd89_48e0_8ea923c60c18f9df" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.seq_PCRPlates_All, 5, Translate("Template Plates"));
+// }} ""
+// {{ 41 1 0 "33364198_484b_4599_b8e83c1e876f8a1c" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 42 1 0 "2ff08cca_53e0_44b0_b82be73938797f92" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{{ 43 1 0 "a65fee6a_1654_405c_b306ee34072b7e6f" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.seq_PrimerMixPlates_All, 6, Translate("Template Plates"));
+// }} ""
+// {{ 44 1 0 "7e507cb4_4acd_4d3e_84034916604c0bfd" "{21E07B31-8D2E-11d4-A3B8-002035848439}"
+dialogHandle912562F79C2546c6818E337673DD3BCE.SetOutput(Translate("Please load the Primer Plates at the indicated position."));
+dialogHandle912562F79C2546c6818E337673DD3BCE.ShowOutput(Translate("Primer Plates"), hslOKOnly | hslInformation | hslDefButton1, hslInfinite);
+// }} ""
+// {{{ 45 1 0 "c595074d_5a19_4ba0_ab79600d6038c109" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.seq_PrimerMixPlates_All, 5, Translate("Primer Plates"));
+// }} ""
+// {{ 46 1 0 "2ff08cca_53e0_44b0_b82be73938797f92" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 47 1 0 "f34da01d_b285_43eb_8d745b8790ed9817" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{{ 48 1 0 "262f2d57_e28c_4136_98afe5d01e1445c4" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.MlStar50ulTipWithFilter, 6, Translate("50ul Tips"));
+// }} ""
+// {{ 49 1 0 "d16081fb_eb03_48f9_af2a0f2b03ab3e20" "{21E07B31-8D2E-11d4-A3B8-002035848439}"
+dialogHandle763F2283D3F14ba581A0C451F2A4423A.SetOutput(Translate("Please load the 50ul Tips at the indicated position."));
+dialogHandle763F2283D3F14ba581A0C451F2A4423A.ShowOutput(Translate("50ul Tips"), hslOKOnly | hslInformation | hslDefButton1, hslInfinite);
+// }} ""
+// {{{ 50 1 0 "dd28ace8_3f4c_41d0_b91073e4787ad7e8" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.MlStar50ulTipWithFilter, 5, Translate("50ul Tips"));
+// }} ""
+// {{ 51 1 0 "f34da01d_b285_43eb_8d745b8790ed9817" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{{ 52 1 0 "233a9722_3bb6_42e5_ae65a2843ec2f496" "{7C4EF7A7-39BE-406a-897F-71F3A35B4093}"
+STAR_TIP_TOOLS::TipCounter_Edit(ML_STAR, ML_STAR.MlStar50ulTipWithFilter, t_str50Count96MPH, 999);
+// }} ""
+// {{ 53 1 0 "5a27b352_3ad4_4fe2_85756cddfb10a629" "{998A7CCC-4374-484D-A6ED-E8A4F0EB71BA}"
+customDialogC673F4F5D53848bd8FEA44728E805B18.InitCustomDialog( "5a27b352_3ad4_4fe2_85756cddfb10a629" );
+customDialogC673F4F5D53848bd8FEA44728E805B18.ShowCustomDialog();
+// }} ""
+// {{ 54 1 0 "7e55cf34_91ca_4bf8_b696e1b56aabd5db" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 55 1 0 "8088197a_ece5_46eb_834a76cc6ac7fe48" "{998A7CCC-4374-484D-A6ED-E8A4F0EB71BA}"
+customDialog1A321E1A8DA54d13B9013B673E7286ED.InitCustomDialog( "8088197a_ece5_46eb_834a76cc6ac7fe48" );
+customDialog1A321E1A8DA54d13B9013B673E7286ED.ShowCustomDialog();
+// }} ""
+// {{{ 56 1 0 "05b281d1_8c2a_4f3b_b8c9d0d15e37d1d9" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+HSLInhecoTECLib::GetActualDeviceTemperature(t_intControlID, t_intDeviceID, 1, t_fltTemperature, t_strCPACError);
+// }} ""
+// {{{ 57 1 0 "92ed0700_2047_4daf_b248ccfa552f3ad1" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+TrcTrace(Translate("Temperature : "), t_fltTemperature);
+// }} ""
+// {{{ 58 1 0 "8acc9e32_9e31_475a_bd47582836e79f65" "{7C4EF7A7-39BE-406a-897F-71F3A35B4093}"
+PCRSetup(t_intNumberOfPlates, t_fltBufferDispense, t_fltTemplateDispense);
+// }} ""
+// {{ 59 1 0 "ec56cde4_8324_4b4f_9a70744ac9c4883b" "{998A7CCC-4374-484D-A6ED-E8A4F0EB71BA}"
+customDialogD893C0D329E743d099492F62C4ABA11E.InitCustomDialog( "ec56cde4_8324_4b4f_9a70744ac9c4883b" );
+customDialogD893C0D329E743d099492F62C4ABA11E.ShowCustomDialog();
+// }} ""
+// {{{ 60 1 0 "6ab99050_9676_4afc_baab50d4725bb4e8" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+HSLInhecoTECLib::StopTemperatureControl(t_intControlID, t_intDeviceID, t_strCPACError);
+// }} ""
+// {{{ 61 1 0 "ffbe2f16_6dbb_4f39_98c887abb4068fcf" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+HSLInhecoTECLib::Terminate(1);
+// }} ""
+// {{{ 62 1 0 "f3467aa5_4c4f_4994_919beb982c22c656" "{7C4EF7A7-39BE-406a-897F-71F3A35B4093}"
+STAR_TIP_TOOLS::TipCounter_Write(ML_STAR, ML_STAR.MlStar50ulTipWithFilter, t_str50Count96MPH);
+// }} ""
+// {{ 63 1 0 "10693348_93a7_4f97_8c6105cc46fdbc16" "{930D6C31-8EFB-11d4-A3BA-002035848439}"
+abort;
+// }} ""
+// {{ 2 "AutoExitBlock" ""
+STAR_TIP_TOOLS::_ExitLibrary();
+VISUAL_NTR_LIBRARY_NTRDISCARDEDITS::_ExitLibrary();
+// }} ""
+// {{{ 5 "main" "End"
+} }
+// }} ""
+// $$author=msheff$$valid=0$$time=2023-03-21 17:18$$checksum=f80eb0d5$$length=085$$

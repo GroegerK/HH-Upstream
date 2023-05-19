@@ -1,0 +1,158 @@
+// {{{ 2 "SubmethodForwardDeclaration" ""
+private function Archive(  ) void ;
+function OnAbort(  ) void ;
+// }} ""
+// {{{ 5 "OnAbort" "Begin"
+function OnAbort(  ) void {
+// }} ""
+// {{ 5 "OnAbort" "InitLocals"
+// }} ""
+// {{{ 399 1 0 "94f3ffa7_1498_4b48_98e915a4dc11857e" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+HSLInhecoTECLib::Terminate(1);
+// }} ""
+// {{{ 400 1 0 "ac9b46a1_2933_40c8_90a92edbc853d1ea" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+HSLHamHeaterShaker::StopTempCtrl(t_hdlHHS);
+// }} ""
+// {{{ 401 1 0 "38125e69_1dcd_4493_b8e1ec7d83e7e00d" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+HSLHamHeaterShaker::Terminate();
+// }} ""
+// {{{ 5 "OnAbort" "End"
+}
+// }} ""
+// {{{ 5 "Archive" "Begin"
+private function Archive(  ) void {
+// }} ""
+// {{ 5 "Archive" "InitLocals"
+// }} ""
+// {{ 372 1 0 "06653d78_c830_41ce_90a071b21422dc5e" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 373 1 0 "c3f72b65_625d_4830_b88d218050b7a738" "ML_STAR:{A108628C-BEB7-4CB6-99FD-8523302C700F}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._A108628C_BEB7_4CB6_99FD_8523302C700F("c3f72b65_625d_4830_b88d218050b7a738"); // ZSwapGetPlate
+}
+// }} ""
+// {{ 374 1 0 "1f80b934_1987_4de4_a06916ee2de193cf" "ML_STAR:{9DF3DD4B-3B5E-4750-8989-04458D1B134B}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._9DF3DD4B_3B5E_4750_8989_04458D1B134B("1f80b934_1987_4de4_a06916ee2de193cf"); // ZSwapPlacePlate
+}
+// }} ""
+// {{ 375 1 0 "5f5f53cb_57a7_4b78_9ec1c6b225d481c0" "ML_STAR:{A108628C-BEB7-4CB6-99FD-8523302C700F}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._A108628C_BEB7_4CB6_99FD_8523302C700F("5f5f53cb_57a7_4b78_9ec1c6b225d481c0"); // ZSwapGetPlate
+}
+// }} ""
+// {{ 376 1 0 "32ae7281_2aa4_4f00_84e82960f744270c" "ML_STAR:{9DF3DD4B-3B5E-4750-8989-04458D1B134B}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._9DF3DD4B_3B5E_4750_8989_04458D1B134B("32ae7281_2aa4_4f00_84e82960f744270c"); // ZSwapPlacePlate
+}
+// }} ""
+// {{ 377 1 0 "06653d78_c830_41ce_90a071b21422dc5e" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 378 1 0 "b73e8c34_9f8e_43f0_9fff9d349d683b12" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 379 1 0 "3467ddcd_c1c2_44f6_8878738573c5e4d5" "{B31F353E-5D80-11d4-A5EB-0050DA737D89}"
+if( 0 == t_hdlTimer10Min.SetTimer(600) )
+{
+    MECC::RaiseRuntimeErrorEx(-1355939584, MECC::IDS::stepNameTimerStart, MECC::IDS::errorStepFailed, "", "HxMetEdCompCmd");
+}
+// }} ""
+// {{ 380 1 0 "b73e8c34_9f8e_43f0_9fff9d349d683b12" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 381 1 0 "2fb4046a_1c70_47f9_830d92346e752cf9" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 382 1 0 "e6a945df_2749_4d7b_99c5dc26cfc73ef1" "{B31F353F-5D80-11d4-A5EB-0050DA737D89}"
+if( 0 == t_hdlTimer10Min.WaitTimer(hslTrue, hslTrue) )
+{
+    MECC::RaiseRuntimeErrorEx(-1339162368, MECC::IDS::stepNameTimerWait, MECC::IDS::errorStepFailed, "", "HxMetEdCompCmd");
+}
+// }} ""
+// {{ 383 1 0 "2fb4046a_1c70_47f9_830d92346e752cf9" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 384 1 0 "442fb5d6_3b13_4e48_b7122e11d96034d2" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{{ 385 1 0 "2dfade02_b600_4ab6_801d30af2a607cf1" "{7C4EF7A7-39BE-406a-897F-71F3A35B4093}"
+STAR_TIP_TOOLS::TipCheck(ML_STAR, ML_STAR.seq1000Channels, t_strChannelTipCount, 48);
+// }} ""
+// {{{ 386 1 0 "bea80850_bbe6_4226_8ddddc15ad066f82" "{7C4EF7A7-39BE-406a-897F-71F3A35B4093}"
+STAR_TIP_TOOLS::Optimized1mLTipPickup2(ML_STAR, ML_STAR.seq1000Channels, t_strChannelTipCount, t_strChannelPattern);
+// }} ""
+// {{ 387 1 0 "d7607f2d_e32b_43a3_84d7813866b6a525" "{B31F3532-5D80-11d4-A5EB-0050DA737D89}"
+{
+loopCounter5 = 0;
+while (
+   (ML_STAR.seqMagnetSPRI_1.GetCurrentPosition() > 0)
+)
+{
+AlignSequences(hslTrue, ML_STAR.seqMagnetSPRI_1, 1);
+loopCounter5 = loopCounter5 + 1;
+// }} ""
+// {{ 388 1 0 "27aff48e_d007_4b68_9b715ad91d2cf81f" "ML_STAR:{541143FA-7FA2-11D3-AD85-0004ACB1DCB2}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._541143FA_7FA2_11D3_AD85_0004ACB1DCB2("27aff48e_d007_4b68_9b715ad91d2cf81f"); // TipPickUp
+}
+// }} ""
+// {{ 389 1 0 "7560af6c_133b_408d_b9adeafe43bde5d2" "{B31F3532-5D80-11d4-A5EB-0050DA737D89}"
+{
+for(loopCounter1 = 0; loopCounter1 < 2;)
+{
+loopCounter1 = loopCounter1 + 1;
+// }} ""
+// {{ 390 1 0 "e5f3e113_8b32_4379_8055ec9365668faa" "ML_STAR:{541143F5-7FA2-11D3-AD85-0004ACB1DCB2}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._541143F5_7FA2_11D3_AD85_0004ACB1DCB2("e5f3e113_8b32_4379_8055ec9365668faa"); // Aspirate
+}
+// }} ""
+// {{ 391 1 0 "be468aa2_23e1_4fc6_9a7ecea5c24977a3" "ML_STAR:{541143F8-7FA2-11D3-AD85-0004ACB1DCB2}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._541143F8_7FA2_11D3_AD85_0004ACB1DCB2("be468aa2_23e1_4fc6_9a7ecea5c24977a3"); // Dispense
+}
+// }} ""
+// {{ 392 1 0 "7560af6c_133b_408d_b9adeafe43bde5d2" "{B31F3532-5D80-11d4-A5EB-0050DA737D89}"
+}
+}
+// }} ""
+// {{ 393 1 0 "bb6f8801_8df3_4792_ac4d11aff71622a1" "ML_STAR:{541143FC-7FA2-11D3-AD85-0004ACB1DCB2}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._541143FC_7FA2_11D3_AD85_0004ACB1DCB2("bb6f8801_8df3_4792_ac4d11aff71622a1"); // TipEject
+}
+// }} ""
+// {{{ 394 1 0 "1ad105b4_94b2_45a4_b896cb62841262e4" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+SeqIncrement(ML_STAR.seqMagnetSPRI_1, 8);
+// }} ""
+// {{{ 395 1 0 "227e2d9f_b234_448b_8cfbc9cf2f195a80" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+SeqIncrement(ML_STAR.SPRICleanedPlate, 8);
+// }} ""
+// {{ 396 1 0 "d7607f2d_e32b_43a3_84d7813866b6a525" "{B31F3532-5D80-11d4-A5EB-0050DA737D89}"
+if (
+   (ML_STAR.seqMagnetSPRI_1.GetCurrentPosition() > 0 && ML_STAR.seqMagnetSPRI_1.GetMax() == 0 )
+)
+{ MECC::EndlessSequenceLoopWarning(GetFileName()); }
+
+}
+ML_STAR.seqMagnetSPRI_1.SetMax(ML_STAR.seqMagnetSPRI_1.GetTotal());
+ML_STAR.seqMagnetSPRI_1.SetCurrentPosition(1);
+}
+// }} ""
+// {{ 397 1 0 "442fb5d6_3b13_4e48_b7122e11d96034d2" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{{ 5 "Archive" "End"
+}
+// }} ""
+/* {{ 2 "SubmethodInsertLine" "" */ // }} ""
+// $$author=msheff$$valid=0$$time=2023-04-04 14:34$$checksum=98ba846a$$length=085$$

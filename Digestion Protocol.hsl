@@ -1,0 +1,351 @@
+global device ML_STAR ("Digestion Protocol.lay", "ML_STAR", hslTrue);
+ namespace _Method { #include "STAR Tools\\STAR Tip Tools.hs_" } 
+ namespace _Method { #include "HSLInhecoTEC\\HSLInhecoTECLib.hsl" } 
+ namespace _Method { #include "HSLTrcLib.hsl" } 
+ namespace _Method { #include "HSLDeckVisualize.hsl" } 
+ namespace _Method { #include "HSLDevLib.hsl" } 
+ namespace _Method { #include "HSLSeqLib.hsl" } 
+ namespace _Method { #include "HSLTipCountingLib.hsl" } 
+ namespace _Method { #include "HSLTrcLib.hsl" } 
+ namespace _Method { #include "HSLUtilLib2.hsl" } 
+ namespace _Method { #include "Visual_NTR_Library\\Visual_NTR_library_NTRdiscardEdits.hs_" } 
+#include "Digestion Protocol.res"
+/* {{ 2 "LibraryInsertLine" "" */ // }} ""
+dialog customDialog0AECD174F6684738B355A9B27514FDCD;
+dialog customDialogE9CBC0B91A7A48369469D2C5AAD98A5B;
+dialog customDialog07FF71E738AC418e9D8F9D91087E26FA;
+dialog customDialogE6BD8DAE39064d6d921E9E6F94E42180;
+variable t_varDialogue;
+dialog customDialog4B2A1A375B1D4da0A60AA63EF4809DDB;
+dialog customDialog351795ECD8B841ddA4932C13E5C6FD50;
+variable t_intControlID;
+variable t_strCPACError;
+variable t_strCPACSN;
+variable t_intDeviceID;
+variable t_intNumberOfPlates;
+variable t_fltTemperature;
+variable t_intWellsToProcess;
+dialog dialogHandle5EE20DA119FD4f4bA7DC102F619CBF24;
+dialog dialogHandle018005D77C31435aA326E03E199A7DEE;
+dialog dialogHandle6B5BC1DB10EC45faB30EC69A5110C546;
+dialog dialogHandleE3B17CACB19C437f98B30D87DA2C48A8;
+dialog dialogHandle29B9B58418D24f078A861384DF584DF9;
+variable t_intEnzymeAddition;
+dialog dialogHandleEE6589D53C074d6bA4016B9F509D6BAA;
+variable t_str300CountChannels;
+variable t_str300ulVolumeTips;
+/* {{ 2 "VariableInsertLine" "" */ // }} ""
+// {{ 2 "TemplateIncludeBlock" ""
+ namespace _Method { #include "HSLMETEDLib.hs_" } 
+ namespace _Method { #include "HSLMECCLib.hs_" } 
+ namespace _Method { #include "HSLPTLLib.hsl" } 
+// }} ""
+// {{{ 2 "LocalSubmethodInclude" ""
+ namespace _Method {  #include __filename__ ".sub"  } 
+// }} ""
+/* {{ 2 "ProcessInsertLine" "" */ // }} ""
+// {{{ 5 "main" "Begin"
+namespace _Method { method main(  ) void {
+// }} ""
+// {{ 5 "main" "InitLocals"
+// }} ""
+// {{ 2 "AutoInitBlock" ""
+PTL::SetWashingStateDefault("RinseTime1", 5);
+PTL::SetWashingStateDefault("SoakTime1", 5);
+PTL::SetWashingStateDefault("FlowRate1", 11);
+PTL::SetWashingStateDefault("RinseTime2", 0);
+PTL::SetWashingStateDefault("SoakTime2", 0);
+PTL::SetWashingStateDefault("FlowRate2", 11);
+PTL::SetWashingStateDefault("DrainingTime", 10);
+PTL::SetWashingStateDefault("StartWashLiquid", 0);
+PTL::SetLoadingStateDefault("RecoveryOptionContinue", hslTrue);
+PTL::SetLoadingStateDefault("RecoveryOptionExclude", hslTrue);
+PTL::SetLoadingStateDefault("RecoveryOptionDefault", 0);
+PTL::SetLoadingStateDefault("KitLotCheckEnabled", hslFalse);
+STAR_TIP_TOOLS::_InitLibrary();
+VISUAL_NTR_LIBRARY_NTRDISCARDEDITS::_InitLibrary();
+::RegisterAbortHandler( "OnAbort");
+// }} ""
+// {{ 1 1 0 "58cd7e4f_f699_40ce_a75040c0a26a1b98" "{F07B0071-8EFC-11d4-A3BA-002035848439}"
+MECC::TraceComment(Translate("\n_________________________________________________________________________________________________\nGreenLight BioSciences\nDigestion Enzyme Addition\nLast Edit: 8/16/2022\nDesc.: This method adds 15ul of digestion enzyme into each PCR plate, after coming off of the thermocyclers. \nIt can add digestion enzyme to up to 12 pcr plates at a time. \n\n_________________________________________________________________________________________________\n"));
+// }} ""
+// {{ 2 1 0 "91e6ac0e_b947_4864_95335b875248c2ff" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 3 1 0 "dd3a1997_74d9_4336_9a79dc32622e750a" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+t_str300ulVolumeTips = 0;
+// }} ""
+// {{ 4 1 0 "fd3ef48c_61ac_40cd_b703d26594093362" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+t_intNumberOfPlates = 0;
+// }} ""
+// {{ 5 1 0 "39bd7440_1e83_4275_82807ddca3f5ad83" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+t_str300CountChannels = Translate("300Channels");
+// }} ""
+// {{ 6 1 0 "a050f393_e300_4a82_b4dc665e7e03fa5d" "{B31F3544-5D80-11d4-A5EB-0050DA737D89}"
+t_intWellsToProcess = t_intNumberOfPlates * 96;
+// }} ""
+// {{ 7 1 0 "91e6ac0e_b947_4864_95335b875248c2ff" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 8 1 0 "956d70a6_8fe3_4820_b615653641f40c5e" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 9 1 0 "5e96a879_2449_41bd_93e82ce263e685e1" "{F07B0071-8EFC-11d4-A3BA-002035848439}"
+MECC::TraceComment(Translate("Initialize Devices\n"));
+// }} ""
+// {{ 10 1 0 "d0778a85_a524_4cc2_9ed61aec2a27b6be" "{998A7CCC-4374-484D-A6ED-E8A4F0EB71BA}"
+customDialogE6BD8DAE39064d6d921E9E6F94E42180.InitCustomDialog( "d0778a85_a524_4cc2_9ed61aec2a27b6be" );
+customDialogE6BD8DAE39064d6d921E9E6F94E42180.ShowCustomDialog();
+t_varDialogue = customDialogE6BD8DAE39064d6d921E9E6F94E42180.GetCustomDialogProperty( "ReturnValue" );
+// }} ""
+/* {{ 1 "" "0" */ if(0){  /* }} "" */
+// {{{ 11 1 0 "23d4fa7e_6432_42a6_a170e483c619f297" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+HSLInhecoTECLib::Initialize(t_intControlID, 0, t_strCPACError);
+// }} ""
+// {{{ 12 1 0 "c9e2749c_892e_4a71_9aed4a5a0b9949e5" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+HSLInhecoTECLib::GetDeviceSerialNumber(t_intControlID, t_intDeviceID, t_strCPACSN, t_strCPACError);
+// }} ""
+// {{{ 13 1 0 "d760d33c_50c4_4353_92b9f72d365f9d8d" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+TrcTrace(Translate("CPAC Serial Number: "), t_strCPACSN);
+// }} ""
+/* {{ 1 "" "1" */ } /* }} "" */
+// {{ 14 1 0 "652a8250_7c48_4cd7_892af54838baa37d" "ML_STAR:{1C0C0CB0-7C87-11D3-AD83-0004ACB1DCB2}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._1C0C0CB0_7C87_11D3_AD83_0004ACB1DCB2("652a8250_7c48_4cd7_892af54838baa37d"); // Initialize
+}
+// }} ""
+// {{ 15 1 0 "22987209_404f_4c8a_aaa7f72062ebf8d4" "ML_STAR:{EA251BFB-66DE-48D1-83E5-6884B4DD8D11}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._EA251BFB_66DE_48D1_83E5_6884B4DD8D11("22987209_404f_4c8a_aaa7f72062ebf8d4"); // MoveAutoLoad
+}
+// }} ""
+/* {{ 1 "" "0" */ if(0){  /* }} "" */
+// {{{ 16 1 0 "138493d6_932a_4ed0_87754292838038d0" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+HSLInhecoTECLib::SetTargetTemperature(t_intControlID, t_intDeviceID, 4.0, t_strCPACError);
+// }} ""
+// {{{ 17 1 0 "5e806271_a9af_43cc_afaa47ab8f7fdbc2" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+HSLInhecoTECLib::StartTemperatureControl(t_intControlID, t_intDeviceID, t_strCPACError);
+// }} ""
+// {{{ 18 1 0 "b32d7186_bf49_4be8_9902386d018cd789" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+HSLInhecoTECLib::GetActualDeviceTemperature(t_intControlID, t_intDeviceID, 1, t_fltTemperature, t_strCPACError);
+// }} ""
+/* {{ 1 "" "1" */ } /* }} "" */
+// {{ 19 1 0 "a0b962d3_d819_4d47_844361ac733e05e3" "ML_STAR:{81DA4252-3BA9-11d4-AE21-0004ACB1DCB2}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._81DA4252_3BA9_11d4_AE21_0004ACB1DCB2("a0b962d3_d819_4d47_844361ac733e05e3"); // MoveToPosition
+}
+// }} ""
+// {{ 20 1 0 "956d70a6_8fe3_4820_b615653641f40c5e" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+/* {{ 1 "" "0" */ if(0){  /* }} "" */
+// {{ 21 1 0 "602d3b90_6d6f_46d0_a58b536cc161cd36" "{998A7CCC-4374-484D-A6ED-E8A4F0EB71BA}"
+customDialog4B2A1A375B1D4da0A60AA63EF4809DDB.InitCustomDialog( "602d3b90_6d6f_46d0_a58b536cc161cd36" );
+customDialog4B2A1A375B1D4da0A60AA63EF4809DDB.ShowCustomDialog();
+// }} ""
+/* {{ 1 "" "1" */ } /* }} "" */
+// {{ 22 1 0 "562b22d2_c740_446a_857fb954ece8e548" "{998A7CCC-4374-484D-A6ED-E8A4F0EB71BA}"
+customDialog0AECD174F6684738B355A9B27514FDCD.InitCustomDialog( "562b22d2_c740_446a_857fb954ece8e548" );
+customDialog0AECD174F6684738B355A9B27514FDCD.SetCustomDialogProperty( "numeric1.Value", t_intNumberOfPlates );
+customDialog0AECD174F6684738B355A9B27514FDCD.ShowCustomDialog();
+t_varDialogue = customDialog0AECD174F6684738B355A9B27514FDCD.GetCustomDialogProperty( "ReturnValue" );
+t_intNumberOfPlates = customDialog0AECD174F6684738B355A9B27514FDCD.GetCustomDialogProperty( "numeric1.Value" );
+// }} ""
+// {{{ 23 1 0 "49d7fccf_a5ff_482f_8715ecf891ec0bc1" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+TrcTrace(Translate("_______________ Number of Plates is ----------------------------->"), t_intNumberOfPlates);
+// }} ""
+// {{ 24 1 0 "690a4a07_3857_45d2_86726218d96df175" "{F07B0071-8EFC-11d4-A3BA-002035848439}"
+MECC::TraceComment(Translate("************************************Deck Loading Begins*************************************"));
+// }} ""
+// {{ 25 1 0 "ff41533a_3e8e_4369_b9a1ed391e42fd23" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 26 1 0 "5a8cdc77_8a5c_4933_a6b3ceb8314e5f59" "{B31F3531-5D80-11d4-A5EB-0050DA737D89}"
+if (t_intNumberOfPlates == 1)
+{
+// }} ""
+// {{ 27 1 0 "eaa9738f_1762_45cc_ae8551fbda95b3cd" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{{ 28 1 0 "6bdf6d58_2372_45f0_baa177782a44387d" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.PCRPlate_1, 6, Translate("1 PCR Plate"));
+// }} ""
+// {{ 29 1 0 "09106bde_d303_491e_b290d0a5f5d6c8cd" "{21E07B31-8D2E-11d4-A3B8-002035848439}"
+dialogHandle29B9B58418D24f078A861384DF584DF9.SetOutput(Translate("Please load 1 PCR plate at the indicated positions, working from the top left, to the bottom right."));
+dialogHandle29B9B58418D24f078A861384DF584DF9.ShowOutput(Translate("PCR Plate"), hslOKOnly | hslInformation | hslDefButton1, hslInfinite);
+// }} ""
+// {{{ 30 1 0 "2fad1b74_da95_47f2_9728982873fe6024" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.PCRPlate_1, 5, Translate("1 PCR Plate"));
+// }} ""
+// {{ 31 1 0 "eaa9738f_1762_45cc_ae8551fbda95b3cd" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 32 1 0 "5a8cdc77_8a5c_4933_a6b3ceb8314e5f59" "{B31F3531-5D80-11d4-A5EB-0050DA737D89}"
+}
+// }} ""
+// {{ 33 1 0 "ce393458_2b0e_4ef8_b67d12570436b455" "{B31F3531-5D80-11d4-A5EB-0050DA737D89}"
+if (t_intNumberOfPlates == 2)
+{
+// }} ""
+// {{ 34 1 0 "b5db45a5_4772_411d_8862514cd9dc9484" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{{ 35 1 0 "4f9f0f23_705d_4e11_9cc2661ab380c4e8" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.PCRPlates_1to2, 6, Translate("2 PCR Plates"));
+// }} ""
+// {{ 36 1 0 "93c9a685_a819_4913_b268c58d5a4a352b" "{21E07B31-8D2E-11d4-A3B8-002035848439}"
+dialogHandleE3B17CACB19C437f98B30D87DA2C48A8.SetOutput(Translate("Please load 2 PCR plates at the indicated positions, working from the back of the instrument towards the front."));
+dialogHandleE3B17CACB19C437f98B30D87DA2C48A8.ShowOutput(Translate("PCR Plates"), hslOKOnly | hslInformation | hslDefButton1, hslInfinite);
+// }} ""
+// {{{ 37 1 0 "4a8b704d_8090_45db_9447a96a27768c11" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.PCRPlates_1to2, 5, Translate("2 PCR Plates"));
+// }} ""
+// {{ 38 1 0 "b5db45a5_4772_411d_8862514cd9dc9484" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 39 1 0 "ce393458_2b0e_4ef8_b67d12570436b455" "{B31F3531-5D80-11d4-A5EB-0050DA737D89}"
+}
+// }} ""
+// {{ 40 1 0 "c2a0a3e2_c9de_428a_83610a1fa94a0a07" "{B31F3531-5D80-11d4-A5EB-0050DA737D89}"
+if (t_intNumberOfPlates == 3)
+{
+// }} ""
+// {{ 41 1 0 "9caa468c_ef32_4b81_a4be04a5c0c46328" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{{ 42 1 0 "8d08440f_61a4_4b8e_8e23b39af7f2e308" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.PCRPlates_1to3, 6, Translate("3 PCR Plates"));
+// }} ""
+// {{ 43 1 0 "ded88d6f_ab0d_4460_9a3bd50727ed4817" "{21E07B31-8D2E-11d4-A3B8-002035848439}"
+dialogHandle6B5BC1DB10EC45faB30EC69A5110C546.SetOutput(Translate("Please load 3 PCR plates at the indicated positions, working from the back of the instrument towards the front."));
+dialogHandle6B5BC1DB10EC45faB30EC69A5110C546.ShowOutput(Translate("PCR Plates"), hslOKOnly | hslInformation | hslDefButton1, hslInfinite);
+// }} ""
+// {{{ 44 1 0 "344a5238_1843_4f8b_aae151780379e66a" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.PCRPlates_1to3, 5, Translate("3 PCR Plates"));
+// }} ""
+// {{ 45 1 0 "9caa468c_ef32_4b81_a4be04a5c0c46328" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 46 1 0 "c2a0a3e2_c9de_428a_83610a1fa94a0a07" "{B31F3531-5D80-11d4-A5EB-0050DA737D89}"
+}
+// }} ""
+// {{ 47 1 0 "6a27e3be_460d_413f_bd832e8f4d49dd24" "{B31F3531-5D80-11d4-A5EB-0050DA737D89}"
+if (t_intNumberOfPlates >= 4)
+{
+// }} ""
+// {{ 48 1 0 "829f5260_0c86_4382_9c009bfabd016314" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{{ 49 1 0 "0f6dc14e_d306_4cf9_bbfcdfcd20e96a28" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.seq_AllPCRPlates, 6, Translate("All PCR Plates"));
+// }} ""
+// {{ 50 1 0 "27c55edd_1739_44e1_90738a1b7d08b046" "{21E07B31-8D2E-11d4-A3B8-002035848439}"
+dialogHandle018005D77C31435aA326E03E199A7DEE.SetOutput(Translate("Please load PCR plates 1-12 at the indicated positions, working from the top left, to the bottom right."));
+dialogHandle018005D77C31435aA326E03E199A7DEE.ShowOutput(Translate("PCR Plates"), hslOKOnly | hslInformation | hslDefButton1, hslInfinite);
+// }} ""
+// {{{ 51 1 0 "6a3c775e_6890_4b38_9d563f3d1b1b6e6a" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.seq_AllPCRPlates, 5, Translate("All PCR Plates"));
+// }} ""
+// {{ 52 1 0 "829f5260_0c86_4382_9c009bfabd016314" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 53 1 0 "6a27e3be_460d_413f_bd832e8f4d49dd24" "{B31F3531-5D80-11d4-A5EB-0050DA737D89}"
+}
+// }} ""
+// {{ 54 1 0 "7ecf28dc_1df1_4bb5_bc47890ac55530b4" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{{ 55 1 0 "29335657_eba2_47e8_a01fbf494803b945" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.seq_DigestionEnzymePlate, 6, Translate("Digestion Enzyme Plate"));
+// }} ""
+// {{ 56 1 0 "d31ad6fa_4415_4f3b_827e1c2faed9f79a" "{21E07B31-8D2E-11d4-A3B8-002035848439}"
+dialogHandle5EE20DA119FD4f4bA7DC102F619CBF24.SetOutput(Translate("Please load the Digestion Enzyme plate at the indicated position."));
+dialogHandle5EE20DA119FD4f4bA7DC102F619CBF24.ShowOutput(Translate("Digestion Enzyme Plate"), hslOKOnly | hslInformation | hslDefButton1, hslInfinite);
+// }} ""
+// {{{ 57 1 0 "dd865a8d_3b6c_4f20_bb3891fd5c8ff256" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.seq_DigestionEnzymePlate, 5, Translate("Digestion Enzyme Plate"));
+// }} ""
+// {{ 58 1 0 "7ecf28dc_1df1_4bb5_bc47890ac55530b4" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 59 1 0 "1d5b9054_38df_4bb1_b8e2a5ec31505114" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{{ 60 1 0 "94db3b33_53f5_4b16_82b6ff010cdb0e5e" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.MlStar300ulStandardVolumeTipWithFilter, 6, Translate("300ul Filtered Tips"));
+// }} ""
+// {{ 61 1 0 "f17d5c1c_3e09_4cde_8c41e5227ddd33cc" "{21E07B31-8D2E-11d4-A3B8-002035848439}"
+dialogHandleEE6589D53C074d6bA4016B9F509D6BAA.SetOutput(Translate("Please load 300ul Filtered Tips at the indicated position."));
+dialogHandleEE6589D53C074d6bA4016B9F509D6BAA.ShowOutput(Translate("300ul Filtered Tips"), hslOKOnly | hslInformation | hslDefButton1, hslInfinite);
+// }} ""
+// {{{ 62 1 0 "88801d46_08f5_4a14_906389bcf4714088" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.MlStar300ulStandardVolumeTipWithFilter, 5, Translate("300ul Filtered Tips"));
+// }} ""
+// {{ 63 1 0 "1d5b9054_38df_4bb1_b8e2a5ec31505114" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 64 1 0 "ff41533a_3e8e_4369_b9a1ed391e42fd23" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{{ 65 1 0 "8394cefe_cddb_46f2_90bfd4fab90e0031" "{7C4EF7A7-39BE-406a-897F-71F3A35B4093}"
+STAR_TIP_TOOLS::TipCounter_Edit(ML_STAR, ML_STAR.MlStar300ulStandardVolumeTipWithFilter, t_str300CountChannels, 999);
+// }} ""
+// {{ 66 1 0 "83eed123_ab6e_4f9d_9a292e04036186af" "{998A7CCC-4374-484D-A6ED-E8A4F0EB71BA}"
+customDialog351795ECD8B841ddA4932C13E5C6FD50.InitCustomDialog( "83eed123_ab6e_4f9d_9a292e04036186af" );
+customDialog351795ECD8B841ddA4932C13E5C6FD50.ShowCustomDialog();
+// }} ""
+// {{ 67 1 0 "6829fdcf_f45e_42d4_a9733b95f3cba00d" "{F07B0071-8EFC-11d4-A3BA-002035848439}"
+MECC::TraceComment(Translate("************************************Deck Loading Ends*************************************"));
+// }} ""
+// {{ 68 1 0 "536692ee_d24b_4d13_bd71852aeb5bb0c0" "{998A7CCC-4374-484D-A6ED-E8A4F0EB71BA}"
+customDialog07FF71E738AC418e9D8F9D91087E26FA.InitCustomDialog( "536692ee_d24b_4d13_bd71852aeb5bb0c0" );
+customDialog07FF71E738AC418e9D8F9D91087E26FA.ShowCustomDialog();
+t_varDialogue = customDialog07FF71E738AC418e9D8F9D91087E26FA.GetCustomDialogProperty( "ReturnValue" );
+// }} ""
+/* {{ 1 "" "0" */ if(0){  /* }} "" */
+// {{{ 69 1 0 "23b92a8f_872e_4269_81ad84374dfad31e" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+HSLInhecoTECLib::GetActualDeviceTemperature(t_intControlID, t_intDeviceID, 1, t_fltTemperature, t_strCPACError);
+// }} ""
+// {{{ 70 1 0 "4595a024_aef7_46b2_b17ca16809a11492" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+TrcTrace(Translate("Temperature : "), t_fltTemperature);
+// }} ""
+/* {{ 1 "" "1" */ } /* }} "" */
+// {{ 71 1 0 "b569e9cd_0f55_4bb9_a8bf30f9f3cd9a0c" "{F07B0071-8EFC-11d4-A3BA-002035848439}"
+MECC::TraceComment(Translate("+++++++++++++++++++++++<Enzyme Addition Begins>++++++++++++++++++++++++++"));
+// }} ""
+// {{{ 72 1 0 "708d4df2_f7f4_4eb8_8846ae667d361eee" "{7C4EF7A7-39BE-406a-897F-71F3A35B4093}"
+DigestionEnzymeAddition();
+// }} ""
+// {{ 73 1 0 "0bb868c3_4130_401e_8585ce9a5ea15085" "{F07B0071-8EFC-11d4-A3BA-002035848439}"
+MECC::TraceComment(Translate("+++++++++++++++++++++++<Enzyme Addition Ends>++++++++++++++++++++++++++++"));
+// }} ""
+// {{ 74 1 0 "f3ffa289_1783_4a10_aee2604d1ae4e472" "{998A7CCC-4374-484D-A6ED-E8A4F0EB71BA}"
+customDialogE9CBC0B91A7A48369469D2C5AAD98A5B.InitCustomDialog( "f3ffa289_1783_4a10_aee2604d1ae4e472" );
+customDialogE9CBC0B91A7A48369469D2C5AAD98A5B.ShowCustomDialog();
+t_varDialogue = customDialogE9CBC0B91A7A48369469D2C5AAD98A5B.GetCustomDialogProperty( "ReturnValue" );
+// }} ""
+/* {{ 1 "" "0" */ if(0){  /* }} "" */
+// {{{ 75 1 0 "eca6a550_d14c_4b61_95fa616a04204d17" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+HSLInhecoTECLib::StopTemperatureControl(t_intControlID, t_intDeviceID, t_strCPACError);
+// }} ""
+// {{{ 76 1 0 "a15c9de8_13ca_482d_8773e3762b9ce354" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+HSLInhecoTECLib::Terminate(1);
+// }} ""
+/* {{ 1 "" "1" */ } /* }} "" */
+// {{{ 77 1 0 "524df90f_81f1_4388_a9c2e829343818f2" "{7C4EF7A7-39BE-406a-897F-71F3A35B4093}"
+STAR_TIP_TOOLS::TipCounter_Write(ML_STAR, ML_STAR.MlStar300ulStandardVolumeTipWithFilter, t_str300CountChannels);
+// }} ""
+// {{ 78 1 0 "ba601ece_f34a_49ca_8108b6bc767d08fe" "{930D6C31-8EFB-11d4-A3BA-002035848439}"
+abort;
+// }} ""
+// {{ 2 "AutoExitBlock" ""
+STAR_TIP_TOOLS::_ExitLibrary();
+VISUAL_NTR_LIBRARY_NTRDISCARDEDITS::_ExitLibrary();
+// }} ""
+// {{{ 5 "main" "End"
+} }
+// }} ""
+// $$author=kgroeger$$valid=0$$time=2023-01-19 13:39$$checksum=56c8fdb0$$length=087$$

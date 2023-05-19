@@ -1,0 +1,48 @@
+#include "RNASwiftProcess[1.5].res"
+global device ML_STAR ("RNASwiftProcess[1.5].lay", "ML_STAR", hslTrue);
+ namespace _Method { #include "MPE\\HSLMPELib.hsl" } 
+ namespace _Method { #include "HSLMPELib.hsl" } 
+/* {{ 2 "LibraryInsertLine" "" */ // }} ""
+variable MPE1;
+/* {{ 2 "VariableInsertLine" "" */ // }} ""
+// {{ 2 "TemplateIncludeBlock" ""
+ namespace _Method { #include "HSLMETEDLib.hs_" } 
+ namespace _Method { #include "HSLMECCLib.hs_" } 
+ namespace _Method { #include "HSLPTLLib.hsl" } 
+// }} ""
+// {{{ 2 "LocalSubmethodInclude" ""
+ namespace _Method {  #include __filename__ ".sub"  } 
+// }} ""
+/* {{ 2 "ProcessInsertLine" "" */ // }} ""
+// {{{ 5 "main" "Begin"
+namespace _Method { method main(  ) void {
+// }} ""
+// {{ 5 "main" "InitLocals"
+// }} ""
+// {{ 2 "AutoInitBlock" ""
+PTL::SetWashingStateDefault("RinseTime1", 5);
+PTL::SetWashingStateDefault("SoakTime1", 5);
+PTL::SetWashingStateDefault("FlowRate1", 11);
+PTL::SetWashingStateDefault("RinseTime2", 0);
+PTL::SetWashingStateDefault("SoakTime2", 0);
+PTL::SetWashingStateDefault("FlowRate2", 11);
+PTL::SetWashingStateDefault("DrainingTime", 10);
+PTL::SetWashingStateDefault("StartWashLiquid", 0);
+PTL::SetLoadingStateDefault("RecoveryOptionContinue", hslTrue);
+PTL::SetLoadingStateDefault("RecoveryOptionExclude", hslTrue);
+PTL::SetLoadingStateDefault("RecoveryOptionDefault", 0);
+PTL::SetLoadingStateDefault("KitLotCheckEnabled", hslFalse);
+::RegisterAbortHandler( "OnAbort");
+// }} ""
+// {{{ 1 1 0 "134b87ea_14a0_4dbf_bf53567da9e7ef5d" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+HSLMPELib::ConnectUsingCOM(5, 921600, 1, MPE1);
+// }} ""
+// {{{ 2 1 0 "2228906c_4128_488f_920108a9a60bfed7" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+HSLMPELib::Initialize(MPE1);
+// }} ""
+// {{ 2 "AutoExitBlock" ""
+// }} ""
+// {{{ 5 "main" "End"
+} }
+// }} ""
+// $$author=msheff$$valid=0$$time=2023-04-27 17:50$$checksum=e8df5085$$length=085$$

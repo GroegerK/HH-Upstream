@@ -1,0 +1,384 @@
+ namespace _Method { #include "HSLSeqLib.hsl" } 
+ namespace _Method { #include "HSLTrcLib.hsl" } 
+ namespace _Method { #include "STAR Tools\\STAR Tip Tools.hs_" } 
+ namespace _Method { #include "HSLMthLib.hsl" } 
+ namespace _Method { #include "HSLAppsLib.hsl" } 
+#include "HH-HPLC Fraction Normalization to 200ng_uL V1.0.0.res"
+/* {{ 2 "LibraryInsertLine" "" */ // }} ""
+variable loopCounter1;
+variable mRNA_Vol;
+sequence Seq_mRNA_Source;
+variable arr_mRNA_vol[];
+variable Des_Labware_ID;
+variable loopCounter2;
+variable Des_Pos_ID;
+sequence Seq_mRNA_Destination;
+dialog customDialogEF904F19B1E54c8288088F58177E7522;
+variable Worklist_File;
+variable Source_Labware_ID_Water;
+variable Source_Pos_ID_Water;
+variable Source_Pos_ID_mRNA;
+variable Source_Labware_ID_mRNA;
+variable Water_Vol;
+file file1;
+variable arr_Water_vol[];
+variable loopCounter3;
+sequence Seq_Water_Des;
+sequence Seq_WaterSource_200ml;
+variable Worklist_Location;
+file file3;
+variable loopCounter4;
+variable loopCounter5;
+dialog customDialog639E462A8F3740ffA6D9D5BCD21ABBBA;
+variable t_str300CountChannels;
+dialog customDialog6E284AA90996414f9D47CF4BBE20B4CB;
+dialog customDialog504B0442EE8745d799DECF065D867C82;
+variable t_int_four_and_half_mg_button;
+variable t_int_four_and_two_mg_button;
+dialog customDialog3AD41BE495AF48fd85D972ED4FEF7D02;
+variable t_varDialogue;
+variable t_str50CountChannels;
+dialog customDialog8353B76695DB46e4A294128C77338D77;
+dialog customDialogC7397A4A37164e31A4B808A02545DA40;
+dialog customDialog9C4D4A3A590844e4BC92A62AE01400AF;
+dialog customDialogB3E9FC4EC8FD458dA27273B513C59444;
+dialog customDialog291B3DD32ACC4cd3A152D71FEF14C51D;
+global device ML_STAR ("HH-HPLC Fraction Normalization to 200ng_uL V1.0.0.lay", "ML_STAR", hslTrue);
+variable t_str50CountMPH;
+/* {{ 2 "VariableInsertLine" "" */ // }} ""
+// {{ 2 "TemplateIncludeBlock" ""
+ namespace _Method { #include "HSLMETEDLib.hs_" } 
+ namespace _Method { #include "HSLMECCLib.hs_" } 
+ namespace _Method { #include "HSLPTLLib.hsl" } 
+// }} ""
+// {{{ 2 "LocalSubmethodInclude" ""
+ namespace _Method {  #include __filename__ ".sub"  } 
+// }} ""
+/* {{ 2 "ProcessInsertLine" "" */ // }} ""
+// {{{ 5 "main" "Begin"
+namespace _Method { method main(  ) void {
+// }} ""
+// {{ 5 "main" "InitLocals"
+// }} ""
+// {{ 2 "AutoInitBlock" ""
+PTL::SetWashingStateDefault("RinseTime1", 5);
+PTL::SetWashingStateDefault("SoakTime1", 5);
+PTL::SetWashingStateDefault("FlowRate1", 11);
+PTL::SetWashingStateDefault("RinseTime2", 0);
+PTL::SetWashingStateDefault("SoakTime2", 0);
+PTL::SetWashingStateDefault("FlowRate2", 11);
+PTL::SetWashingStateDefault("DrainingTime", 10);
+PTL::SetWashingStateDefault("StartWashLiquid", 0);
+PTL::SetLoadingStateDefault("RecoveryOptionContinue", hslTrue);
+PTL::SetLoadingStateDefault("RecoveryOptionExclude", hslTrue);
+PTL::SetLoadingStateDefault("RecoveryOptionDefault", 0);
+PTL::SetLoadingStateDefault("KitLotCheckEnabled", hslFalse);
+STAR_TIP_TOOLS::_InitLibrary();
+::RegisterAbortHandler( "OnAbort");
+// }} ""
+// {{ 1 1 0 "3e5f9c4f_bd2a_404f_815dbc01a1ff8b9b" "{F07B0071-8EFC-11d4-A3BA-002035848439}"
+MECC::TraceComment(Translate("##################################\nHH-HPLC Fraction Normalization\nv1.0.0\n05/11/23\n\nThis is a method to normalize up crude mRNA material to a user defined concentration. Currently this method is set up to generate 200 ng/uL normalized samples from a crude RNA stock of no more than 2 mg/mL.\n\nTips loaded for this method only allows for a maximum of 50uL normalized material. \n\nSource labware for crude RNA to be normalized: 1.5mL Eppendorf Tubes.\n\n#################################\n"));
+// }} ""
+// {{ 2 1 0 "82049d57_f69c_404f_94f517e33795acd1" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+Worklist_Location = Translate("");
+// }} ""
+/* {{ 1 "" "0" */ if(0){  /* }} "" */
+// {{ 3 1 0 "90725129_99ea_40c2_a4bbaca757b90f5f" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+t_str300CountChannels = Translate("300Channels");
+// }} ""
+/* {{ 1 "" "1" */ } /* }} "" */
+// {{ 4 1 0 "60273af3_0e86_49e3_a6449facbcc387c6" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+t_str50CountChannels = Translate("50Channels");
+// }} ""
+// {{ 5 1 0 "aff748c5_bd0b_4bbd_aa434e15b69e541b" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+t_str50CountMPH = Translate("50MPH");
+// }} ""
+// {{ 6 1 0 "4fce74bd_ab55_4547_857fbf0366ce6580" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+t_int_four_and_half_mg_button = 0;
+// }} ""
+// {{ 7 1 0 "fd5eb798_0c90_4c20_b0d0666d7a418e42" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+t_int_four_and_two_mg_button = 0;
+// }} ""
+/* {{ 1 "" "0" */ if(0){  /* }} "" */
+// {{{ 8 1 0 "ad9017c4_41b8_4fb3_bc544aa5add6cc49" "{7C4EF7A7-39BE-406a-897F-71F3A35B4093}"
+STAR_TIP_TOOLS::TipCounter_Edit(ML_STAR, ML_STAR.Seq_300ul_Tips_192pos, t_str300CountChannels, 999);
+// }} ""
+/* {{ 1 "" "1" */ } /* }} "" */
+// {{{ 9 1 0 "0c0a1862_bbb0_4db6_9158a12214805b3c" "{7C4EF7A7-39BE-406a-897F-71F3A35B4093}"
+STAR_TIP_TOOLS::TipCounter_Edit(ML_STAR, ML_STAR.Seq_50uL_tips, t_str50CountChannels, 999);
+// }} ""
+// {{{ 10 1 0 "b9bea29c_730f_423f_b01f3f73ba1e9347" "{7C4EF7A7-39BE-406a-897F-71F3A35B4093}"
+STAR_TIP_TOOLS::TipCounter_Edit(ML_STAR, ML_STAR.Seq_50uL_MPH_tips, t_str50CountMPH, 999);
+// }} ""
+/* {{ 1 "" "0" */ if(0){  /* }} "" */
+// {{ 11 1 0 "9d95ce71_b2c9_4eb3_8ee4096c86631604" "{998A7CCC-4374-484D-A6ED-E8A4F0EB71BA}"
+customDialogB3E9FC4EC8FD458dA27273B513C59444.InitCustomDialog( "9d95ce71_b2c9_4eb3_8ee4096c86631604" );
+customDialogB3E9FC4EC8FD458dA27273B513C59444.ShowCustomDialog();
+// }} ""
+/* {{ 1 "" "1" */ } /* }} "" */
+// {{ 12 1 0 "e353f64a_e82d_41b2_b715de2eb4fb30a3" "{998A7CCC-4374-484D-A6ED-E8A4F0EB71BA}"
+customDialogC7397A4A37164e31A4B808A02545DA40.InitCustomDialog( "e353f64a_e82d_41b2_b715de2eb4fb30a3" );
+customDialogC7397A4A37164e31A4B808A02545DA40.ShowCustomDialog();
+Worklist_File = customDialogC7397A4A37164e31A4B808A02545DA40.GetCustomDialogProperty( "ReturnValue" );
+Worklist_Location = customDialogC7397A4A37164e31A4B808A02545DA40.GetCustomDialogProperty( "path1.Path" );
+// }} ""
+// {{ 13 1 0 "51ca054d_449b_44bc_a83fcdb84d471399" "{998A7CCC-4374-484D-A6ED-E8A4F0EB71BA}"
+customDialog9C4D4A3A590844e4BC92A62AE01400AF.InitCustomDialog( "51ca054d_449b_44bc_a83fcdb84d471399" );
+customDialog9C4D4A3A590844e4BC92A62AE01400AF.ShowCustomDialog();
+t_varDialogue = customDialog9C4D4A3A590844e4BC92A62AE01400AF.GetCustomDialogProperty( "ReturnValue" );
+// }} ""
+/* {{ 1 "" "0" */ if(0){  /* }} "" */
+// {{ 14 1 0 "c488ec47_94b5_4011_8232d7c2834344d1" "{998A7CCC-4374-484D-A6ED-E8A4F0EB71BA}"
+customDialog291B3DD32ACC4cd3A152D71FEF14C51D.InitCustomDialog( "c488ec47_94b5_4011_8232d7c2834344d1" );
+customDialog291B3DD32ACC4cd3A152D71FEF14C51D.SetCustomDialogProperty( "checkBox1.IsChecked", t_int_four_and_two_mg_button );
+customDialog291B3DD32ACC4cd3A152D71FEF14C51D.SetCustomDialogProperty( "checkBox2.IsChecked", t_int_four_and_half_mg_button );
+customDialog291B3DD32ACC4cd3A152D71FEF14C51D.ShowCustomDialog();
+t_int_four_and_two_mg_button = customDialog291B3DD32ACC4cd3A152D71FEF14C51D.GetCustomDialogProperty( "checkBox1.IsChecked" );
+t_int_four_and_half_mg_button = customDialog291B3DD32ACC4cd3A152D71FEF14C51D.GetCustomDialogProperty( "checkBox2.IsChecked" );
+// }} ""
+/* {{ 1 "" "1" */ } /* }} "" */
+// {{ 15 1 0 "1cd9a3a3_70b3_4e27_8234c1033dd31100" "{4900C1F7-0FB7-4033-8253-760BDB9354DC}"
+arr_mRNA_vol.SetSize(0);
+// }} ""
+// {{ 16 1 0 "d411883f_4fb3_4f40_8bca23bf4da2665c" "{4900C1F7-0FB7-4033-8253-760BDB9354DC}"
+arr_Water_vol.SetSize(0);
+// }} ""
+// {{ 17 1 0 "797e0b93_bff3_4e4d_bb93682d41069030" "{B31F3534-5D80-11d4-A5EB-0050DA737D89}"
+file3.SetExtendedProperties( "IMEX=1");
+file3.AddField("Source_Labware_ID_mRNA", Source_Labware_ID_mRNA, hslString, 255);
+file3.AddField("Source_Pos_ID_mRNA", Source_Pos_ID_mRNA, hslString, 255);
+file3.AddField("mRNA_Vol", mRNA_Vol, hslFloat);
+file3.AddField("Source_Labware_ID_Water", Source_Labware_ID_Water, hslString, 255);
+file3.AddField("Source_Pos_ID_Water", Source_Pos_ID_Water, hslString, 255);
+file3.AddField("Water_Vol", Water_Vol, hslFloat);
+file3.AddField("Des_Labware_ID", Des_Labware_ID, hslString, 255);
+file3.AddField("Des_Pos_ID", Des_Pos_ID, hslString, 255);
+if( 0 == file3.Open(Worklist_Location + " " + "Sheet1$", hslAppend) )
+{
+    MECC::RaiseRuntimeErrorEx(-1523711743, MECC::IDS::stepNameFileOpen, MECC::IDS::errorStepFileOpenFailed, Worklist_Location, "HxMetEdCompCmd");
+}
+// }} ""
+// {{ 18 1 0 "d0486735_31fd_48df_bba3d06fc49b0d1e" "{B31F3532-5D80-11d4-A5EB-0050DA737D89}"
+{
+loopCounter1 = 0;
+while (
+   (file3.Eof() == 0)
+)
+{
+loopCounter1 = loopCounter1 + 1;
+// }} ""
+// {{ 19 1 0 "d7544ae8_4c94_4baa_a74288e5d7cc8138" "{B31F3536-5D80-11d4-A5EB-0050DA737D89}"
+if( 0 == file3.ReadRecord() )
+{
+    MECC::RaiseRuntimeErrorEx(-1490157312, MECC::IDS::stepNameFileRead, MECC::IDS::errorStepFailed, "", "HxMetEdCompCmd");
+}
+// }} ""
+// {{{ 20 1 0 "28784e01_84bb_4479_ad4afeb53ae072bb" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+SeqAdd(Seq_mRNA_Source, Source_Labware_ID_mRNA, Source_Pos_ID_mRNA);
+// }} ""
+// {{{ 21 1 0 "f11b327e_95c5_4a01_9289330d9e28411b" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+SeqAdd(Seq_mRNA_Destination, Des_Labware_ID, Des_Pos_ID);
+// }} ""
+// {{{ 22 1 0 "efbfb315_11d6_427b_8a68203114bd7847" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+SeqAdd(Seq_WaterSource_200ml, Source_Labware_ID_Water, Source_Pos_ID_Water);
+// }} ""
+// {{{ 23 1 0 "e13ba977_6664_4c6f_b4a0fb3a8424975a" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+SeqAdd(Seq_Water_Des, Des_Labware_ID, Des_Pos_ID);
+// }} ""
+// {{ 24 1 0 "b1c3f343_0dd8_4b81_a506eac103cb2303" "{F17B7626-27CB-47f1-8477-8C4158339A6D}"
+arr_mRNA_vol.AddAsLast(mRNA_Vol);
+// }} ""
+// {{ 25 1 0 "e401ffd4_8228_4b29_812c519f4509fb6c" "{F17B7626-27CB-47f1-8477-8C4158339A6D}"
+arr_Water_vol.AddAsLast(Water_Vol);
+// }} ""
+// {{ 26 1 0 "d0486735_31fd_48df_bba3d06fc49b0d1e" "{B31F3532-5D80-11d4-A5EB-0050DA737D89}"
+}
+}
+// }} ""
+// {{ 27 1 0 "8a4f170b_656a_47a5_a228e0b3d9eec694" "{B31F3538-5D80-11d4-A5EB-0050DA737D89}"
+if( 0 != file1.Close() )
+{
+    MECC::RaiseRuntimeErrorEx(-1456602880, MECC::IDS::stepNameFileClose, MECC::IDS::errorStepFailed, "", "HxMetEdCompCmd");
+}
+file1.RemoveFields();
+// }} ""
+// {{{ 28 1 0 "ba3c33d1_217a_4400_913328cb486706d2" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+TrcTraceSequence(Seq_mRNA_Source);
+// }} ""
+// {{{ 29 1 0 "f0450532_2be1_41fd_8f4f220a17a017c4" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+TrcTraceSequence(Seq_mRNA_Destination);
+// }} ""
+// {{{ 30 1 0 "7de388cd_3269_412f_a2b44053d1a99fb6" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+TrcTraceSequence(Seq_WaterSource_200ml);
+// }} ""
+// {{{ 31 1 0 "138eab06_e100_46a9_b897774dd78307bf" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+TrcTraceSequence(Seq_Water_Des);
+// }} ""
+// {{{ 32 1 0 "33eed398_7873_46f3_a3405a249f401c2d" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+TrcTrace(Translate("Arr_volumes"), arr_mRNA_vol.ElementAt( 1 -1));
+// }} ""
+// {{{ 33 1 0 "65554481_3d55_4703_9fc353f82810bcd3" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+TrcTrace(Translate("Water_volumes"), arr_Water_vol.ElementAt( 1 -1));
+// }} ""
+// {{ 34 1 0 "5c03aa4b_7775_49f9_b4dea7743494f4ce" "{B31F353A-5D80-11d4-A5EB-0050DA737D89}"
+Seq_mRNA_Source.SetCurrentPosition(1);
+// }} ""
+/* {{ 1 "" "0" */ if(0){  /* }} "" */
+// {{ 35 1 0 "aa050db2_9149_427c_b6facd5eb1132e2e" "{B31F353C-5D80-11d4-A5EB-0050DA737D89}"
+Seq_mRNA_Source.SetCount(100);
+// }} ""
+/* {{ 1 "" "1" */ } /* }} "" */
+// {{ 36 1 0 "180ab913_12e3_44af_9ac886f8d804fc03" "{B31F353A-5D80-11d4-A5EB-0050DA737D89}"
+Seq_mRNA_Destination.SetCurrentPosition(1);
+// }} ""
+/* {{ 1 "" "0" */ if(0){  /* }} "" */
+// {{ 37 1 0 "2773d7ef_aad4_4b61_8a180eba4db7499e" "{B31F353C-5D80-11d4-A5EB-0050DA737D89}"
+Seq_mRNA_Destination.SetCount(100);
+// }} ""
+/* {{ 1 "" "1" */ } /* }} "" */
+// {{ 38 1 0 "82ca159b_b66f_4874_b09638187e36c41a" "{B31F353A-5D80-11d4-A5EB-0050DA737D89}"
+Seq_WaterSource_200ml.SetCurrentPosition(1);
+// }} ""
+// {{ 39 1 0 "f654dd2c_cc72_4241_8c79d780dd265823" "{B31F353A-5D80-11d4-A5EB-0050DA737D89}"
+Seq_Water_Des.SetCurrentPosition(1);
+// }} ""
+// {{ 40 1 0 "89c93c80_2467_40c2_ae8bd6d111841aad" "ML_STAR:{1C0C0CB0-7C87-11D3-AD83-0004ACB1DCB2}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._1C0C0CB0_7C87_11D3_AD83_0004ACB1DCB2("89c93c80_2467_40c2_ae8bd6d111841aad"); // Initialize
+}
+// }} ""
+// {{ 41 1 0 "abb38659_6e8e_4f4c_822ab73d2f8f250e" "{F07B0071-8EFC-11d4-A3BA-002035848439}"
+MECC::TraceComment(Translate("#######################################\n\nAddition of water. Worklisted to normalize at 200 ng/uL\n\n#######################################"));
+// }} ""
+// {{ 42 1 0 "b9785eb9_7337_4fb4_a08a17339f90f923" "ML_STAR:{541143FA-7FA2-11D3-AD85-0004ACB1DCB2}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._541143FA_7FA2_11D3_AD85_0004ACB1DCB2("b9785eb9_7337_4fb4_a08a17339f90f923"); // TipPickUp
+}
+// }} ""
+// {{ 43 1 0 "d03a421f_0629_4213_bcb6f8e2bc1a6035" "{B31F3532-5D80-11d4-A5EB-0050DA737D89}"
+{
+loopCounter3 = 0;
+while (
+   (Seq_WaterSource_200ml.GetCurrentPosition() > 0)
+)
+{
+AlignSequences(hslTrue, Seq_WaterSource_200ml, 1);
+loopCounter3 = loopCounter3 + 1;
+// }} ""
+// {{ 44 1 0 "f9c315f1_d0d2_4c4b_b9f010aa743428ea" "ML_STAR:{541143F5-7FA2-11D3-AD85-0004ACB1DCB2}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._541143F5_7FA2_11D3_AD85_0004ACB1DCB2("f9c315f1_d0d2_4c4b_b9f010aa743428ea"); // Aspirate
+}
+// }} ""
+// {{ 45 1 0 "da3a752a_feee_42b5_a781fca5807f9f80" "ML_STAR:{541143F8-7FA2-11D3-AD85-0004ACB1DCB2}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._541143F8_7FA2_11D3_AD85_0004ACB1DCB2("da3a752a_feee_42b5_a781fca5807f9f80"); // Dispense
+}
+// }} ""
+// {{ 46 1 0 "a65a1587_7806_49d4_9f8deeb9fd6ce438" "{B31F3544-5D80-11d4-A5EB-0050DA737D89}"
+loopCounter3 = loopCounter3 + 7;
+// }} ""
+// {{ 47 1 0 "d03a421f_0629_4213_bcb6f8e2bc1a6035" "{B31F3532-5D80-11d4-A5EB-0050DA737D89}"
+if (
+   (Seq_WaterSource_200ml.GetCurrentPosition() > 0 && Seq_WaterSource_200ml.GetMax() == 0 )
+)
+{ MECC::EndlessSequenceLoopWarning(GetFileName()); }
+
+}
+Seq_WaterSource_200ml.SetMax(Seq_WaterSource_200ml.GetTotal());
+}
+// }} ""
+// {{ 48 1 0 "6a60ae47_9e8b_48fc_8188e29f7836dc1a" "ML_STAR:{541143FC-7FA2-11D3-AD85-0004ACB1DCB2}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._541143FC_7FA2_11D3_AD85_0004ACB1DCB2("6a60ae47_9e8b_48fc_8188e29f7836dc1a"); // TipEject
+}
+// }} ""
+// {{ 49 1 0 "ab9a7807_5394_4120_959dfb4f100b6278" "{F07B0071-8EFC-11d4-A3BA-002035848439}"
+MECC::TraceComment(Translate("#######################################\n\nAddition of mRNA. Worklisted to normalize at 200 ng/uL\n\n#######################################"));
+// }} ""
+// {{ 50 1 0 "2f4aafe1_0e17_4aef_acd3697314277708" "{B31F3532-5D80-11d4-A5EB-0050DA737D89}"
+{
+loopCounter2 = 0;
+while (
+   (Seq_mRNA_Source.GetCurrentPosition() > 0)
+)
+{
+AlignSequences(hslTrue, Seq_mRNA_Source, 1);
+loopCounter2 = loopCounter2 + 1;
+// }} ""
+// {{ 51 1 0 "d9397678_5d43_4fde_b9efdd32d7eace73" "ML_STAR:{541143FA-7FA2-11D3-AD85-0004ACB1DCB2}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._541143FA_7FA2_11D3_AD85_0004ACB1DCB2("d9397678_5d43_4fde_b9efdd32d7eace73"); // TipPickUp
+}
+// }} ""
+// {{ 52 1 0 "9dd62305_f12f_4e4e_9debaa85d47df2fe" "ML_STAR:{541143F5-7FA2-11D3-AD85-0004ACB1DCB2}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._541143F5_7FA2_11D3_AD85_0004ACB1DCB2("9dd62305_f12f_4e4e_9debaa85d47df2fe"); // Aspirate
+}
+// }} ""
+// {{ 53 1 0 "a0f3118d_7cb6_4b3a_a02e69e6371b2202" "ML_STAR:{541143F8-7FA2-11D3-AD85-0004ACB1DCB2}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._541143F8_7FA2_11D3_AD85_0004ACB1DCB2("a0f3118d_7cb6_4b3a_a02e69e6371b2202"); // Dispense
+}
+// }} ""
+// {{ 54 1 0 "f847ba16_3467_4892_8a87b81103eb96a3" "ML_STAR:{541143FC-7FA2-11D3-AD85-0004ACB1DCB2}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._541143FC_7FA2_11D3_AD85_0004ACB1DCB2("f847ba16_3467_4892_8a87b81103eb96a3"); // TipEject
+}
+// }} ""
+// {{ 55 1 0 "4e2ff89b_7dd5_4f17_a5807df28b65a6de" "{B31F3544-5D80-11d4-A5EB-0050DA737D89}"
+loopCounter2 = loopCounter2 + 7;
+// }} ""
+// {{ 56 1 0 "2f4aafe1_0e17_4aef_acd3697314277708" "{B31F3532-5D80-11d4-A5EB-0050DA737D89}"
+if (
+   (Seq_mRNA_Source.GetCurrentPosition() > 0 && Seq_mRNA_Source.GetMax() == 0 )
+)
+{ MECC::EndlessSequenceLoopWarning(GetFileName()); }
+
+}
+Seq_mRNA_Source.SetMax(Seq_mRNA_Source.GetTotal());
+}
+// }} ""
+// {{ 57 1 0 "76e2e13d_8b43_4a40_a1d2f60c215833f8" "ML_STAR:{BD0D210B-0816-4C86-A903-D6B2DF73F78B}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._BD0D210B_0816_4C86_A903_D6B2DF73F78B("76e2e13d_8b43_4a40_a1d2f60c215833f8"); // Head96TipPickUp
+}
+// }} ""
+// {{ 58 1 0 "e2762a3a_0663_4cc1_a7a03443706c9f45" "ML_STAR:{827392A0-B7E8-4472-9ED3-B45B71B5D27A}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._827392A0_B7E8_4472_9ED3_B45B71B5D27A("e2762a3a_0663_4cc1_a7a03443706c9f45"); // Head96Aspirate
+}
+// }} ""
+// {{ 59 1 0 "e6206a6f_eae8_42ac_9c0748f803867242" "ML_STAR:{A48573A5-62ED-4951-9EF9-03207EFE34FB}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._A48573A5_62ED_4951_9EF9_03207EFE34FB("e6206a6f_eae8_42ac_9c0748f803867242"); // Head96Dispense
+}
+// }} ""
+// {{ 60 1 0 "9c10f3c5_f193_4c38_95155c84950157f5" "ML_STAR:{2880E77A-3D6D-40FE-AF57-1BD1FE13960C}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._2880E77A_3D6D_40FE_AF57_1BD1FE13960C("9c10f3c5_f193_4c38_95155c84950157f5"); // Head96TipEject
+}
+// }} ""
+// {{ 61 1 0 "56c6a125_ba17_4e08_b50ad24a5fc11988" "{930D6C31-8EFB-11d4-A3BA-002035848439}"
+abort;
+// }} ""
+// {{ 2 "AutoExitBlock" ""
+STAR_TIP_TOOLS::_ExitLibrary();
+// }} ""
+// {{{ 5 "main" "End"
+} }
+// }} ""
+// $$author=tkelly$$valid=0$$time=2023-05-15 16:55$$checksum=023a2018$$length=085$$

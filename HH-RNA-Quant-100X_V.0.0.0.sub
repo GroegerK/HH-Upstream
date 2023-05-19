@@ -1,0 +1,22 @@
+// {{{ 2 "SubmethodForwardDeclaration" ""
+private function PCRSetup( variable t_intNumberOfPlates, variable t_fltBufferDispense, variable t_fltTemplateDispense ) void ;
+function OnAbort(  ) void ;
+// }} ""
+// {{{ 5 "OnAbort" "Begin"
+function OnAbort(  ) void {
+// }} ""
+// {{ 5 "OnAbort" "InitLocals"
+// }} ""
+// {{{ 5 "OnAbort" "End"
+}
+// }} ""
+// {{{ 5 "PCRSetup" "Begin"
+private function PCRSetup( variable t_intNumberOfPlates, variable t_fltBufferDispense, variable t_fltTemplateDispense ) void {
+// }} ""
+// {{ 5 "PCRSetup" "InitLocals"
+// }} ""
+// {{{ 5 "PCRSetup" "End"
+}
+// }} ""
+/* {{ 2 "SubmethodInsertLine" "" */ // }} ""
+// $$author=tkelly$$valid=0$$time=2023-03-24 17:21$$checksum=c9e87461$$length=085$$

@@ -1,0 +1,175 @@
+ namespace _Method { #include "GreenLight\\hamSTAR Methods\\HSLTrcLib.hsl" } 
+ namespace _Method { #include "STAR Tools\\STAR Tip Tools.hs_" } 
+ namespace _Method { #include "HSLStrLib.hsl" } 
+ namespace _Method { #include "AppsLibrary\\HSLAppsLib.hsl" } 
+ namespace _Method { #include "GreenLight\\hamSTAR Methods\\HSLSeqLib.hsl" } 
+ namespace _Method { #include "Visual_NTR_Library\\Visual_NTR_library_NTRdiscardEdits.hs_" } 
+#include "SpecDilutionPrepLayout.res"
+/* {{ 2 "LibraryInsertLine" "" */ // }} ""
+dialog customDialog6689E1E4ED9141f7845352D4BA250A84;
+dialog customDialog28651F33770144cf9B565D5182F0238A;
+variable t_varDialogue;
+variable t_strNTRCount;
+dialog customDialog9AF8CDD023A64f9aB4A1872E57D8E49D;
+dialog customDialog72ED9A5E504D4a85BD66B0F81CF13FF2;
+variable t_boolHPLCPlate;
+variable t_boolFAPlate;
+variable t_intRetainVolume;
+variable t_str50CountChannels;
+dialog customDialog1AA5F8B7946846c49479E94FC8274DE0;
+variable t_bInDilCtrlAdd;
+variable i_inGen100x;
+global device ML_STAR ("SpecDilutionPrepLayout.lay", "ML_STAR", hslTrue);
+dialog customDialogD339F19BDF8C41229C4E4AB7838A41E7;
+variable io_Norm;
+variable io_Unnorm;
+/* {{ 2 "VariableInsertLine" "" */ // }} ""
+// {{ 2 "TemplateIncludeBlock" ""
+ namespace _Method { #include "HSLMETEDLib.hs_" } 
+ namespace _Method { #include "HSLMECCLib.hs_" } 
+ namespace _Method { #include "HSLPTLLib.hsl" } 
+// }} ""
+// {{{ 2 "LocalSubmethodInclude" ""
+ namespace _Method {  #include __filename__ ".sub"  } 
+// }} ""
+/* {{ 2 "ProcessInsertLine" "" */ // }} ""
+// {{{ 5 "main" "Begin"
+namespace _Method { method main(  ) void {
+// }} ""
+// {{ 5 "main" "InitLocals"
+// }} ""
+// {{ 2 "AutoInitBlock" ""
+PTL::SetWashingStateDefault("RinseTime1", 5);
+PTL::SetWashingStateDefault("SoakTime1", 5);
+PTL::SetWashingStateDefault("FlowRate1", 11);
+PTL::SetWashingStateDefault("RinseTime2", 0);
+PTL::SetWashingStateDefault("SoakTime2", 0);
+PTL::SetWashingStateDefault("FlowRate2", 11);
+PTL::SetWashingStateDefault("DrainingTime", 10);
+PTL::SetWashingStateDefault("StartWashLiquid", 0);
+PTL::SetLoadingStateDefault("RecoveryOptionContinue", hslTrue);
+PTL::SetLoadingStateDefault("RecoveryOptionExclude", hslTrue);
+PTL::SetLoadingStateDefault("RecoveryOptionDefault", 0);
+PTL::SetLoadingStateDefault("KitLotCheckEnabled", hslFalse);
+STAR_TIP_TOOLS::_InitLibrary();
+VISUAL_NTR_LIBRARY_NTRDISCARDEDITS::_InitLibrary();
+::RegisterAbortHandler( "OnAbort");
+// }} ""
+// {{ 1 1 0 "dccf6192_b982_4671_a27554614d8de9f2" "{F07B0071-8EFC-11d4-A3BA-002035848439}"
+MECC::TraceComment(Translate("\n_________________________________________________________________________________________________\nGreenLight BioSciences\n\nSpec Dilution Prep Protocol\nLast Edit: 4/14/2021\nDesc.: Creates dilution and spec plates from IVT Pool plates for RNA quantification. Generates 100x plate for HPLC analysis and\nFragment Analyzer plates\n*Very sensitive! Custom liquid classes used to enhance serial dilution\n*Can start from 48 well plate or 96 well plate (using 48 well plate will enable technical replicate spec values)\n\n\n_________________________________________________________________________________________________\n"));
+// }} ""
+// {{ 2 1 0 "507736e0_b0ff_453a_a5cf64ad168d1538" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 3 1 0 "62da0aae_78ce_4337_b99b0b0231ccd6e6" "{F07B0071-8EFC-11d4-A3BA-002035848439}"
+MECC::TraceComment(Translate("Initialize Devices\n"));
+// }} ""
+// {{ 4 1 0 "0bbb385d_89ae_4537_bedb18ad5ddb80ff" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+io_Norm = 0;
+// }} ""
+// {{ 5 1 0 "55aabfba_481f_44a6_b7c630853633b1ec" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+io_Unnorm = 0;
+// }} ""
+// {{ 6 1 0 "507a268f_f6f5_42ff_8e2d964f5b2dd3a7" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+t_boolFAPlate = 0;
+// }} ""
+// {{ 7 1 0 "927282c4_1bcd_4323_a94db0662e63dd1b" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+t_boolHPLCPlate = 0;
+// }} ""
+// {{ 8 1 0 "2a765dc2_eec2_406d_82e8f18f0168491d" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+t_intRetainVolume = 0;
+// }} ""
+// {{ 9 1 0 "3f8457f4_696e_43b3_8593198482fd1023" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+t_str50CountChannels = Translate("");
+// }} ""
+// {{ 10 1 0 "836e35e7_7b4e_4bc9_b24b58a877b05446" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+t_bInDilCtrlAdd = 0;
+// }} ""
+// {{ 11 1 0 "47bebc5a_19ff_43ac_8c253a9744d8cf17" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+i_inGen100x = 0;
+// }} ""
+// {{ 12 1 0 "20cfcace_0a40_4c2e_a494adab179a7023" "{998A7CCC-4374-484D-A6ED-E8A4F0EB71BA}"
+customDialog28651F33770144cf9B565D5182F0238A.InitCustomDialog( "20cfcace_0a40_4c2e_a494adab179a7023" );
+customDialog28651F33770144cf9B565D5182F0238A.ShowCustomDialog();
+t_varDialogue = customDialog28651F33770144cf9B565D5182F0238A.GetCustomDialogProperty( "ReturnValue" );
+// }} ""
+// {{ 13 1 0 "bef6e647_44c5_48ec_8de4ce175625c628" "ML_STAR:{1C0C0CB0-7C87-11D3-AD83-0004ACB1DCB2}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._1C0C0CB0_7C87_11D3_AD83_0004ACB1DCB2("bef6e647_44c5_48ec_8de4ce175625c628"); // Initialize
+}
+// }} ""
+// {{ 14 1 0 "602041b8_cd7b_47b8_aef7287f9d177e1c" "ML_STAR:{81DA4252-3BA9-11d4-AE21-0004ACB1DCB2}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._81DA4252_3BA9_11d4_AE21_0004ACB1DCB2("602041b8_cd7b_47b8_aef7287f9d177e1c"); // MoveToPosition
+}
+// }} ""
+// {{ 15 1 0 "2d580d6f_4c20_4586_9453d29aa82a4946" "ML_STAR:{EA251BFB-66DE-48D1-83E5-6884B4DD8D11}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._EA251BFB_66DE_48D1_83E5_6884B4DD8D11("2d580d6f_4c20_4586_9453d29aa82a4946"); // MoveAutoLoad
+}
+// }} ""
+// {{{ 16 1 0 "c8995fd5_287e_4329_8615f43fb428e477" "{7C4EF7A7-39BE-406a-897F-71F3A35B4093}"
+VISUAL_NTR_LIBRARY_NTRDISCARDEDITS::MPH_TipCounter_Edit(ML_STAR, ML_STAR.NTR300Tips, t_strNTRCount, Translate("300uL NTR Tip Edit"), 0, 999);
+// }} ""
+// {{{ 17 1 0 "11bd49e4_8440_456a_933defbadd4c351f" "{7C4EF7A7-39BE-406a-897F-71F3A35B4093}"
+STAR_TIP_TOOLS::TipCounter_Edit(ML_STAR, ML_STAR.MlStar50ulTip, t_str50CountChannels, 999);
+// }} ""
+// {{ 18 1 0 "507736e0_b0ff_453a_a5cf64ad168d1538" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 19 1 0 "409e47cb_5332_4057_980a634b68e2739d" "{998A7CCC-4374-484D-A6ED-E8A4F0EB71BA}"
+customDialog9AF8CDD023A64f9aB4A1872E57D8E49D.InitCustomDialog( "409e47cb_5332_4057_980a634b68e2739d" );
+customDialog9AF8CDD023A64f9aB4A1872E57D8E49D.ShowCustomDialog();
+t_varDialogue = customDialog9AF8CDD023A64f9aB4A1872E57D8E49D.GetCustomDialogProperty( "ReturnValue" );
+// }} ""
+// {{ 20 1 0 "8e8f5501_7ca6_4f7b_94f4b5806d34f217" "{998A7CCC-4374-484D-A6ED-E8A4F0EB71BA}"
+customDialog1AA5F8B7946846c49479E94FC8274DE0.InitCustomDialog( "8e8f5501_7ca6_4f7b_94f4b5806d34f217" );
+customDialog1AA5F8B7946846c49479E94FC8274DE0.SetCustomDialogProperty( "checkBox1.IsChecked", t_boolHPLCPlate );
+customDialog1AA5F8B7946846c49479E94FC8274DE0.SetCustomDialogProperty( "checkBox2.IsChecked", t_boolFAPlate );
+customDialog1AA5F8B7946846c49479E94FC8274DE0.SetCustomDialogProperty( "numeric1.Value", t_intRetainVolume );
+customDialog1AA5F8B7946846c49479E94FC8274DE0.SetCustomDialogProperty( "checkBox3.IsChecked", t_bInDilCtrlAdd );
+customDialog1AA5F8B7946846c49479E94FC8274DE0.SetCustomDialogProperty( "checkBox4.IsChecked", i_inGen100x );
+customDialog1AA5F8B7946846c49479E94FC8274DE0.ShowCustomDialog();
+t_varDialogue = customDialog1AA5F8B7946846c49479E94FC8274DE0.GetCustomDialogProperty( "ReturnValue" );
+t_boolHPLCPlate = customDialog1AA5F8B7946846c49479E94FC8274DE0.GetCustomDialogProperty( "checkBox1.IsChecked" );
+t_boolFAPlate = customDialog1AA5F8B7946846c49479E94FC8274DE0.GetCustomDialogProperty( "checkBox2.IsChecked" );
+t_intRetainVolume = customDialog1AA5F8B7946846c49479E94FC8274DE0.GetCustomDialogProperty( "numeric1.Value" );
+t_bInDilCtrlAdd = customDialog1AA5F8B7946846c49479E94FC8274DE0.GetCustomDialogProperty( "checkBox3.IsChecked" );
+i_inGen100x = customDialog1AA5F8B7946846c49479E94FC8274DE0.GetCustomDialogProperty( "checkBox4.IsChecked" );
+// }} ""
+// {{ 21 1 0 "9a935c21_81a6_493a_a5c77aadd5b92be8" "{998A7CCC-4374-484D-A6ED-E8A4F0EB71BA}"
+customDialogD339F19BDF8C41229C4E4AB7838A41E7.InitCustomDialog( "9a935c21_81a6_493a_a5c77aadd5b92be8" );
+customDialogD339F19BDF8C41229C4E4AB7838A41E7.SetCustomDialogProperty( "radioButton1.IsChecked", io_Unnorm );
+customDialogD339F19BDF8C41229C4E4AB7838A41E7.SetCustomDialogProperty( "radioButton2.IsChecked", io_Norm );
+customDialogD339F19BDF8C41229C4E4AB7838A41E7.ShowCustomDialog();
+t_varDialogue = customDialogD339F19BDF8C41229C4E4AB7838A41E7.GetCustomDialogProperty( "ReturnValue" );
+io_Unnorm = customDialogD339F19BDF8C41229C4E4AB7838A41E7.GetCustomDialogProperty( "radioButton1.IsChecked" );
+io_Norm = customDialogD339F19BDF8C41229C4E4AB7838A41E7.GetCustomDialogProperty( "radioButton2.IsChecked" );
+// }} ""
+// {{ 22 1 0 "e7080866_dd35_4ecc_8cb2eb551e8a416c" "{998A7CCC-4374-484D-A6ED-E8A4F0EB71BA}"
+customDialog72ED9A5E504D4a85BD66B0F81CF13FF2.InitCustomDialog( "e7080866_dd35_4ecc_8cb2eb551e8a416c" );
+customDialog72ED9A5E504D4a85BD66B0F81CF13FF2.ShowCustomDialog();
+t_varDialogue = customDialog72ED9A5E504D4a85BD66B0F81CF13FF2.GetCustomDialogProperty( "ReturnValue" );
+// }} ""
+// {{{ 23 1 0 "decfc917_1cf7_4b9e_af1e04f76fa5801e" "{7C4EF7A7-39BE-406a-897F-71F3A35B4093}"
+Aliquot(t_boolHPLCPlate, t_boolFAPlate, t_intRetainVolume, t_bInDilCtrlAdd, i_inGen100x, io_Unnorm, io_Norm);
+// }} ""
+// {{ 24 1 0 "8b0de6ff_e6fd_4a2b_b1c85d9eb4a660e4" "{998A7CCC-4374-484D-A6ED-E8A4F0EB71BA}"
+customDialog6689E1E4ED9141f7845352D4BA250A84.InitCustomDialog( "8b0de6ff_e6fd_4a2b_b1c85d9eb4a660e4" );
+customDialog6689E1E4ED9141f7845352D4BA250A84.ShowCustomDialog();
+t_varDialogue = customDialog6689E1E4ED9141f7845352D4BA250A84.GetCustomDialogProperty( "ReturnValue" );
+// }} ""
+// {{ 25 1 0 "7cbe8f19_df89_4100_96a59c47b863fb76" "{930D6C31-8EFB-11d4-A3BA-002035848439}"
+abort;
+// }} ""
+// {{ 2 "AutoExitBlock" ""
+STAR_TIP_TOOLS::_ExitLibrary();
+VISUAL_NTR_LIBRARY_NTRDISCARDEDITS::_ExitLibrary();
+// }} ""
+// {{{ 5 "main" "End"
+} }
+// }} ""
+// $$author=briansky.fitton$$valid=0$$time=2022-09-30 13:17$$checksum=b9a6ac71$$length=094$$

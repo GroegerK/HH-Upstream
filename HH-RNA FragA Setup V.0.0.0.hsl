@@ -1,0 +1,136 @@
+global device ML_STAR ("HH-RNA FragA Setup V.0.0.0.lay", "ML_STAR", hslTrue);
+#include "HH-RNA FragA Setup V.0.0.0.res"
+ namespace _Method { #include "STAR Tools\\STAR Tip Tools.hs_" } 
+ namespace _Method { #include "STAR Tools\\STAR Channel Tools.hs_" } 
+ namespace _Method { #include "STAR Tools\\STAR MPH96 Tools.hs_" } 
+ namespace _Method { #include "HSLExtensions\\Array2D.hsl" } 
+ namespace _Method { #include "HSLExtensions\\Directory.hsl" } 
+ namespace _Method { #include "HSLExtensions\\File.hsl" } 
+ namespace _Method { #include "HSLExtensions\\Sequence.hsl" } 
+ namespace _Method { #include "HSLExtensions\\String.hsl" } 
+ namespace _Method { #include "HSLExtensions\\Venus.hsl" } 
+ namespace _Method { #include "HSLTipCountingLib.hsl" } 
+ namespace _Method { #include "HSLArrLib.hsl" } 
+ namespace _Method { #include "HSLErrLib.hsl" } 
+ namespace _Method { #include "HSLExtensions\\HSLExtensions\\Framework\\HSLExtensionsFramework.hsl" } 
+/* {{ 2 "LibraryInsertLine" "" */ // }} ""
+variable t_intFASampleVolume;
+variable t_str300CountChannels;
+variable t_intNumberofPlates;
+variable t_str50CountChannels;
+variable t_intFAPlatestoProcess;
+variable t_str4ChannelPattern;
+variable t_str2ChannelPattern;
+variable t_intFABufferVolume;
+variable t_intNumberOfPlates;
+/* {{ 2 "VariableInsertLine" "" */ // }} ""
+// {{ 2 "TemplateIncludeBlock" ""
+ namespace _Method { #include "HSLMETEDLib.hs_" } 
+ namespace _Method { #include "HSLMECCLib.hs_" } 
+ namespace _Method { #include "HSLPTLLib.hsl" } 
+// }} ""
+// {{{ 2 "LocalSubmethodInclude" ""
+ namespace _Method {  #include __filename__ ".sub"  } 
+// }} ""
+/* {{ 2 "ProcessInsertLine" "" */ // }} ""
+// {{{ 5 "main" "Begin"
+namespace _Method { method main(  ) void {
+// }} ""
+// {{ 5 "main" "InitLocals"
+// }} ""
+// {{ 2 "AutoInitBlock" ""
+PTL::SetWashingStateDefault("RinseTime1", 5);
+PTL::SetWashingStateDefault("SoakTime1", 5);
+PTL::SetWashingStateDefault("FlowRate1", 11);
+PTL::SetWashingStateDefault("RinseTime2", 0);
+PTL::SetWashingStateDefault("SoakTime2", 0);
+PTL::SetWashingStateDefault("FlowRate2", 11);
+PTL::SetWashingStateDefault("DrainingTime", 10);
+PTL::SetWashingStateDefault("StartWashLiquid", 0);
+PTL::SetLoadingStateDefault("RecoveryOptionContinue", hslTrue);
+PTL::SetLoadingStateDefault("RecoveryOptionExclude", hslTrue);
+PTL::SetLoadingStateDefault("RecoveryOptionDefault", 0);
+PTL::SetLoadingStateDefault("KitLotCheckEnabled", hslFalse);
+STAR_TIP_TOOLS::_InitLibrary();
+STAR_CHANNEL_TOOLS::_InitLibrary();
+STAR_MPH96_TOOLS::_InitLibrary();
+::RegisterAbortHandler( "OnAbort");
+// }} ""
+// {{ 1 1 0 "4d1182e6_9aba_42d6_8f3b1acd716093d2" "{F07B0071-8EFC-11d4-A3BA-002035848439}"
+MECC::TraceComment(Translate("******************\nThis method generates a 40X dilution of RNA to be added to a FragA plate.\n\n******************"));
+// }} ""
+// {{ 2 1 0 "e888db99_8b4d_4c99_877b5d90e771db09" "ML_STAR:{1C0C0CB0-7C87-11D3-AD83-0004ACB1DCB2}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._1C0C0CB0_7C87_11D3_AD83_0004ACB1DCB2("e888db99_8b4d_4c99_877b5d90e771db09"); // Initialize
+}
+// }} ""
+// {{ 3 1 0 "4063ba07_9b6e_423a_a541c6176202e40e" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 4 1 0 "95fa43d5_8e61_4b58_a9ae6ed5098dc02a" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+t_str50CountChannels = Translate("50Channels");
+// }} ""
+// {{ 5 1 0 "2623e8b2_3149_40b0_9e5da6634bc4f7da" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+t_str300CountChannels = Translate("300Channels");
+// }} ""
+// {{ 6 1 0 "9edbecfb_2bac_496e_bd05050468818555" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+t_intNumberofPlates = 0;
+// }} ""
+// {{ 7 1 0 "f299767f_26da_415f_9677a7ac17d41cbe" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+t_intFAPlatestoProcess = 0;
+// }} ""
+// {{ 8 1 0 "69467ec8_e865_4494_b8bc3f4fdfaf683d" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+t_intFABufferVolume = 22;
+// }} ""
+// {{ 9 1 0 "b61998f1_fca7_417e_bdc3dd1d15e2fa79" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+t_intFASampleVolume = 2;
+// }} ""
+// {{ 10 1 0 "c782af87_bf8b_40d7_acac60bf023ff4ec" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+t_intFAPlatestoProcess = t_intNumberOfPlates;
+// }} ""
+// {{ 11 1 0 "4063ba07_9b6e_423a_a541c6176202e40e" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{{ 12 1 0 "5597ff1f_0e2a_4b01_b1fb092d32b11287" "{7C4EF7A7-39BE-406a-897F-71F3A35B4093}"
+STAR_TIP_TOOLS::TipCounter_Edit(ML_STAR, ML_STAR.MlStar50ulTipWithFilter, t_str50CountChannels, 999);
+// }} ""
+// {{ 13 1 0 "2b32fc06_b42a_4291_8dc8efe334ad8778" "{F07B0071-8EFC-11d4-A3BA-002035848439}"
+MECC::TraceComment(Translate("******************\n\n40X dilution begins\n\n******************"));
+// }} ""
+// {{{ 14 1 0 "8ab76a76_e440_4412_900aef4199a74e6d" "{7C4EF7A7-39BE-406a-897F-71F3A35B4093}"
+STAR_TIP_TOOLS::TipCounter_Edit(ML_STAR, ML_STAR.Seq_300uL_tip_pos_1_96, t_str300CountChannels, 999);
+// }} ""
+// {{ 15 1 0 "7e73a15e_392f_4950_be38a6161df11fea" "ML_STAR:{BD0D210B-0816-4C86-A903-D6B2DF73F78B}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._BD0D210B_0816_4C86_A903_D6B2DF73F78B("7e73a15e_392f_4950_be38a6161df11fea"); // Head96TipPickUp
+}
+// }} ""
+// {{ 16 1 0 "3a07d9e8_8242_4c8a_bf833c2b447a3428" "ML_STAR:{827392A0-B7E8-4472-9ED3-B45B71B5D27A}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._827392A0_B7E8_4472_9ED3_B45B71B5D27A("3a07d9e8_8242_4c8a_bf833c2b447a3428"); // Head96Aspirate
+}
+// }} ""
+// {{ 17 1 0 "82e12516_b6a1_4ff1_a1f4762b0e63853f" "ML_STAR:{A48573A5-62ED-4951-9EF9-03207EFE34FB}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._A48573A5_62ED_4951_9EF9_03207EFE34FB("82e12516_b6a1_4ff1_a1f4762b0e63853f"); // Head96Dispense
+}
+// }} ""
+// {{ 18 1 0 "4fea870a_08fb_4d8d_a1d973f3ed671e18" "ML_STAR:{2880E77A-3D6D-40FE-AF57-1BD1FE13960C}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._2880E77A_3D6D_40FE_AF57_1BD1FE13960C("4fea870a_08fb_4d8d_a1d973f3ed671e18"); // Head96TipEject
+}
+// }} ""
+// {{ 2 "AutoExitBlock" ""
+STAR_TIP_TOOLS::_ExitLibrary();
+STAR_CHANNEL_TOOLS::_ExitLibrary();
+STAR_MPH96_TOOLS::_ExitLibrary();
+// }} ""
+// {{{ 5 "main" "End"
+} }
+// }} ""
+// $$author=tkelly$$valid=0$$time=2023-03-13 13:18$$checksum=c5210968$$length=085$$

@@ -1,0 +1,187 @@
+ namespace _Method { #include "STAR Tools\\STAR Tip Tools.hs_" } 
+ namespace _Method { #include "HSLTrcLib.hsl" } 
+ namespace _Method { #include "HSLDeckVisualize.hsl" } 
+ namespace _Method { #include "HSLSeqLib.hsl" } 
+ namespace _Method { #include "AppsLibrary\\HSLAppsLib.hsl" } 
+ namespace _Method { #include "HSLArrLib.hsl" } 
+ namespace _Method { #include "Visual_NTR_Library\\Visual_NTR_library_NTRdiscardEdits.hs_" } 
+#include "HH-PCR Template Aliquot V2.0.6.res"
+/* {{ 2 "LibraryInsertLine" "" */ // }} ""
+variable t_intArrayControl;
+variable t_strUserDefinedFilename;
+variable t_strCPACError;
+variable t_strBarcodePositions;
+variable t_intNumberOfPlates;
+variable t_blnIsPlateOOO;
+variable t_strChannelPattern;
+variable t_arr_blnMatchBarcodes[];
+dialog customDialogA6DF533782944d4686D952C09B2C6DAF;
+dialog customDialog4F793EA1D76847fa8060A2F753D51F89;
+variable t_varDialogue;
+dialog customDialogD96ACB4E67CA4aabB66B81657A2EC373;
+global sequence seqTargetWorlist;
+global sequence seqSourceWorklist;
+global variable l_strDNAIdentifier;
+global variable l_strTargetWell;
+global variable l_strTargetPlate;
+global variable l_intWorkPlateArraySize;
+variable t_arr_strTargetWell[];
+variable t_arr_strTargetPlate[];
+variable t_arr_strDNA_ID[];
+global variable t_arr_strWell_ID[];
+variable t_intTransferVol;
+dialog dialogHandle0A3382F08B1E465dA8B4D77D112AC743;
+dialog dialogHandle1973F268F22B441f94A677120FB896CC;
+dialog dialogHandle5F6526866FE344f38B553E233EDC6BB4;
+dialog dialogHandleFA434A6C2F714499850C0A816AF04201;
+dialog dialogHandle6CC683494CAC4c2cA01E1A395CDCF4E2;
+dialog customDialog1988BBCAD9404ce7980E0AFE68758D50;
+dialog customDialogC3EB12ED792E46a4BB0E74F4F8831E9C;
+dialog customDialog8254B1D88F644b38A67B56379E11A4C5;
+dialog customDialog9C51E32366514f7c89FE216D091DE248;
+dialog dialogHandle1CCCB0A8372748c8A5E6D64BEEB5E071;
+dialog dialogHandleB8A69592809D4ed5A17EDDBA72022CB9;
+dialog dialogHandleDC9F97A9967C40b98AC48190DF1E525A;
+dialog dialogHandleFDFEEB3144284203AC1BFED37E497B0E;
+dialog dialogHandle06DB4E30F963474eAA72563C4A60F491;
+dialog dialogHandleB3718B06177C4f97B6A1E108239C033A;
+dialog dialogHandle1C4AC21B08024e3f9914503CE2D7A03C;
+dialog dialogHandleCFF6A6F484E24164BB6D80A39D86ED49;
+dialog dialogHandle3C55BEFEC9204d979E0098B1FFFD982E;
+dialog dialogHandle6EAD8FD314134b49ADB6AF48251A4284;
+variable t_strMPH50ulTips;
+global device ML_STAR ("HH-PCR Template Aliquot V2.0.6.lay", "ML_STAR", hslTrue);
+/* {{ 2 "VariableInsertLine" "" */ // }} ""
+// {{ 2 "TemplateIncludeBlock" ""
+ namespace _Method { #include "HSLMETEDLib.hs_" } 
+ namespace _Method { #include "HSLMECCLib.hs_" } 
+ namespace _Method { #include "HSLPTLLib.hsl" } 
+// }} ""
+// {{{ 2 "LocalSubmethodInclude" ""
+ namespace _Method {  #include __filename__ ".sub"  } 
+// }} ""
+/* {{ 2 "ProcessInsertLine" "" */ // }} ""
+// {{{ 5 "main" "Begin"
+namespace _Method { method main(  ) void {
+// }} ""
+// {{ 5 "main" "InitLocals"
+// }} ""
+// {{ 2 "AutoInitBlock" ""
+PTL::SetWashingStateDefault("RinseTime1", 5);
+PTL::SetWashingStateDefault("SoakTime1", 5);
+PTL::SetWashingStateDefault("FlowRate1", 11);
+PTL::SetWashingStateDefault("RinseTime2", 0);
+PTL::SetWashingStateDefault("SoakTime2", 0);
+PTL::SetWashingStateDefault("FlowRate2", 11);
+PTL::SetWashingStateDefault("DrainingTime", 10);
+PTL::SetWashingStateDefault("StartWashLiquid", 0);
+PTL::SetLoadingStateDefault("RecoveryOptionContinue", hslTrue);
+PTL::SetLoadingStateDefault("RecoveryOptionExclude", hslTrue);
+PTL::SetLoadingStateDefault("RecoveryOptionDefault", 0);
+PTL::SetLoadingStateDefault("KitLotCheckEnabled", hslFalse);
+STAR_TIP_TOOLS::_InitLibrary();
+VISUAL_NTR_LIBRARY_NTRDISCARDEDITS::_InitLibrary();
+::RegisterAbortHandler( "OnAbort");
+// }} ""
+// {{ 1 1 0 "a3e175b7_34ec_4239_95a8510c0096787b" "{F07B0071-8EFC-11d4-A3BA-002035848439}"
+MECC::TraceComment(Translate("\n_________________________________________________________________________________________________\nGreenLight BioSciences\n\nWorking Plate Setup\nLast Edit: 4/12/2020\nDesc.: Transfers user-defined volume (typically 2 uL) from IDT/Azenta plates to the Working Plate. Processes up to 5 plates at a time, with 96 MPH head\nNo worklisting, infrastructure in place to add barcoding if wanted.\n_________________________________________________________________________________________________\n"));
+// }} ""
+// {{ 2 1 0 "e9d7db85_4f85_419b_b45d6d727b97fe43" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 3 1 0 "d4d5b6af_6043_4800_923fff02af7258a7" "{F07B0071-8EFC-11d4-A3BA-002035848439}"
+
+// }} ""
+// {{ 4 1 0 "f5675d1a_9acf_4a2e_8f2923cf9b875752" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+t_strMPH50ulTips = Translate("50ulHead");
+// }} ""
+// {{ 5 1 0 "a042eae5_7c21_41e9_845957f439909b45" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+t_intNumberOfPlates = 0;
+// }} ""
+// {{ 6 1 0 "37ebecc6_7157_485d_89a792133b8f4856" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+t_intTransferVol = 0;
+// }} ""
+// {{ 7 1 0 "e9d7db85_4f85_419b_b45d6d727b97fe43" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 8 1 0 "d216755d_eca9_4477_b35a66fc0ccbd458" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 9 1 0 "bd9912fc_450c_490a_a3dc9209b5ee4abb" "{F07B0071-8EFC-11d4-A3BA-002035848439}"
+MECC::TraceComment(Translate("Initialize Devices\n"));
+// }} ""
+// {{ 10 1 0 "99766e99_a78c_4676_b4788b44e2a3aa61" "{998A7CCC-4374-484D-A6ED-E8A4F0EB71BA}"
+customDialog4F793EA1D76847fa8060A2F753D51F89.InitCustomDialog( "99766e99_a78c_4676_b4788b44e2a3aa61" );
+customDialog4F793EA1D76847fa8060A2F753D51F89.ShowCustomDialog();
+t_varDialogue = customDialog4F793EA1D76847fa8060A2F753D51F89.GetCustomDialogProperty( "ReturnValue" );
+// }} ""
+// {{ 11 1 0 "91bc241e_2126_4d0c_b588b51456b63a1f" "ML_STAR:{1C0C0CB0-7C87-11D3-AD83-0004ACB1DCB2}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._1C0C0CB0_7C87_11D3_AD83_0004ACB1DCB2("91bc241e_2126_4d0c_b588b51456b63a1f"); // Initialize
+}
+// }} ""
+// {{ 12 1 0 "866d23ce_9586_4965_9155eeedf84bd95c" "ML_STAR:{81DA4252-3BA9-11d4-AE21-0004ACB1DCB2}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._81DA4252_3BA9_11d4_AE21_0004ACB1DCB2("866d23ce_9586_4965_9155eeedf84bd95c"); // MoveToPosition
+}
+// }} ""
+// {{ 13 1 0 "f576d7f7_ecd1_4d0b_be28812c86d39760" "ML_STAR:{EA251BFB-66DE-48D1-83E5-6884B4DD8D11}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._EA251BFB_66DE_48D1_83E5_6884B4DD8D11("f576d7f7_ecd1_4d0b_be28812c86d39760"); // MoveAutoLoad
+}
+// }} ""
+// {{ 14 1 0 "d216755d_eca9_4477_b35a66fc0ccbd458" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 15 1 0 "e66d9110_fa5f_41f8_bbc7404bae1a1f60" "{F07B0071-8EFC-11d4-A3BA-002035848439}"
+
+// }} ""
+// {{ 16 1 0 "01e89d95_17c2_47c8_909d610ae9c6cba5" "{998A7CCC-4374-484D-A6ED-E8A4F0EB71BA}"
+customDialogA6DF533782944d4686D952C09B2C6DAF.InitCustomDialog( "01e89d95_17c2_47c8_909d610ae9c6cba5" );
+customDialogA6DF533782944d4686D952C09B2C6DAF.ShowCustomDialog();
+t_varDialogue = customDialogA6DF533782944d4686D952C09B2C6DAF.GetCustomDialogProperty( "ReturnValue" );
+t_intTransferVol = customDialogA6DF533782944d4686D952C09B2C6DAF.GetCustomDialogProperty( "numeric1.Value" );
+t_intNumberOfPlates = customDialogA6DF533782944d4686D952C09B2C6DAF.GetCustomDialogProperty( "numeric2.Value" );
+// }} ""
+// {{{ 17 1 0 "84112d85_6366_4323_8fefcc4296b3c3fa" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+TrcTrace(Translate("Volume to Dispense: "), t_intTransferVol);
+// }} ""
+// {{{ 18 1 0 "da4e9866_e4c1_4388_a8592deb4c4b8873" "{7C4EF7A7-39BE-406a-897F-71F3A35B4093}"
+STAR_TIP_TOOLS::TipCounter_Edit(ML_STAR, ML_STAR.seq_50ulTips_All, t_strMPH50ulTips, 999);
+// }} ""
+// {{ 19 1 0 "464b3640_c358_48aa_80bb75c8f336b592" "{998A7CCC-4374-484D-A6ED-E8A4F0EB71BA}"
+customDialog1988BBCAD9404ce7980E0AFE68758D50.InitCustomDialog( "464b3640_c358_48aa_80bb75c8f336b592" );
+customDialog1988BBCAD9404ce7980E0AFE68758D50.ShowCustomDialog();
+t_varDialogue = customDialog1988BBCAD9404ce7980E0AFE68758D50.GetCustomDialogProperty( "ReturnValue" );
+// }} ""
+// {{ 20 1 0 "f2d9d581_634b_4cf6_a34e074428fd462f" "{F07B0071-8EFC-11d4-A3BA-002035848439}"
+MECC::TraceComment(Translate("----------------------------------------------------------------------------------------------------------\n\n                                            Aliquot BEGIN\n\n\n-----------------------------------------------------------------------------------------------------------"));
+// }} ""
+// {{{ 21 1 0 "223a7820_3ee4_44f1_b06e9e201d928aa2" "{7C4EF7A7-39BE-406a-897F-71F3A35B4093}"
+Aliquot();
+// }} ""
+// {{{ 22 1 0 "8671d80b_a1f7_421d_bcfa6bcb5b2dfbf6" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+TrcTrace4(Translate(" Volume Transfered to Working Plate: -------------------->"), t_intTransferVol, Translate("   uL "), Translate(""));
+// }} ""
+// {{ 23 1 0 "926339e0_8121_4542_bb6f155492e3846f" "{F07B0071-8EFC-11d4-A3BA-002035848439}"
+MECC::TraceComment(Translate("----------------------------------------------------------------------------------------------------------\n\n                                            Aliquot DONE\n\n\n-----------------------------------------------------------------------------------------------------------"));
+// }} ""
+// {{ 24 1 0 "2e824f53_e266_4da5_8e885599025c2949" "{998A7CCC-4374-484D-A6ED-E8A4F0EB71BA}"
+customDialogD96ACB4E67CA4aabB66B81657A2EC373.InitCustomDialog( "2e824f53_e266_4da5_8e885599025c2949" );
+customDialogD96ACB4E67CA4aabB66B81657A2EC373.ShowCustomDialog();
+t_varDialogue = customDialogD96ACB4E67CA4aabB66B81657A2EC373.GetCustomDialogProperty( "ReturnValue" );
+// }} ""
+// {{ 25 1 0 "8e1ad2a4_4cd6_464c_8e763129fa40e0b8" "{930D6C31-8EFB-11d4-A3BA-002035848439}"
+abort;
+// }} ""
+// {{ 2 "AutoExitBlock" ""
+STAR_TIP_TOOLS::_ExitLibrary();
+VISUAL_NTR_LIBRARY_NTRDISCARDEDITS::_ExitLibrary();
+// }} ""
+// {{{ 5 "main" "End"
+} }
+// }} ""
+// $$author=tkelly$$valid=0$$time=2023-05-18 13:31$$checksum=c4c620e0$$length=085$$

@@ -1,0 +1,60 @@
+// {{{ 2 "SubmethodForwardDeclaration" ""
+private function Aliquot(  ) void ;
+function OnAbort(  ) void ;
+// }} ""
+// {{{ 5 "OnAbort" "Begin"
+function OnAbort(  ) void {
+// }} ""
+// {{ 5 "OnAbort" "InitLocals"
+// }} ""
+// {{{ 5 "OnAbort" "End"
+}
+// }} ""
+// {{{ 5 "Aliquot" "Begin"
+private function Aliquot(  ) void {
+// }} ""
+private variable loopCounter1;
+// {{ 5 "Aliquot" "InitLocals"
+// }} ""
+// {{ 27 1 0 "e75a914d_48eb_4d6f_bc6f98a0273eb0e1" "ML_STAR:{BD0D210B-0816-4C86-A903-D6B2DF73F78B}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._BD0D210B_0816_4C86_A903_D6B2DF73F78B("e75a914d_48eb_4d6f_bc6f98a0273eb0e1"); // Head96TipPickUp
+}
+// }} ""
+// {{ 28 1 0 "d5972cc1_841a_4cf1_a2f89cf2334c2407" "{B31F3532-5D80-11d4-A5EB-0050DA737D89}"
+{
+for(loopCounter1 = 0; loopCounter1 < t_intNumberOfPlates;)
+{
+loopCounter1 = loopCounter1 + 1;
+// }} ""
+// {{ 29 1 0 "3dbd91ee_87e1_4cce_a44965a9437ed594" "ML_STAR:{827392A0-B7E8-4472-9ED3-B45B71B5D27A}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._827392A0_B7E8_4472_9ED3_B45B71B5D27A("3dbd91ee_87e1_4cce_a44965a9437ed594"); // Head96Aspirate
+}
+// }} ""
+// {{ 30 1 0 "1d6bacb5_d38d_4118_b9f25426d081f434" "ML_STAR:{A48573A5-62ED-4951-9EF9-03207EFE34FB}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._A48573A5_62ED_4951_9EF9_03207EFE34FB("1d6bacb5_d38d_4118_b9f25426d081f434"); // Head96Dispense
+}
+// }} ""
+// {{ 31 1 0 "d5972cc1_841a_4cf1_a2f89cf2334c2407" "{B31F3532-5D80-11d4-A5EB-0050DA737D89}"
+}
+}
+// }} ""
+// {{ 32 1 0 "9608f685_9a90_45d2_a8ac229ff6a1922f" "{F07B0071-8EFC-11d4-A3BA-002035848439}"
+MECC::TraceComment(Translate("************\nSet tip eject to core96 external waste\n\n**********"));
+// }} ""
+// {{ 33 1 0 "21141070_9c70_4c90_8dc9865d949e84a8" "ML_STAR:{2880E77A-3D6D-40FE-AF57-1BD1FE13960C}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._2880E77A_3D6D_40FE_AF57_1BD1FE13960C("21141070_9c70_4c90_8dc9865d949e84a8"); // Head96TipEject
+}
+// }} ""
+// {{{ 5 "Aliquot" "End"
+}
+// }} ""
+/* {{ 2 "SubmethodInsertLine" "" */ // }} ""
+// $$author=tkelly$$valid=0$$time=2023-05-18 13:31$$checksum=6a7ab602$$length=085$$

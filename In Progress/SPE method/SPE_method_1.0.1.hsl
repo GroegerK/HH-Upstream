@@ -1,0 +1,278 @@
+ namespace _Method { #include "HSLMPELib.hsl" } 
+#include "SPE_method_1.0.1.res"
+ namespace _Method { #include "MPE\\HSLMPELib.hsl" } 
+ namespace _Method { #include "HSLSeqLib.hsl" } 
+ namespace _Method { #include "HSLTipCountingLib.hsl" } 
+ namespace _Method { #include "HSLTrcLib.hsl" } 
+ namespace _Method { #include "HslHamHeaterShakerLib.hsl" } 
+ namespace _Method { #include "HSLInhecoTECLib.hsl" } 
+/* {{ 2 "LibraryInsertLine" "" */ // }} ""
+variable MPE1;
+dialog dialogHandle08AF8225E3E6435eB4075DD96863DBF3;
+dialog dialogHandle2F9CC6971D2345189FE94F3C43396474;
+dialog dialogHandleC879CA6BC1944f05A6B228CD1450BB6E;
+dialog dialogHandle1B528609D1BE45d4B6611149AF879811;
+variable collectionPlateHeight;
+variable nozzleHeight;
+variable InParameters;
+variable offsetFromNozzles;
+variable filterPlateHeight;
+variable wasteContainer;
+dialog dialogHandle2C48B04E502A41e99A6B174B364C5D58;
+variable mpeCmdReturn;
+dialog dialogHandleE719509EE28F42089BDC710D518E6448;
+dialog dialogHandle4A9AC60EFF13404bAD51D6174FFDD949;
+dialog dialogHandleADD952A3704D4baf9F9C4E0B41FB07E2;
+dialog dialogHandle0FC80F723A2E45419BADCEE5646916FF;
+global device ML_STAR ("SPE_method_1.0.1.lay", "ML_STAR", hslTrue);
+/* {{ 2 "VariableInsertLine" "" */ // }} ""
+// {{ 2 "TemplateIncludeBlock" ""
+ namespace _Method { #include "HSLMETEDLib.hs_" } 
+ namespace _Method { #include "HSLMECCLib.hs_" } 
+// }} ""
+// {{{ 2 "LocalSubmethodInclude" ""
+ namespace _Method {  #include __filename__ ".sub"  } 
+// }} ""
+/* {{ 2 "ProcessInsertLine" "" */ // }} ""
+// {{{ 5 "main" "Begin"
+namespace _Method { method main(  ) void {
+// }} ""
+// {{ 5 "main" "InitLocals"
+// }} ""
+// {{ 2 "AutoInitBlock" ""
+::RegisterAbortHandler( "OnAbort");
+// }} ""
+// {{ 1 1 0 "ea71cee0_4e54_4ba4_aeed399314705a1c" "{F07B0071-8EFC-11d4-A3BA-002035848439}"
+MECC::TraceComment(Translate("###########################################\n\nSPE_method_1.0.0\n\nThis is a method to purify mRNA after IVT.  It will mix loading buffer and crude mRNA before loading onto SPE filter plate and processing. \n This is followed by a wash.  Finally the mRNA will be eluted with warmed NF H20.\n\n###########################################"));
+// }} ""
+// {{ 2 1 0 "f338508c_1579_489f_b2cf038d160758ab" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 3 1 0 "4a6fd0c0_5d72_4cda_8bd18be856697173" "{F07B0071-8EFC-11d4-A3BA-002035848439}"
+
+// }} ""
+// {{ 4 1 0 "0b94e747_6316_47b2_9fd073e78917efa9" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+filterPlateHeight = 44;
+// }} ""
+// {{ 5 1 0 "b5d5cf66_0ea0_4444_a75ab149c184dc7c" "{F07B0071-8EFC-11d4-A3BA-002035848439}"
+
+// }} ""
+// {{ 6 1 0 "58c36e4a_592d_4e08_8ab82425c58aed01" "{F07B0071-8EFC-11d4-A3BA-002035848439}"
+
+// }} ""
+// {{ 7 1 0 "4b11775d_bd97_420e_9955e38e33310825" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+nozzleHeight = 3.5;
+// }} ""
+// {{ 8 1 0 "b2ab1e08_88b4_439b_bb1f3b845eb987df" "{F07B0071-8EFC-11d4-A3BA-002035848439}"
+
+// }} ""
+// {{ 9 1 0 "08ac2153_033a_4888_b7cf720fd8c73735" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+wasteContainer = 0;
+// }} ""
+// {{ 10 1 0 "e24a0a2a_e7be_467c_8322be3da579bf44" "{F07B0071-8EFC-11d4-A3BA-002035848439}"
+
+// }} ""
+// {{ 11 1 0 "891f11f4_41d0_4217_8c24959a240acdab" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+collectionPlateHeight = 44;
+// }} ""
+// {{ 12 1 0 "44ab9472_e32e_4514_b7ef485d18370f0b" "{F07B0071-8EFC-11d4-A3BA-002035848439}"
+
+// }} ""
+// {{ 13 1 0 "a70cffdc_ae2e_4048_89ceee916cd7db02" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+offsetFromNozzles = 0;
+// }} ""
+// {{ 14 1 0 "3158b5a6_a6fc_48e9_80903cfdeb4adea0" "{F07B0071-8EFC-11d4-A3BA-002035848439}"
+
+// }} ""
+// {{ 15 1 0 "04258a51_91bf_4e33_9dd54ab2262c296e" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+InParameters = Translate("pressure,5,10");
+// }} ""
+// {{ 16 1 0 "f338508c_1579_489f_b2cf038d160758ab" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 17 1 0 "b7e0d569_aa24_4688_ac1e1f6f3457493a" "{F07B0071-8EFC-11d4-A3BA-002035848439}"
+
+// }} ""
+// {{{ 18 1 0 "f4c8f868_4afb_4fcc_a05180f53a683050" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+HSLMPELib::ConnectUsingCOM(5, 921600, 0, MPE1, 3);
+// }} ""
+// {{{ 19 1 0 "fb7d353c_4da7_405b_86b58c2d8db200fd" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+HSLMPELib::Initialize(MPE1);
+// }} ""
+/* {{ 1 "" "0" */ if(0){  /* }} "" */
+// {{ 20 1 0 "a1bda30a_b0ae_438d_892b776191332693" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 21 1 0 "506b6cec_6184_42c2_be46672ebaf463d1" "{F07B0071-8EFC-11d4-A3BA-002035848439}"
+
+// }} ""
+// {{{ 22 1 0 "df47c536_371e_4c45_a6ec21c86fc17ba5" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+mpeCmdReturn = HSLMPELib::Prime(MPE1, 1, 50, 700, 0);
+// }} ""
+// {{{ 23 1 0 "3b900452_8dd2_4779_b411e80e093c30ae" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+mpeCmdReturn = HSLMPELib::Flush(MPE1, 100, 700, 0);
+// }} ""
+// {{ 24 1 0 "a1bda30a_b0ae_438d_892b776191332693" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+/* {{ 1 "" "1" */ } /* }} "" */
+// {{ 25 1 0 "b29abafa_76f4_42c8_82abbf93f6d015e0" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 26 1 0 "af36d837_2575_420e_ab549fb9ca954c7b" "{21E07B31-8D2E-11d4-A3B8-002035848439}"
+dialogHandleC879CA6BC1944f05A6B228CD1450BB6E.SetOutput(Translate("Place a filter plate in the upper plate nest of the MPE module."));
+dialogHandleC879CA6BC1944f05A6B228CD1450BB6E.ShowOutput(Translate("Place filter plate"), hslOKOnly | hslInformation | hslDefButton1, hslInfinite);
+// }} ""
+// {{{ 27 1 0 "ae27d323_9a04_41dc_a9e5ff33e72550f3" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+HSLMPELib::FilterPlatePlaced(MPE1, filterPlateHeight, nozzleHeight);
+// }} ""
+// {{ 28 1 0 "b29abafa_76f4_42c8_82abbf93f6d015e0" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 29 1 0 "1cb00b27_e435_4ce0_ab30485d241e61cf" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 30 1 0 "68dc23d1_9969_4095_b08050a815697659" "{21E07B31-8D2E-11d4-A3B8-002035848439}"
+dialogHandle1B528609D1BE45d4B6611149AF879811.SetOutput(Translate("The filter plate is about to be clamped. Please make sure that your hands are clear of the device."));
+dialogHandle1B528609D1BE45d4B6611149AF879811.ShowOutput(Translate("About to clamp filter plate"), hslOKOnly | hslQuestion | hslDefButton1, hslInfinite);
+// }} ""
+// {{{ 31 1 0 "695b7100_c3c1_4221_80f9c4adb2a1bcdc" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+HSLMPELib::ClampFilterPlate(MPE1);
+// }} ""
+// {{ 32 1 0 "1cb00b27_e435_4ce0_ab30485d241e61cf" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+/* {{ 1 "" "0" */ if(0){  /* }} "" */
+// {{ 33 1 0 "3b762e2f_7244_4d1b_80b32a4c98e86e75" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 34 1 0 "e338c671_8719_4f32_82390c382c1daf49" "{F07B0071-8EFC-11d4-A3BA-002035848439}"
+
+// }} ""
+// {{{ 35 1 0 "0ad2ce8d_5148_4a38_9ddde133f372c334" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+mpeCmdReturn = HSLMPELib::Dispense(MPE1, 1, 50, 700, 0);
+// }} ""
+// {{ 36 1 0 "3b762e2f_7244_4d1b_80b32a4c98e86e75" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+/* {{ 1 "" "1" */ } /* }} "" */
+// {{ 37 1 0 "75cf71d4_ca52_42c2_8585f65152bf06a9" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 38 1 0 "eb5a411b_3366_475f_88f72bc8c2a69360" "{21E07B31-8D2E-11d4-A3B8-002035848439}"
+dialogHandle2C48B04E502A41e99A6B174B364C5D58.SetOutput(Translate("Place a collection plate in the plate nest of the MPE module."));
+dialogHandle2C48B04E502A41e99A6B174B364C5D58.ShowOutput(Translate("Place collection plate"), hslOKOnly | hslInformation | hslDefButton1, hslInfinite);
+// }} ""
+// {{{ 39 1 0 "8f705533_1d53_4ec5_bfe327262cfe4aad" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+HSLMPELib::CollectionPlatePlaced(MPE1, collectionPlateHeight, offsetFromNozzles);
+// }} ""
+// {{ 40 1 0 "75cf71d4_ca52_42c2_8585f65152bf06a9" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 41 1 0 "9d7a1bdf_26d8_4394_9c7fc3c4036ce687" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 42 1 0 "9dd86bc0_a4ba_4ed5_b623932c3e6da8fa" "{F07B0071-8EFC-11d4-A3BA-002035848439}"
+
+// }} ""
+// {{{ 43 1 0 "d921151a_063c_4009_8ecad507aab77c99" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+HSLMPELib::ProcessFilterToCollectionPlate(MPE1, InParameters, 1);
+// }} ""
+// {{ 44 1 0 "9d7a1bdf_26d8_4394_9c7fc3c4036ce687" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 45 1 0 "5b59f084_d059_401c_860816e94a033c51" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 46 1 0 "3e2cca76_6721_4bd2_a0a270c20e02cc1d" "{21E07B31-8D2E-11d4-A3B8-002035848439}"
+dialogHandle08AF8225E3E6435eB4075DD96863DBF3.SetOutput(Translate("Remove the collection plate."));
+dialogHandle08AF8225E3E6435eB4075DD96863DBF3.ShowOutput(Translate("Remove Collection Plate"), hslOKOnly | hslQuestion | hslDefButton1, hslInfinite);
+// }} ""
+// {{{ 47 1 0 "98c06c8d_bfec_4f72_b2b012c0e4f08d96" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+HSLMPELib::CollectionPlateRemoved(MPE1);
+// }} ""
+// {{ 48 1 0 "5b59f084_d059_401c_860816e94a033c51" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 49 1 0 "cc038b8c_68bf_4307_b46035072825b16a" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{{ 50 1 0 "99571baa_082f_4de2_bfa4e358950df655" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+HSLMPELib::RetrieveFilterPlate(MPE1);
+// }} ""
+// {{ 51 1 0 "cc038b8c_68bf_4307_b46035072825b16a" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 52 1 0 "9379e985_26d8_46a1_8056d147a02eb9a0" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 53 1 0 "90930b07_dfa7_4da4_99207a49a3899237" "{21E07B31-8D2E-11d4-A3B8-002035848439}"
+dialogHandle2F9CC6971D2345189FE94F3C43396474.SetOutput(Translate("Remove the filter plate."));
+dialogHandle2F9CC6971D2345189FE94F3C43396474.ShowOutput(Translate("Remove Filter Plate"), hslOKOnly | hslQuestion | hslDefButton1, hslInfinite);
+// }} ""
+// {{{ 54 1 0 "666c5f22_f9c3_4f0c_8ef63934180c3ef4" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+HSLMPELib::FilterPlateRemoved(MPE1);
+// }} ""
+// {{ 55 1 0 "9379e985_26d8_46a1_8056d147a02eb9a0" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+/* {{ 1 "" "0" */ if(0){  /* }} "" */
+// {{ 56 1 0 "1d8103c7_eb21_4af5_9df67e01611ada7a" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 57 1 0 "4c05d4fb_666e_4b15_9cd8072d03383913" "{F07B0071-8EFC-11d4-A3BA-002035848439}"
+
+// }} ""
+// {{ 58 1 0 "aac1f542_3e99_4b14_a22d0f04d1fa5d09" "{21E07B31-8D2E-11d4-A3B8-002035848439}"
+dialogHandleE719509EE28F42089BDC710D518E6448.SetOutput(Translate("Place the evaporator in the upper plate nest of the MPE module."));
+dialogHandleE719509EE28F42089BDC710D518E6448.ShowOutput(Translate("Place Evaporator"), hslOKOnly | hslInformation | hslDefButton1, hslInfinite);
+// }} ""
+// {{{ 59 1 0 "0a48972d_bc30_4330_8c030013f1b87a18" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+mpeCmdReturn = HSLMPELib::EvaporatePrepare(MPE1, 50, 40, 4);
+// }} ""
+// {{ 60 1 0 "1d8103c7_eb21_4af5_9df67e01611ada7a" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 61 1 0 "21a9c4b4_f854_47d6_b008e05de12d35da" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 62 1 0 "64d30c5d_441b_4811_b9f2b26beefacea5" "{F07B0071-8EFC-11d4-A3BA-002035848439}"
+
+// }} ""
+// {{ 63 1 0 "65beba51_7f03_4138_984933660ac6110d" "{21E07B31-8D2E-11d4-A3B8-002035848439}"
+dialogHandleADD952A3704D4baf9F9C4E0B41FB07E2.SetOutput(Translate("Place a collection plate in the plate nest of the MPE module."));
+dialogHandleADD952A3704D4baf9F9C4E0B41FB07E2.ShowOutput(Translate("Place collection plate"), hslOKOnly | hslInformation | hslDefButton1, hslInfinite);
+// }} ""
+// {{{ 64 1 0 "de461014_d3db_4f23_84c8d26de76f465c" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+mpeCmdReturn = HSLMPELib::Evaporate(MPE1, 43, 0, 41, 60);
+// }} ""
+// {{ 65 1 0 "4efe9682_ee26_4100_b6519c715c5c1f9f" "{21E07B31-8D2E-11d4-A3B8-002035848439}"
+dialogHandle4A9AC60EFF13404bAD51D6174FFDD949.SetOutput(Translate("Remove the collection plate."));
+dialogHandle4A9AC60EFF13404bAD51D6174FFDD949.ShowOutput(Translate("Remove Collection Plate"), hslOKOnly | hslQuestion | hslDefButton1, hslInfinite);
+// }} ""
+// {{{ 66 1 0 "329d6c5f_32e7_4d7c_862af2b3e147ad1b" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+mpeCmdReturn = HSLMPELib::EvaporateEnd(MPE1, 0);
+// }} ""
+// {{ 67 1 0 "5832f1de_215a_4d53_9807ed4140ba1cd0" "{21E07B31-8D2E-11d4-A3B8-002035848439}"
+dialogHandle0FC80F723A2E45419BADCEE5646916FF.SetOutput(Translate("Remove Evaporator from MPE."));
+dialogHandle0FC80F723A2E45419BADCEE5646916FF.ShowOutput(Translate("Remove collection Evaporator"), hslOKOnly | hslInformation | hslDefButton1, hslInfinite);
+// }} ""
+// {{ 68 1 0 "21a9c4b4_f854_47d6_b008e05de12d35da" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+/* {{ 1 "" "1" */ } /* }} "" */
+// {{ 69 1 0 "ab5c9741_2ef0_4137_ae2f0fbcf9a149da" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{{ 70 1 0 "7a6c7e45_191c_4fbc_a0957e71bb443e5b" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+HSLMPELib::Disconnect(MPE1);
+// }} ""
+// {{ 71 1 0 "ab5c9741_2ef0_4137_ae2f0fbcf9a149da" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 2 "AutoExitBlock" ""
+// }} ""
+// {{{ 5 "main" "End"
+} }
+// }} ""
+// $$author=msheff$$valid=0$$time=2023-05-01 17:40$$checksum=a61696b5$$length=085$$

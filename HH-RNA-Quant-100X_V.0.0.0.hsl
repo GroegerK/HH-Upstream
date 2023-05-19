@@ -1,0 +1,196 @@
+ namespace _Method { #include "STAR Tools\\STAR Tip Tools.hs_" } 
+#include "HH-RNA-Quant-100X_V.0.0.0.res"
+ namespace _Method { #include "HSLTrcLib.hsl" } 
+ namespace _Method { #include "HSLInhecoTEC\\HSLInhecoTECLib.hsl" } 
+ namespace _Method { #include "HSLSeqLib.hsl" } 
+ namespace _Method { #include "HSLTipCountingLib.hsl" } 
+ namespace _Method { #include "HSLML_STARLib.hsl" } 
+ namespace _Method { #include "HSLDeckVisualize.hsl" } 
+/* {{ 2 "LibraryInsertLine" "" */ // }} ""
+variable t_str50Count96MPH;
+global device ML_STAR ("HH-RNA-Quant-100X_V.0.0.0.lay", "ML_STAR", hslTrue);
+variable t_str1000Count96MPH;
+dialog customDialogAA467B7B91794a15B2020C7F1E97C9B4;
+variable t_str300Count96MPH;
+/* {{ 2 "VariableInsertLine" "" */ // }} ""
+// {{ 2 "TemplateIncludeBlock" ""
+ namespace _Method { #include "HSLMETEDLib.hs_" } 
+ namespace _Method { #include "HSLMECCLib.hs_" } 
+ namespace _Method { #include "HSLPTLLib.hsl" } 
+// }} ""
+// {{{ 2 "LocalSubmethodInclude" ""
+ namespace _Method {  #include __filename__ ".sub"  } 
+// }} ""
+/* {{ 2 "ProcessInsertLine" "" */ // }} ""
+// {{{ 5 "main" "Begin"
+namespace _Method { method main(  ) void {
+// }} ""
+// {{ 5 "main" "InitLocals"
+// }} ""
+// {{ 2 "AutoInitBlock" ""
+PTL::SetWashingStateDefault("RinseTime1", 5);
+PTL::SetWashingStateDefault("SoakTime1", 5);
+PTL::SetWashingStateDefault("FlowRate1", 11);
+PTL::SetWashingStateDefault("RinseTime2", 0);
+PTL::SetWashingStateDefault("SoakTime2", 0);
+PTL::SetWashingStateDefault("FlowRate2", 11);
+PTL::SetWashingStateDefault("DrainingTime", 10);
+PTL::SetWashingStateDefault("StartWashLiquid", 0);
+PTL::SetLoadingStateDefault("RecoveryOptionContinue", hslTrue);
+PTL::SetLoadingStateDefault("RecoveryOptionExclude", hslTrue);
+PTL::SetLoadingStateDefault("RecoveryOptionDefault", 0);
+PTL::SetLoadingStateDefault("KitLotCheckEnabled", hslFalse);
+STAR_TIP_TOOLS::_InitLibrary();
+::RegisterAbortHandler( "OnAbort");
+// }} ""
+// {{ 1 1 0 "b11ca6fe_d3b3_4669_a8793fe63fd59364" "{F07B0071-8EFC-11d4-A3BA-002035848439}"
+MECC::TraceComment(Translate("\n_________________________________________________________________________________________________\nGreenLight BioSciences\n\nHH- RNA-Quant-100X\nLast Edit: 03/24/23\n\nMethod dilutes RNA 100X and moves it to a half area plate for quantification. \n\n\n_________________________________________________________________________________________________\n"));
+// }} ""
+// {{ 2 1 0 "34bed73e_eb13_4234_a7ffd55e49be775a" "ML_STAR:{1C0C0CB0-7C87-11D3-AD83-0004ACB1DCB2}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._1C0C0CB0_7C87_11D3_AD83_0004ACB1DCB2("34bed73e_eb13_4234_a7ffd55e49be775a"); // Initialize
+}
+// }} ""
+// {{ 3 1 0 "db507f85_bfa5_444d_ac6af38f296f73a3" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+t_str50Count96MPH = Translate("");
+// }} ""
+// {{ 4 1 0 "352f45a6_6c96_402c_9969204f14ae3552" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+t_str1000Count96MPH = Translate("");
+// }} ""
+// {{ 5 1 0 "db8bba8e_8fff_4e2c_816880f62be23ede" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+t_str300Count96MPH = Translate("");
+// }} ""
+// {{{ 6 1 0 "1dbd7800_128b_4424_a7d644d170aa1e34" "{7C4EF7A7-39BE-406a-897F-71F3A35B4093}"
+STAR_TIP_TOOLS::TipCounter_Edit(ML_STAR, ML_STAR.MlStar1000ulHighVolumeTipWithFilter, t_str1000Count96MPH, 999);
+// }} ""
+// {{{ 7 1 0 "4ef96fd1_01ce_4085_ad99f3f62d833acb" "{7C4EF7A7-39BE-406a-897F-71F3A35B4093}"
+STAR_TIP_TOOLS::TipCounter_Edit(ML_STAR, ML_STAR.MlStar50ulTipWithFilter, t_str50Count96MPH, 999);
+// }} ""
+// {{{ 8 1 0 "e504ea90_7571_4835_8b7cf9c77cfbb090" "{7C4EF7A7-39BE-406a-897F-71F3A35B4093}"
+STAR_TIP_TOOLS::TipCounter_Edit(ML_STAR, ML_STAR.MlStar300ulStandardVolumeTipWithFilter, t_str300Count96MPH, 999);
+// }} ""
+// {{ 9 1 0 "4a7fe4c2_0ee9_4f1d_a05084904d385a09" "{998A7CCC-4374-484D-A6ED-E8A4F0EB71BA}"
+customDialogAA467B7B91794a15B2020C7F1E97C9B4.InitCustomDialog( "4a7fe4c2_0ee9_4f1d_a05084904d385a09" );
+customDialogAA467B7B91794a15B2020C7F1E97C9B4.ShowCustomDialog();
+// }} ""
+/* {{ 1 "" "0" */ if(0){  /* }} "" */
+// {{ 10 1 0 "4bb073f1_1611_4c2d_a0f1cc5108e10467" "{F07B0071-8EFC-11d4-A3BA-002035848439}"
+MECC::TraceComment(Translate("********Addition of Water to dilution plate\n"));
+// }} ""
+// {{ 11 1 0 "23bd15b7_ae2a_411e_a5d155b94b1ba9c7" "ML_STAR:{BD0D210B-0816-4C86-A903-D6B2DF73F78B}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._BD0D210B_0816_4C86_A903_D6B2DF73F78B("23bd15b7_ae2a_411e_a5d155b94b1ba9c7"); // Head96TipPickUp
+}
+// }} ""
+// {{ 12 1 0 "63b2a47e_6c0d_4d9c_9dba01bbdaad813d" "ML_STAR:{827392A0-B7E8-4472-9ED3-B45B71B5D27A}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._827392A0_B7E8_4472_9ED3_B45B71B5D27A("63b2a47e_6c0d_4d9c_9dba01bbdaad813d"); // Head96Aspirate
+}
+// }} ""
+// {{ 13 1 0 "0753da2b_7493_4ada_823f000ebca7237e" "ML_STAR:{A48573A5-62ED-4951-9EF9-03207EFE34FB}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._A48573A5_62ED_4951_9EF9_03207EFE34FB("0753da2b_7493_4ada_823f000ebca7237e"); // Head96Dispense
+}
+// }} ""
+// {{ 14 1 0 "c1226259_ada6_493d_84eee764f9165612" "ML_STAR:{2880E77A-3D6D-40FE-AF57-1BD1FE13960C}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._2880E77A_3D6D_40FE_AF57_1BD1FE13960C("c1226259_ada6_493d_84eee764f9165612"); // Head96TipEject
+}
+// }} ""
+// {{ 15 1 0 "4f4c72ce_d23b_4dff_ae66a80184491f15" "{F07B0071-8EFC-11d4-A3BA-002035848439}"
+MECC::TraceComment(Translate("******************addition of RNA to dilution plate"));
+// }} ""
+// {{ 16 1 0 "1f74c3da_049f_41f2_8fa91f504d0c0435" "ML_STAR:{BD0D210B-0816-4C86-A903-D6B2DF73F78B}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._BD0D210B_0816_4C86_A903_D6B2DF73F78B("1f74c3da_049f_41f2_8fa91f504d0c0435"); // Head96TipPickUp
+}
+// }} ""
+// {{ 17 1 0 "2176e2fa_0697_42e1_a9ca719a0d1e776d" "ML_STAR:{827392A0-B7E8-4472-9ED3-B45B71B5D27A}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._827392A0_B7E8_4472_9ED3_B45B71B5D27A("2176e2fa_0697_42e1_a9ca719a0d1e776d"); // Head96Aspirate
+}
+// }} ""
+// {{ 18 1 0 "577afd25_f51d_4055_a36291d95201fefd" "ML_STAR:{A48573A5-62ED-4951-9EF9-03207EFE34FB}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._A48573A5_62ED_4951_9EF9_03207EFE34FB("577afd25_f51d_4055_a36291d95201fefd"); // Head96Dispense
+}
+// }} ""
+// {{ 19 1 0 "7a50f7ff_58cc_42e0_840dc3f590b560e7" "ML_STAR:{A48573A5-62ED-4951-9EF9-03207EFE34FB}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._A48573A5_62ED_4951_9EF9_03207EFE34FB("7a50f7ff_58cc_42e0_840dc3f590b560e7"); // Head96Dispense
+}
+// }} ""
+// {{ 20 1 0 "fe857544_0e25_4122_922028dba2d790f3" "ML_STAR:{2880E77A-3D6D-40FE-AF57-1BD1FE13960C}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._2880E77A_3D6D_40FE_AF57_1BD1FE13960C("fe857544_0e25_4122_922028dba2d790f3"); // Head96TipEject
+}
+// }} ""
+// {{ 21 1 0 "8766b9bc_2b78_40b3_be89d6ff1214b67d" "{F07B0071-8EFC-11d4-A3BA-002035848439}"
+MECC::TraceComment(Translate("*************Mixing diluted RNA"));
+// }} ""
+// {{ 22 1 0 "0dd86cdd_7f59_4937_9d0484e78543ce01" "ML_STAR:{BD0D210B-0816-4C86-A903-D6B2DF73F78B}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._BD0D210B_0816_4C86_A903_D6B2DF73F78B("0dd86cdd_7f59_4937_9d0484e78543ce01"); // Head96TipPickUp
+}
+// }} ""
+// {{ 23 1 0 "6dec8ca5_8869_40dc_a834c3831da30133" "ML_STAR:{827392A0-B7E8-4472-9ED3-B45B71B5D27A}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._827392A0_B7E8_4472_9ED3_B45B71B5D27A("6dec8ca5_8869_40dc_a834c3831da30133"); // Head96Aspirate
+}
+// }} ""
+// {{ 24 1 0 "1145ad0a_837d_45fd_b2724307d5f92f54" "ML_STAR:{A48573A5-62ED-4951-9EF9-03207EFE34FB}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._A48573A5_62ED_4951_9EF9_03207EFE34FB("1145ad0a_837d_45fd_b2724307d5f92f54"); // Head96Dispense
+}
+// }} ""
+// {{ 25 1 0 "357c7bd3_728b_4f54_b95a777d8bc9282c" "ML_STAR:{2880E77A-3D6D-40FE-AF57-1BD1FE13960C}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._2880E77A_3D6D_40FE_AF57_1BD1FE13960C("357c7bd3_728b_4f54_b95a777d8bc9282c"); // Head96TipEject
+}
+// }} ""
+/* {{ 1 "" "1" */ } /* }} "" */
+// {{ 26 1 0 "cc87242c_8f88_4651_9c4ae9e18dced1e7" "ML_STAR:{BD0D210B-0816-4C86-A903-D6B2DF73F78B}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._BD0D210B_0816_4C86_A903_D6B2DF73F78B("cc87242c_8f88_4651_9c4ae9e18dced1e7"); // Head96TipPickUp
+}
+// }} ""
+// {{ 27 1 0 "09676152_d6d5_4a8a_91fa7f343a9cb34c" "ML_STAR:{827392A0-B7E8-4472-9ED3-B45B71B5D27A}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._827392A0_B7E8_4472_9ED3_B45B71B5D27A("09676152_d6d5_4a8a_91fa7f343a9cb34c"); // Head96Aspirate
+}
+// }} ""
+// {{ 28 1 0 "c34b5f3c_38fe_4254_8a23cef3c4a10b07" "ML_STAR:{A48573A5-62ED-4951-9EF9-03207EFE34FB}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._A48573A5_62ED_4951_9EF9_03207EFE34FB("c34b5f3c_38fe_4254_8a23cef3c4a10b07"); // Head96Dispense
+}
+// }} ""
+// {{ 29 1 0 "a9ab9574_8970_4198_89ee52c80656f42e" "ML_STAR:{2880E77A-3D6D-40FE-AF57-1BD1FE13960C}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._2880E77A_3D6D_40FE_AF57_1BD1FE13960C("a9ab9574_8970_4198_89ee52c80656f42e"); // Head96TipEject
+}
+// }} ""
+// {{ 2 "AutoExitBlock" ""
+STAR_TIP_TOOLS::_ExitLibrary();
+// }} ""
+// {{{ 5 "main" "End"
+} }
+// }} ""
+// $$author=tkelly$$valid=0$$time=2023-03-24 17:21$$checksum=311918ed$$length=085$$

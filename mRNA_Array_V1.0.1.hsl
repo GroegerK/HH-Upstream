@@ -1,0 +1,174 @@
+global device ML_STAR ("mRNA_Array.lay", "ML_STAR", hslTrue);
+#include "mRNA_Array.res"
+ namespace _Method { #include "HSLSeqLib.hsl" } 
+ namespace _Method { #include "HSLTrcLib.hsl" } 
+/* {{ 2 "LibraryInsertLine" "" */ // }} ""
+variable Source_Labware_ID;
+variable loopCounter1;
+variable Source_Pos_ID;
+variable mRNA_Vol;
+file file1;
+sequence Seq_mRNA_Source;
+dialog customDialog5F943F83A1A049b9BCE01432CFB397C5;
+dialog customDialogBBACA4993BF142088366DDE14AC40F86;
+variable Worklist_Location;
+variable arr_mRNA_vol[];
+variable Des_Labware_ID;
+variable loopCounter2;
+variable Des_Pos_ID;
+sequence Seq_mRNA_Destination;
+/* {{ 2 "VariableInsertLine" "" */ // }} ""
+// {{ 2 "TemplateIncludeBlock" ""
+ namespace _Method { #include "HSLMETEDLib.hs_" } 
+ namespace _Method { #include "HSLMECCLib.hs_" } 
+ namespace _Method { #include "HSLPTLLib.hsl" } 
+// }} ""
+// {{{ 2 "LocalSubmethodInclude" ""
+ namespace _Method {  #include __filename__ ".sub"  } 
+// }} ""
+/* {{ 2 "ProcessInsertLine" "" */ // }} ""
+// {{{ 5 "main" "Begin"
+namespace _Method { method main(  ) void {
+// }} ""
+// {{ 5 "main" "InitLocals"
+// }} ""
+// {{ 2 "AutoInitBlock" ""
+PTL::SetWashingStateDefault("RinseTime1", 5);
+PTL::SetWashingStateDefault("SoakTime1", 5);
+PTL::SetWashingStateDefault("FlowRate1", 11);
+PTL::SetWashingStateDefault("RinseTime2", 0);
+PTL::SetWashingStateDefault("SoakTime2", 0);
+PTL::SetWashingStateDefault("FlowRate2", 11);
+PTL::SetWashingStateDefault("DrainingTime", 10);
+PTL::SetWashingStateDefault("StartWashLiquid", 0);
+PTL::SetLoadingStateDefault("RecoveryOptionContinue", hslTrue);
+PTL::SetLoadingStateDefault("RecoveryOptionExclude", hslTrue);
+PTL::SetLoadingStateDefault("RecoveryOptionDefault", 0);
+PTL::SetLoadingStateDefault("KitLotCheckEnabled", hslFalse);
+::RegisterAbortHandler( "OnAbort");
+// }} ""
+// {{ 1 1 0 "d64f001c_30cf_4091_a73ab0fe394efe11" "{F07B0071-8EFC-11d4-A3BA-002035848439}"
+MECC::TraceComment(Translate("##################################\nmRNA Array\nv1.0.0\nmethod to cherry pick\nDependencies mRNA_Array.lay\n#################################\n"));
+// }} ""
+// {{ 2 1 0 "d55fb2ea_8674_4a5e_82f35b6d4e6bba49" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+Worklist_Location = Translate("");
+// }} ""
+// {{ 3 1 0 "b79ab719_9744_4f6e_9990c3cc7d53bddc" "{998A7CCC-4374-484D-A6ED-E8A4F0EB71BA}"
+customDialog5F943F83A1A049b9BCE01432CFB397C5.InitCustomDialog( "b79ab719_9744_4f6e_9990c3cc7d53bddc" );
+customDialog5F943F83A1A049b9BCE01432CFB397C5.ShowCustomDialog();
+// }} ""
+// {{ 4 1 0 "caba602a_e9cd_49c0_8c7c1b0f12d99751" "{4900C1F7-0FB7-4033-8253-760BDB9354DC}"
+arr_mRNA_vol.SetSize(0);
+// }} ""
+// {{ 5 1 0 "56d93fd9_4e41_406e_9f924b8e39635496" "{B31F3534-5D80-11d4-A5EB-0050DA737D89}"
+file1.AddField("Source_Labware_ID", Source_Labware_ID, hslString, 255);
+file1.AddField("Des_Labware_ID", Des_Labware_ID, hslString, 255);
+file1.AddField("Des_Pos_ID", Des_Pos_ID, hslString, 255);
+file1.AddField("Source_Pos_ID", Source_Pos_ID, hslString, 255);
+file1.AddField("mRNA_Vol", mRNA_Vol, hslFloat);
+if( 0 == file1.Open("Z:\\Shared\\Human Health\\005 - Pre-Clinical Prod\\Sample Gen\\Hamilton\\Worklist build test 3.xls" + " " + "Sheet1$", hslAppend) )
+{
+    MECC::RaiseRuntimeErrorEx(-1523711743, MECC::IDS::stepNameFileOpen, MECC::IDS::errorStepFileOpenFailed, "Z:\\Shared\\Human Health\\005 - Pre-Clinical Prod\\Sample Gen\\Hamilton\\Worklist build test 3.xls", "HxMetEdCompCmd");
+}
+// }} ""
+// {{ 6 1 0 "ca34af43_b659_45bf_aeb91eb7c8039ee9" "{B31F3532-5D80-11d4-A5EB-0050DA737D89}"
+{
+loopCounter1 = 0;
+while (
+   (file1.Eof() == 0)
+)
+{
+loopCounter1 = loopCounter1 + 1;
+// }} ""
+// {{ 7 1 0 "cb0f0390_0a43_462d_86bf4a4d40c30662" "{B31F3536-5D80-11d4-A5EB-0050DA737D89}"
+if( 0 == file1.ReadRecord() )
+{
+    MECC::RaiseRuntimeErrorEx(-1490157312, MECC::IDS::stepNameFileRead, MECC::IDS::errorStepFailed, "", "HxMetEdCompCmd");
+}
+// }} ""
+// {{{ 8 1 0 "113adfee_1c75_4eef_8fab39265af988e7" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+SeqAdd(Seq_mRNA_Source, Source_Labware_ID, Source_Pos_ID);
+// }} ""
+// {{{ 9 1 0 "1119d787_229f_4fee_9a4e3a74b8a8837a" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+SeqAdd(Seq_mRNA_Destination, Des_Labware_ID, Des_Pos_ID);
+// }} ""
+// {{ 10 1 0 "b37b3060_f3f2_477a_bcdb68229413fe20" "{F17B7626-27CB-47f1-8477-8C4158339A6D}"
+arr_mRNA_vol.AddAsLast(mRNA_Vol);
+// }} ""
+// {{ 11 1 0 "ca34af43_b659_45bf_aeb91eb7c8039ee9" "{B31F3532-5D80-11d4-A5EB-0050DA737D89}"
+}
+}
+// }} ""
+// {{{ 12 1 0 "3886eca6_6c80_4841_b772e138821e91f1" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+TrcTraceSequence(Seq_mRNA_Source);
+// }} ""
+// {{{ 13 1 0 "9741cd2a_1864_43d5_8050f110f1fea2ad" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+TrcTraceSequence(Seq_mRNA_Destination);
+// }} ""
+// {{{ 14 1 0 "696c1b03_b32c_4789_9250e1c72e9f828f" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+TrcTrace(Translate("Arr_volumes"), arr_mRNA_vol.ElementAt( 1 -1));
+// }} ""
+// {{ 15 1 0 "f7fbac0b_4a10_43a5_abebb3ad72bcfda2" "{B31F353A-5D80-11d4-A5EB-0050DA737D89}"
+Seq_mRNA_Source.SetCurrentPosition(1);
+// }} ""
+// {{ 16 1 0 "d3ae4238_cda0_4f97_9aa7a27373633555" "{B31F353A-5D80-11d4-A5EB-0050DA737D89}"
+Seq_mRNA_Destination.SetCurrentPosition(1);
+// }} ""
+// {{ 17 1 0 "0bfb529e_32f7_4a42_b1c8249b7e6ab612" "ML_STAR:{1C0C0CB0-7C87-11D3-AD83-0004ACB1DCB2}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._1C0C0CB0_7C87_11D3_AD83_0004ACB1DCB2("0bfb529e_32f7_4a42_b1c8249b7e6ab612"); // Initialize
+}
+// }} ""
+// {{ 18 1 0 "78c1d84b_2e98_449b_999ef1afd9d83ca8" "ML_STAR:{541143FA-7FA2-11D3-AD85-0004ACB1DCB2}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._541143FA_7FA2_11D3_AD85_0004ACB1DCB2("78c1d84b_2e98_449b_999ef1afd9d83ca8"); // TipPickUp
+}
+// }} ""
+// {{ 19 1 0 "ee426956_91c6_44fc_95ef8888775ab7fa" "ML_STAR:{541143F5-7FA2-11D3-AD85-0004ACB1DCB2}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._541143F5_7FA2_11D3_AD85_0004ACB1DCB2("ee426956_91c6_44fc_95ef8888775ab7fa"); // Aspirate
+}
+// }} ""
+// {{ 20 1 0 "d92c41ac_89f7_4498_acaacd87e0144ff3" "ML_STAR:{541143F8-7FA2-11D3-AD85-0004ACB1DCB2}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._541143F8_7FA2_11D3_AD85_0004ACB1DCB2("d92c41ac_89f7_4498_acaacd87e0144ff3"); // Dispense
+}
+// }} ""
+// {{ 21 1 0 "9ec99473_17a4_4eb4_8f3440dd0132996d" "ML_STAR:{541143FC-7FA2-11D3-AD85-0004ACB1DCB2}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._541143FC_7FA2_11D3_AD85_0004ACB1DCB2("9ec99473_17a4_4eb4_8f3440dd0132996d"); // TipEject
+}
+// }} ""
+// {{ 22 1 0 "da1cf57f_48db_4672_90dd4a8e144e6f1a" "{B31F3532-5D80-11d4-A5EB-0050DA737D89}"
+{
+loopCounter2 = 0;
+while (
+   (Seq_mRNA_Source.GetCurrentPosition() > 0)
+)
+{
+AlignSequences(hslTrue, Seq_mRNA_Source, 1, ML_STAR.Seq_300ul_Tips_192pos, 1);
+loopCounter2 = loopCounter2 + 1;
+// }} ""
+// {{ 23 1 0 "da1cf57f_48db_4672_90dd4a8e144e6f1a" "{B31F3532-5D80-11d4-A5EB-0050DA737D89}"
+if (
+   (Seq_mRNA_Source.GetCurrentPosition() > 0 && Seq_mRNA_Source.GetMax() == 0 )
+)
+{ MECC::EndlessSequenceLoopWarning(GetFileName()); }
+
+}
+Seq_mRNA_Source.SetMax(Seq_mRNA_Source.GetTotal());
+ML_STAR.Seq_300ul_Tips_192pos.SetMax(ML_STAR.Seq_300ul_Tips_192pos.GetTotal());
+Seq_mRNA_Source.SetCurrentPosition(1);
+}
+// }} ""
+// {{ 2 "AutoExitBlock" ""
+// }} ""
+// {{{ 5 "main" "End"
+} }
+// }} ""
+// $$author=msheff$$valid=0$$time=2023-04-03 18:20$$checksum=e3553f7e$$length=085$$

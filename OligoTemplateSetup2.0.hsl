@@ -1,0 +1,557 @@
+ namespace _Method { #include "STAR Tools\\STAR Tip Tools.hs_" } 
+ namespace _Method { #include "Visual_NTR_Library\\Visual_NTR_library_NTRdiscardEdits.hs_" } 
+ namespace _Method { #include "HSLSeqLib.hsl" } 
+ namespace _Method { #include "HSLStrLib.hsl" } 
+ namespace _Method { #include "AppsLibrary\\HSLAppsLib.hsl" } 
+ namespace _Method { #include "GreenLight\\hamSTAR Methods\\HSLTrcLib.hsl" } 
+ namespace _Method { #include "HSLDeckVisualize.hsl" } 
+#include "HTP-dsRNA-Methods\\OligoTemplateSetup2.0.res"
+/* {{ 2 "LibraryInsertLine" "" */ // }} ""
+dialog customDialog4993B5781706401eB0CC0F6D7EFAFAC5;
+dialog customDialog30E0FCA20F504088B5DC3F6E54EC5818;
+dialog customDialogD267A1CBDB514104A95DDC7DB09D7B90;
+variable t_str7ChannelPattern;
+variable t_strStandardVolumeTips;
+variable t_strCPACError;
+variable t_strBarcodePositions;
+variable t_intNumberOfPlates;
+variable t_blnIsPlateOOO;
+variable t_arr_blnMatchBarcodes[];
+variable t_varDialogue;
+global sequence seqTargetWorlist;
+global sequence seqSourceWorklist;
+global sequence default;
+global device ML_STAR ("HTP-dsRNA-Methods\\OligoTemplateSetup2.0.lay", "ML_STAR", hslTrue);
+dialog customDialog182F7516ED894b859A9975372EEDA3C5;
+dialog dialogHandleA72CC2782FF6496bA20A889C86D9F935;
+dialog dialogHandle21394C391DA14d6fB6FA9F844988CE74;
+dialog dialogHandle51F10326DF004bad8D7DBDF89BFD2515;
+dialog dialogHandleE1996F382D3C4663B4AD3CDB3ED76C56;
+variable t_str50ulVolumeTips;
+dialog dialogHandle7CCC72EED0F44a4dA9750DD6DCD9251B;
+dialog dialogHandle64CADEF2116244d8B9D9BD544A6B9425;
+dialog dialogHandle3BAC4E3CEB0A44abBA3F6E021C02167B;
+dialog dialogHandle3F8FA91AABBB4de0B1F286D2A238D25F;
+dialog dialogHandle3B0B3582FE004df7ACCE68E784190233;
+dialog dialogHandle1C06542D9B5443548DE05B63C42770C6;
+dialog dialogHandleCA21D64C36BE48eeB3525D982F41E611;
+dialog dialogHandleA354A952452F44c1AE6D8EE22C020506;
+dialog dialogHandle7FCB8CBEC32D4d52A7FD4FAC792336E9;
+dialog dialogHandleAD4979848C8A4878ACC679EA8EBD1B39;
+dialog dialogHandleD6A2E2D68FFD4386B96DC4B41B910D68;
+dialog dialogHandle679F26C440924a4084A8111F30ADEA3D;
+dialog dialogHandle59224924100A4e6aB9F7391D9C696D56;
+variable t_str300ulVolumeTips;
+dialog dialogHandle96D64DFB6BC247b0AA81E3DED222E78A;
+dialog dialogHandle8C768BF2D51F4a08B184938BC8418EBF;
+variable t_str1ChannelPattern;
+/* {{ 2 "VariableInsertLine" "" */ // }} ""
+// {{ 2 "TemplateIncludeBlock" ""
+ namespace _Method { #include "HSLMETEDLib.hs_" } 
+ namespace _Method { #include "HSLMECCLib.hs_" } 
+ namespace _Method { #include "HSLPTLLib.hsl" } 
+// }} ""
+// {{{ 2 "LocalSubmethodInclude" ""
+ namespace _Method {  #include __filename__ ".sub"  } 
+// }} ""
+/* {{ 2 "ProcessInsertLine" "" */ // }} ""
+// {{{ 5 "main" "Begin"
+namespace _Method { method main(  ) void {
+// }} ""
+// {{ 5 "main" "InitLocals"
+// }} ""
+// {{ 2 "AutoInitBlock" ""
+PTL::SetWashingStateDefault("RinseTime1", 5);
+PTL::SetWashingStateDefault("SoakTime1", 5);
+PTL::SetWashingStateDefault("FlowRate1", 11);
+PTL::SetWashingStateDefault("RinseTime2", 0);
+PTL::SetWashingStateDefault("SoakTime2", 0);
+PTL::SetWashingStateDefault("FlowRate2", 11);
+PTL::SetWashingStateDefault("DrainingTime", 10);
+PTL::SetWashingStateDefault("StartWashLiquid", 0);
+PTL::SetLoadingStateDefault("RecoveryOptionContinue", hslTrue);
+PTL::SetLoadingStateDefault("RecoveryOptionExclude", hslTrue);
+PTL::SetLoadingStateDefault("RecoveryOptionDefault", 0);
+PTL::SetLoadingStateDefault("KitLotCheckEnabled", hslFalse);
+STAR_TIP_TOOLS::_InitLibrary();
+VISUAL_NTR_LIBRARY_NTRDISCARDEDITS::_InitLibrary();
+::RegisterAbortHandler( "OnAbort");
+// }} ""
+// {{ 1 1 0 "fd543411_75d6_4e90_b714d62df47aef74" "{F07B0071-8EFC-11d4-A3BA-002035848439}"
+MECC::TraceComment(Translate("\n_________________________________________________________________________________________________\nGreenLight BioSciences\nOligo-Template Plate Setup2.0\nLast Edit: 6/29/2022\nDesc.: Formats Oligo Template plate from working plates, dilutes template DNA to 0.4 ng/uL, adds forward and reverse primers to 15 uM\nAdds 4 uL of Working Plate g-block to 56 uL of water\n20 uL of Fwd and Rev primer @ 75uM added on top, total volume 100 uL\ncan generate up to 4 Oligo Plates at a time\n\n_________________________________________________________________________________________________\n"));
+// }} ""
+// {{ 2 1 0 "f5953d80_4f9e_43b5_8be768ed4fb84a9d" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+/* {{ 1 "" "0" */ if(0){  /* }} "" */
+// {{ 3 1 0 "7794206f_32de_41ad_bf054714722042be" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+t_blnIsPlateOOO = 0;
+// }} ""
+/* {{ 1 "" "1" */ } /* }} "" */
+// {{ 4 1 0 "abb4175d_a790_4e7a_af23eaedaf07481b" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+t_intNumberOfPlates = 0;
+// }} ""
+// {{ 5 1 0 "5fb871c6_0cc8_4b15_85ca80d76bbee570" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+t_str50ulVolumeTips = Translate("50ulHead");
+// }} ""
+// {{ 6 1 0 "399a0737_dbf9_4ee8_947ac7b78c6b2f41" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+t_str300ulVolumeTips = Translate("");
+// }} ""
+// {{ 7 1 0 "d875c71f_18c2_454e_b331c7ac11a60052" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+t_str7ChannelPattern = Translate("");
+// }} ""
+// {{ 8 1 0 "a73456a8_15dc_4792_88c744170e4e17a5" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+t_str1ChannelPattern = Translate("");
+// }} ""
+// {{ 9 1 0 "b0370c15_cb7e_4597_839ec389ff854b5f" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+t_strCPACError = Translate("");
+// }} ""
+// {{ 10 1 0 "70ac0499_e319_4bd2_9a68b3ebea03252b" "{B31F3543-5D80-11d4-A5EB-0050DA737D89}"
+t_strBarcodePositions = Translate("");
+// }} ""
+// {{ 11 1 0 "16658695_c1ff_43bb_a2dd50fc010a97bc" "{4900C1F7-0FB7-4033-8253-760BDB9354DC}"
+t_arr_blnMatchBarcodes.SetSize(0);
+// }} ""
+// {{ 12 1 0 "f5953d80_4f9e_43b5_8be768ed4fb84a9d" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 13 1 0 "ad9654a0_8fe3_4fc2_ad9a669e70a3e519" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 14 1 0 "846bee13_f0e7_4d55_9280f063188dd167" "{F07B0071-8EFC-11d4-A3BA-002035848439}"
+MECC::TraceComment(Translate("Initialize Devices\n"));
+// }} ""
+// {{ 15 1 0 "d06050ed_a62e_4901_a50cde0f38bd0011" "{998A7CCC-4374-484D-A6ED-E8A4F0EB71BA}"
+customDialogD267A1CBDB514104A95DDC7DB09D7B90.InitCustomDialog( "d06050ed_a62e_4901_a50cde0f38bd0011" );
+customDialogD267A1CBDB514104A95DDC7DB09D7B90.ShowCustomDialog();
+t_varDialogue = customDialogD267A1CBDB514104A95DDC7DB09D7B90.GetCustomDialogProperty( "ReturnValue" );
+// }} ""
+// {{ 16 1 0 "09fb0406_324e_4f0d_989316d0e0522f45" "ML_STAR:{1C0C0CB0-7C87-11D3-AD83-0004ACB1DCB2}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._1C0C0CB0_7C87_11D3_AD83_0004ACB1DCB2("09fb0406_324e_4f0d_989316d0e0522f45"); // Initialize
+}
+// }} ""
+// {{ 17 1 0 "8660c752_d591_487b_9f3e18511548b0b1" "ML_STAR:{81DA4252-3BA9-11d4-AE21-0004ACB1DCB2}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._81DA4252_3BA9_11d4_AE21_0004ACB1DCB2("8660c752_d591_487b_9f3e18511548b0b1"); // MoveToPosition
+}
+// }} ""
+// {{ 18 1 0 "827d8e82_54a2_421c_bb4f858283345f3a" "ML_STAR:{EA251BFB-66DE-48D1-83E5-6884B4DD8D11}"
+{
+	variable arrRetValues[];
+	arrRetValues = ML_STAR._EA251BFB_66DE_48D1_83E5_6884B4DD8D11("827d8e82_54a2_421c_bb4f858283345f3a"); // MoveAutoLoad
+}
+// }} ""
+// {{ 19 1 0 "ad9654a0_8fe3_4fc2_ad9a669e70a3e519" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 20 1 0 "3a6d49a0_2402_461f_bf901da196c433fa" "{998A7CCC-4374-484D-A6ED-E8A4F0EB71BA}"
+customDialog182F7516ED894b859A9975372EEDA3C5.InitCustomDialog( "3a6d49a0_2402_461f_bf901da196c433fa" );
+customDialog182F7516ED894b859A9975372EEDA3C5.ShowCustomDialog();
+t_varDialogue = customDialog182F7516ED894b859A9975372EEDA3C5.GetCustomDialogProperty( "ReturnValue" );
+t_intNumberOfPlates = customDialog182F7516ED894b859A9975372EEDA3C5.GetCustomDialogProperty( "numeric1.Value" );
+// }} ""
+// {{ 21 1 0 "7bbe658a_5eee_42fa_a7dffd5a5017b338" "{F07B0071-8EFC-11d4-A3BA-002035848439}"
+
+// }} ""
+// {{{ 22 1 0 "e727fa24_045f_4ca5_aedb430eee709a85" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+TrcTrace(Translate("Plates to process: "), t_intNumberOfPlates);
+// }} ""
+// {{ 23 1 0 "44314757_b992_48dc_ae26ffbd9ecd7617" "{F07B0071-8EFC-11d4-A3BA-002035848439}"
+MECC::TraceComment(Translate("----------------------------------------------------------------------------------------------------------\n\n                                           Deck Loading\n\n\n-----------------------------------------------------------------------------------------------------------"));
+// }} ""
+// {{ 24 1 0 "fccfed4e_77bd_4e7d_9d8bfa0b6775c5ae" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 25 1 0 "6aac1f1c_af4a_4519_ba52c0aae96f93aa" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{{ 26 1 0 "bb317f56_ecc7_403c_a4ce80f4f9732254" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+TrcTrace(Translate("Plates to process: "), t_intNumberOfPlates);
+// }} ""
+// {{ 27 1 0 "85044ff4_a204_4b55_9dfbfbcc90987df5" "{B31F3531-5D80-11d4-A5EB-0050DA737D89}"
+if (t_intNumberOfPlates == 1)
+{
+// }} ""
+// {{{ 28 1 0 "75a84874_34af_405c_84987573ae33c9bc" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.DNA_1, 6, Translate("WP Plate"));
+// }} ""
+// {{ 29 1 0 "9fccd259_6d72_407b_aa18ccb4a935564c" "{21E07B31-8D2E-11d4-A3B8-002035848439}"
+dialogHandleA72CC2782FF6496bA20A889C86D9F935.SetOutput(Translate("Please load Working plate at indicated positions"));
+dialogHandleA72CC2782FF6496bA20A889C86D9F935.ShowOutput(Translate("OTP"), hslOKOnly | hslInformation | hslDefButton1, hslInfinite);
+// }} ""
+// {{{ 30 1 0 "ed73e356_8f87_4c42_840c5564b868b528" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.DNA_1, 5, Translate("WP Plate"));
+// }} ""
+// {{ 31 1 0 "85044ff4_a204_4b55_9dfbfbcc90987df5" "{B31F3531-5D80-11d4-A5EB-0050DA737D89}"
+}
+else
+{
+// }} ""
+// {{ 32 1 0 "1a310e93_24e8_4176_a938752d8c5d8237" "{B31F3531-5D80-11d4-A5EB-0050DA737D89}"
+if (t_intNumberOfPlates == 2)
+{
+// }} ""
+// {{{ 33 1 0 "88684931_5ea8_48c8_8ab689a0bb2dd9c1" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.WP_1to2, 6, Translate("WP Plate"));
+// }} ""
+// {{ 34 1 0 "6b05e27c_87db_4f81_a000a75b4df6aa5b" "{21E07B31-8D2E-11d4-A3B8-002035848439}"
+dialogHandle21394C391DA14d6fB6FA9F844988CE74.SetOutput(Translate("Please load Working plates at indicated positions"));
+dialogHandle21394C391DA14d6fB6FA9F844988CE74.ShowOutput(Translate("OTP"), hslOKOnly | hslInformation | hslDefButton1, hslInfinite);
+// }} ""
+// {{{ 35 1 0 "d276456e_0b6c_41f8_8fce98cc881db6d5" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.WP_1to2, 5, Translate("WP Plate"));
+// }} ""
+// {{ 36 1 0 "1a310e93_24e8_4176_a938752d8c5d8237" "{B31F3531-5D80-11d4-A5EB-0050DA737D89}"
+}
+else
+{
+// }} ""
+// {{ 37 1 0 "ca771835_072f_4e1e_8101e5822d88d21f" "{B31F3531-5D80-11d4-A5EB-0050DA737D89}"
+if (t_intNumberOfPlates == 3)
+{
+// }} ""
+// {{{ 38 1 0 "d9345ac8_3850_484d_aec30dfd5a38997b" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.WP_1to3, 6, Translate("WP Plate"));
+// }} ""
+// {{ 39 1 0 "8087e076_41d5_483a_9b0bdb5f3cc4801a" "{21E07B31-8D2E-11d4-A3B8-002035848439}"
+dialogHandle51F10326DF004bad8D7DBDF89BFD2515.SetOutput(Translate("Please load Working plates at indicated positions"));
+dialogHandle51F10326DF004bad8D7DBDF89BFD2515.ShowOutput(Translate("OTP"), hslOKOnly | hslInformation | hslDefButton1, hslInfinite);
+// }} ""
+// {{{ 40 1 0 "35efcde1_108f_4f0f_9b223fd510bccfaf" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.OTP_1to3, 5, Translate("WP Plate"));
+// }} ""
+// {{ 41 1 0 "ca771835_072f_4e1e_8101e5822d88d21f" "{B31F3531-5D80-11d4-A5EB-0050DA737D89}"
+}
+else
+{
+// }} ""
+// {{ 42 1 0 "7a83c727_fa7f_41bf_855a426596c1f200" "{B31F3531-5D80-11d4-A5EB-0050DA737D89}"
+if (t_intNumberOfPlates == 4)
+{
+// }} ""
+// {{{ 43 1 0 "ca315c4d_ccd5_4672_af272f07dbd518b0" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.WP_1to4, 6, Translate("WP Plate"));
+// }} ""
+// {{ 44 1 0 "c1109ef4_96cb_4141_a4facd784304ad9b" "{21E07B31-8D2E-11d4-A3B8-002035848439}"
+dialogHandleE1996F382D3C4663B4AD3CDB3ED76C56.SetOutput(Translate("Please load Working plates at indicated positions"));
+dialogHandleE1996F382D3C4663B4AD3CDB3ED76C56.ShowOutput(Translate("OTP"), hslOKOnly | hslInformation | hslDefButton1, hslInfinite);
+// }} ""
+// {{{ 45 1 0 "1056252e_7d1c_4fc8_ba4dd9717b39cf59" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.OTP_1to4, 5, Translate("WP Plate"));
+// }} ""
+// {{ 46 1 0 "7a83c727_fa7f_41bf_855a426596c1f200" "{B31F3531-5D80-11d4-A5EB-0050DA737D89}"
+}
+// }} ""
+// {{ 47 1 0 "ca771835_072f_4e1e_8101e5822d88d21f" "{B31F3531-5D80-11d4-A5EB-0050DA737D89}"
+}
+// }} ""
+// {{ 48 1 0 "1a310e93_24e8_4176_a938752d8c5d8237" "{B31F3531-5D80-11d4-A5EB-0050DA737D89}"
+}
+// }} ""
+// {{ 49 1 0 "85044ff4_a204_4b55_9dfbfbcc90987df5" "{B31F3531-5D80-11d4-A5EB-0050DA737D89}"
+}
+// }} ""
+// {{ 50 1 0 "6aac1f1c_af4a_4519_ba52c0aae96f93aa" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 51 1 0 "76403774_af67_46d2_bf1936319d4c1961" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 52 1 0 "905e7fb1_7d2c_4c10_a024ba43121d71fe" "{B31F3531-5D80-11d4-A5EB-0050DA737D89}"
+if (t_intNumberOfPlates == 1)
+{
+// }} ""
+// {{{ 53 1 0 "31ad902c_8eec_47d7_82e3e4aa759696b5" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.OTP_1, 6, Translate("OTP Plate"));
+// }} ""
+// {{ 54 1 0 "722c5a91_543f_46fd_a78b436822e04151" "{21E07B31-8D2E-11d4-A3B8-002035848439}"
+dialogHandle3BAC4E3CEB0A44abBA3F6E021C02167B.SetOutput(Translate("Please load Blue Fischer (OTP) plate at indicated positions"));
+dialogHandle3BAC4E3CEB0A44abBA3F6E021C02167B.ShowOutput(Translate("OTP"), hslOKOnly | hslInformation | hslDefButton1, hslInfinite);
+// }} ""
+// {{{ 55 1 0 "55d37ac0_c68a_4539_b27d50bcd792c954" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.OTP_1, 5, Translate("OTP Plate"));
+// }} ""
+// {{ 56 1 0 "905e7fb1_7d2c_4c10_a024ba43121d71fe" "{B31F3531-5D80-11d4-A5EB-0050DA737D89}"
+}
+else
+{
+// }} ""
+// {{ 57 1 0 "20e4d14e_db65_45f5_a15cd846a4c905e8" "{B31F3531-5D80-11d4-A5EB-0050DA737D89}"
+if (t_intNumberOfPlates == 2)
+{
+// }} ""
+// {{{ 58 1 0 "2da11865_e863_4d1c_8a6c69771c05054f" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.OTP_1to2, 6, Translate("OTP Plate"));
+// }} ""
+// {{ 59 1 0 "d8715c14_8724_4a5b_a6af6f8aeaab3cfc" "{21E07B31-8D2E-11d4-A3B8-002035848439}"
+dialogHandle3F8FA91AABBB4de0B1F286D2A238D25F.SetOutput(Translate("Please load Blue Fischer (OTP) plates at indicated positions"));
+dialogHandle3F8FA91AABBB4de0B1F286D2A238D25F.ShowOutput(Translate("OTP"), hslOKOnly | hslInformation | hslDefButton1, hslInfinite);
+// }} ""
+// {{{ 60 1 0 "f61ac846_e95a_4c25_aa9ebb514a39ae2a" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.OTP_1to2, 5, Translate("OTP Plate"));
+// }} ""
+// {{ 61 1 0 "20e4d14e_db65_45f5_a15cd846a4c905e8" "{B31F3531-5D80-11d4-A5EB-0050DA737D89}"
+}
+else
+{
+// }} ""
+// {{ 62 1 0 "32d10dfe_7c1f_4cf1_a15728b40f01f421" "{B31F3531-5D80-11d4-A5EB-0050DA737D89}"
+if (t_intNumberOfPlates == 3)
+{
+// }} ""
+// {{{ 63 1 0 "d7ef241e_d2ab_4e86_b7375a966f976744" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.OTP_1to3, 6, Translate("OTP Plate"));
+// }} ""
+// {{ 64 1 0 "1a966adf_e936_4d9b_acdcd6651bf65118" "{21E07B31-8D2E-11d4-A3B8-002035848439}"
+dialogHandle7CCC72EED0F44a4dA9750DD6DCD9251B.SetOutput(Translate("Please load Blue Fischer (OTP) plates at indicated positions"));
+dialogHandle7CCC72EED0F44a4dA9750DD6DCD9251B.ShowOutput(Translate("OTP"), hslOKOnly | hslInformation | hslDefButton1, hslInfinite);
+// }} ""
+// {{{ 65 1 0 "029699b7_96c1_4f3c_947be5b3eaa9108e" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.OTP_1to3, 5, Translate("OTP Plate"));
+// }} ""
+// {{ 66 1 0 "32d10dfe_7c1f_4cf1_a15728b40f01f421" "{B31F3531-5D80-11d4-A5EB-0050DA737D89}"
+}
+else
+{
+// }} ""
+// {{ 67 1 0 "a511d584_1bd7_469a_bafa7639f65dc1fe" "{B31F3531-5D80-11d4-A5EB-0050DA737D89}"
+if (t_intNumberOfPlates == 4)
+{
+// }} ""
+// {{{ 68 1 0 "17615e60_bd19_47b5_a655451a18e76e86" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.OTP_1to4, 6, Translate("OTP Plate"));
+// }} ""
+// {{ 69 1 0 "7980b830_c3a1_4127_834d65dc6c579e34" "{21E07B31-8D2E-11d4-A3B8-002035848439}"
+dialogHandle64CADEF2116244d8B9D9BD544A6B9425.SetOutput(Translate("Please load Blue Fischer (OTP) plates at indicated positions"));
+dialogHandle64CADEF2116244d8B9D9BD544A6B9425.ShowOutput(Translate("OTP"), hslOKOnly | hslInformation | hslDefButton1, hslInfinite);
+// }} ""
+// {{{ 70 1 0 "7e7dad27_650f_4307_973138a2624ed977" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.OTP_1to4, 5, Translate("OTP Plate"));
+// }} ""
+// {{ 71 1 0 "a511d584_1bd7_469a_bafa7639f65dc1fe" "{B31F3531-5D80-11d4-A5EB-0050DA737D89}"
+}
+// }} ""
+// {{ 72 1 0 "32d10dfe_7c1f_4cf1_a15728b40f01f421" "{B31F3531-5D80-11d4-A5EB-0050DA737D89}"
+}
+// }} ""
+// {{ 73 1 0 "20e4d14e_db65_45f5_a15cd846a4c905e8" "{B31F3531-5D80-11d4-A5EB-0050DA737D89}"
+}
+// }} ""
+// {{ 74 1 0 "905e7fb1_7d2c_4c10_a024ba43121d71fe" "{B31F3531-5D80-11d4-A5EB-0050DA737D89}"
+}
+// }} ""
+// {{ 75 1 0 "76403774_af67_46d2_bf1936319d4c1961" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 76 1 0 "b693cc3a_efa1_4a62_af2b09aed2b3ec8e" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{{ 77 1 0 "7a06db3c_abc6_42cf_b4912be73e07781c" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+TrcTrace(Translate("Plates to process: "), t_intNumberOfPlates);
+// }} ""
+// {{ 78 1 0 "5ca17e67_b10e_4d6d_b7b8d89c14e9dece" "{B31F3531-5D80-11d4-A5EB-0050DA737D89}"
+if (t_intNumberOfPlates <= 2)
+{
+// }} ""
+// {{{ 79 1 0 "a688accc_35b8_46f1_96ae8bbbdbbe6f63" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.FwdPrimerPlate_1, 6, Translate("Forward Primer Plate"));
+// }} ""
+// {{ 80 1 0 "c36a4cab_454b_4777_826bc4e502c2502d" "{21E07B31-8D2E-11d4-A3B8-002035848439}"
+dialogHandle7FCB8CBEC32D4d52A7FD4FAC792336E9.SetOutput(Translate("Please load Forward primer plate at indicated positions"));
+dialogHandle7FCB8CBEC32D4d52A7FD4FAC792336E9.ShowOutput(Translate("Primer Plate"), hslOKOnly | hslInformation | hslDefButton1, hslInfinite);
+// }} ""
+// {{{ 81 1 0 "75fd663b_35fd_4887_878490226d8dc921" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.FwdPrimerPlate_1, 5, Translate("Forward Primer Plate"));
+// }} ""
+// {{{ 82 1 0 "cc00335e_0f69_4572_b050fdd4fa70f0eb" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.RevPrimerPlate_1, 6, Translate("Reverse Primer Plate"));
+// }} ""
+// {{ 83 1 0 "b93136d0_1dd4_4c71_b035e04639d5593d" "{21E07B31-8D2E-11d4-A3B8-002035848439}"
+dialogHandleA354A952452F44c1AE6D8EE22C020506.SetOutput(Translate("Please load Reverse primer plate at indicated positions"));
+dialogHandleA354A952452F44c1AE6D8EE22C020506.ShowOutput(Translate("Primer Plate"), hslOKOnly | hslInformation | hslDefButton1, hslInfinite);
+// }} ""
+// {{{ 84 1 0 "7037eb55_2742_4baf_a5439a5f73a3f814" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.FwdPrimerPlate_1, 5, Translate("Reverse Primer Plate"));
+// }} ""
+// {{ 85 1 0 "5ca17e67_b10e_4d6d_b7b8d89c14e9dece" "{B31F3531-5D80-11d4-A5EB-0050DA737D89}"
+}
+// }} ""
+// {{ 86 1 0 "7e8624b8_10a5_4c6c_bacd5eecef3f63d2" "{B31F3531-5D80-11d4-A5EB-0050DA737D89}"
+if (t_intNumberOfPlates >= 3)
+{
+// }} ""
+// {{{ 87 1 0 "d029f40d_c328_4670_b2f386fbd79c4dca" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.FwdPrimerPlate_1, 6, Translate("Forward Primer Plate"));
+// }} ""
+// {{ 88 1 0 "fb35a5df_3909_4f72_a6bc20734c9c1c9c" "{21E07B31-8D2E-11d4-A3B8-002035848439}"
+dialogHandle679F26C440924a4084A8111F30ADEA3D.SetOutput(Translate("Please load Forward primer plate at indicated positions"));
+dialogHandle679F26C440924a4084A8111F30ADEA3D.ShowOutput(Translate("Primer Plate"), hslOKOnly | hslInformation | hslDefButton1, hslInfinite);
+// }} ""
+// {{{ 89 1 0 "1218af56_3c36_4c81_bc4a6c3864b90631" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.FwdPrimerPlate_1, 5, Translate("Forward Primer Plate"));
+// }} ""
+// {{{ 90 1 0 "8dd36f02_a956_4198_84c841e1aa130acf" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.RevPrimerPlate_1, 6, Translate("Reverse Primer Plate"));
+// }} ""
+// {{ 91 1 0 "2c62172b_88f5_4405_866c2733007b8069" "{21E07B31-8D2E-11d4-A3B8-002035848439}"
+dialogHandle59224924100A4e6aB9F7391D9C696D56.SetOutput(Translate("Please load Reverse primer plate at indicated positions"));
+dialogHandle59224924100A4e6aB9F7391D9C696D56.ShowOutput(Translate("Primer Plate"), hslOKOnly | hslInformation | hslDefButton1, hslInfinite);
+// }} ""
+// {{{ 92 1 0 "d1cc7a58_8daf_4db5_ba33be2d1b5dcfa6" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.FwdPrimerPlate_1, 5, Translate("Reverse Primer Plate"));
+// }} ""
+// {{{ 93 1 0 "4ba4b87e_cf90_4afc_96503a80900f8b4a" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.seq_FwdPrimerPlates2, 6, Translate("Forward Primer Plate"));
+// }} ""
+// {{ 94 1 0 "675c2d93_8bfd_4d5e_9f420e7809cf45a5" "{21E07B31-8D2E-11d4-A3B8-002035848439}"
+dialogHandleD6A2E2D68FFD4386B96DC4B41B910D68.SetOutput(Translate("Please load Forward primer plates at indicated positions"));
+dialogHandleD6A2E2D68FFD4386B96DC4B41B910D68.ShowOutput(Translate("Primer Plate"), hslOKOnly | hslInformation | hslDefButton1, hslInfinite);
+// }} ""
+// {{{ 95 1 0 "7d81b86c_baab_4c44_8696a74ac4e843e0" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.seq_FwdPrimerPlates2, 5, Translate("Forward Primer Plate"));
+// }} ""
+// {{{ 96 1 0 "b664b55c_5758_4406_9f5118e03590ddb7" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.seq_RevPrimerPlates2, 6, Translate("Reverse Primer Plate"));
+// }} ""
+// {{ 97 1 0 "6a2cc18b_5a4a_4e99_a181b2440e1f9f28" "{21E07B31-8D2E-11d4-A3B8-002035848439}"
+dialogHandleAD4979848C8A4878ACC679EA8EBD1B39.SetOutput(Translate("Please load Reverse primer plates at indicated positions"));
+dialogHandleAD4979848C8A4878ACC679EA8EBD1B39.ShowOutput(Translate("Primer Plate"), hslOKOnly | hslInformation | hslDefButton1, hslInfinite);
+// }} ""
+// {{{ 98 1 0 "75a8de75_d37a_494c_a7edec98051e3d0e" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.seq_FwdPrimerPlates2, 5, Translate("Reverse Primer Plate"));
+// }} ""
+// {{ 99 1 0 "7e8624b8_10a5_4c6c_bacd5eecef3f63d2" "{B31F3531-5D80-11d4-A5EB-0050DA737D89}"
+}
+// }} ""
+// {{ 100 1 0 "b693cc3a_efa1_4a62_af2b09aed2b3ec8e" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 101 1 0 "d4cd3efa_4fc1_48af_980f553fe8642b21" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{{ 102 1 0 "46af9624_215e_4542_b89ef85fd5179199" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.H20, 6, Translate("Water Trough"));
+// }} ""
+// {{ 103 1 0 "bdaa49d3_5851_4312_b9f2fd8000f5d064" "{21E07B31-8D2E-11d4-A3B8-002035848439}"
+dialogHandleCA21D64C36BE48eeB3525D982F41E611.SetOutput(Translate("Please load NF Water Trough at indicated position"));
+dialogHandleCA21D64C36BE48eeB3525D982F41E611.ShowOutput(Translate("Water"), hslOKOnly | hslInformation | hslDefButton1, hslInfinite);
+// }} ""
+// {{{ 104 1 0 "730960b7_556d_4d81_969b64de9b53ec26" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.H20, 5, Translate("Water Trough"));
+// }} ""
+// {{ 105 1 0 "d4cd3efa_4fc1_48af_980f553fe8642b21" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 106 1 0 "a9040a98_6f3b_4c96_82c443235231cf97" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{{ 107 1 0 "d14d6790_09fe_4161_9c94b8b938b0e779" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.seq_GblockSense, 6, Translate("Gblock Sense"));
+// }} ""
+// {{ 108 1 0 "ee4e5b21_8621_48ef_aeedbf45ce7d5eb4" "{21E07B31-8D2E-11d4-A3B8-002035848439}"
+dialogHandle3B0B3582FE004df7ACCE68E784190233.SetOutput(Translate("Please load Sense (S) control tube at indicated position"));
+dialogHandle3B0B3582FE004df7ACCE68E784190233.ShowOutput(Translate("OTP"), hslOKOnly | hslInformation | hslDefButton1, hslInfinite);
+// }} ""
+// {{{ 109 1 0 "7878a41e_9393_47ab_b9288ed149df3001" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.seq_GblockSense, 5, Translate("GBlock Sense"));
+// }} ""
+// {{{ 110 1 0 "182be568_c369_49dd_813343145b3f89ef" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.seq_GblockAntiSense, 6, Translate("Gblock Anti-Sense"));
+// }} ""
+// {{ 111 1 0 "95854f2e_edaa_4d15_9c1ca06e51cc5b17" "{21E07B31-8D2E-11d4-A3B8-002035848439}"
+dialogHandle1C06542D9B5443548DE05B63C42770C6.SetOutput(Translate("Please load Anti-Sense (AS) control tube at indicated position"));
+dialogHandle1C06542D9B5443548DE05B63C42770C6.ShowOutput(Translate("OTP"), hslOKOnly | hslInformation | hslDefButton1, hslInfinite);
+// }} ""
+// {{{ 112 1 0 "a606d2e1_defe_4011_82b6ea64833877c5" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.seq_GblockAntiSense, 5, Translate("GBlock Anti-Sense"));
+// }} ""
+// {{ 113 1 0 "a9040a98_6f3b_4c96_82c443235231cf97" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 114 1 0 "f9ac24ed_4f90_441f_b482ded0ffe0773b" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 115 1 0 "88c5f89b_d882_4424_92fb6e1772b43244" "{B31F3531-5D80-11d4-A5EB-0050DA737D89}"
+if (t_intNumberOfPlates == 1)
+{
+// }} ""
+// {{{ 116 1 0 "3f435767_bd2c_4492_a964ef162b16903c" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.seq_300ulTips_1, 6, Translate("300ul CORE tips"));
+// }} ""
+// {{ 117 1 0 "9fdd0a85_a9ee_4818_b47fdd57fa081e43" "{21E07B31-8D2E-11d4-A3B8-002035848439}"
+dialogHandle8C768BF2D51F4a08B184938BC8418EBF.SetOutput(Translate("Please load 300ul filtered tips at indicated positions"));
+dialogHandle8C768BF2D51F4a08B184938BC8418EBF.ShowOutput(Translate("Primer Plate"), hslOKOnly | hslInformation | hslDefButton1, hslInfinite);
+// }} ""
+// {{{ 118 1 0 "f281177d_3263_4d53_98bafb2577fb5f4d" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.seq_300ulTips_1, 5, Translate("300ul CORE tips"));
+// }} ""
+// {{ 119 1 0 "88c5f89b_d882_4424_92fb6e1772b43244" "{B31F3531-5D80-11d4-A5EB-0050DA737D89}"
+}
+else
+{
+// }} ""
+// {{ 120 1 0 "6a6b4830_3e51_4356_8c9dfe52cc05085f" "{B31F3531-5D80-11d4-A5EB-0050DA737D89}"
+if (t_intNumberOfPlates >= 2)
+{
+// }} ""
+// {{{ 121 1 0 "90488f7b_0d88_4022_b04b83100e49d07a" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.seq_300ulTips_All, 6, Translate("300ul CORE tips"));
+// }} ""
+// {{ 122 1 0 "672d3c86_a2e5_4612_aebf78f7934694d4" "{21E07B31-8D2E-11d4-A3B8-002035848439}"
+dialogHandle96D64DFB6BC247b0AA81E3DED222E78A.SetOutput(Translate("Please load 300ul filtered tips at indicated positions"));
+dialogHandle96D64DFB6BC247b0AA81E3DED222E78A.ShowOutput(Translate("Tip Loading"), hslOKOnly | hslInformation | hslDefButton1, hslInfinite);
+// }} ""
+// {{{ 123 1 0 "21bf7fa5_2242_48f8_8e6c341c81783edd" "{C1F3C015-47B3-4514-9407-AC2E65043419}"
+DeckVisualize::UpdateUsedPositions(ML_STAR, ML_STAR.seq_300ulTips_All, 5, Translate("300ul CORE tips"));
+// }} ""
+// {{ 124 1 0 "6a6b4830_3e51_4356_8c9dfe52cc05085f" "{B31F3531-5D80-11d4-A5EB-0050DA737D89}"
+}
+// }} ""
+// {{ 125 1 0 "88c5f89b_d882_4424_92fb6e1772b43244" "{B31F3531-5D80-11d4-A5EB-0050DA737D89}"
+}
+// }} ""
+// {{{ 126 1 0 "28dc7dc3_41f2_401a_b48c1e64eeaedcd9" "{7C4EF7A7-39BE-406a-897F-71F3A35B4093}"
+STAR_TIP_TOOLS::TipCounter_Edit(ML_STAR, ML_STAR.seq_300ulTips_All, t_str300ulVolumeTips, 999);
+// }} ""
+// {{{ 127 1 0 "7bb5ab13_856d_4741_8454b4bbec591706" "{7C4EF7A7-39BE-406a-897F-71F3A35B4093}"
+STAR_TIP_TOOLS::TipCounter_Edit(ML_STAR, ML_STAR.MlStar50ulTipWithFilter, t_str50ulVolumeTips, 999);
+// }} ""
+// {{ 128 1 0 "f9ac24ed_4f90_441f_b482ded0ffe0773b" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 129 1 0 "fccfed4e_77bd_4e7d_9d8bfa0b6775c5ae" "{586C3429-F931-405f-9938-928E22C90BFA}"
+
+// }} ""
+// {{ 130 1 0 "e34be437_aeec_4a78_90e6a1cd693c269d" "{998A7CCC-4374-484D-A6ED-E8A4F0EB71BA}"
+customDialog4993B5781706401eB0CC0F6D7EFAFAC5.InitCustomDialog( "e34be437_aeec_4a78_90e6a1cd693c269d" );
+customDialog4993B5781706401eB0CC0F6D7EFAFAC5.ShowCustomDialog();
+t_varDialogue = customDialog4993B5781706401eB0CC0F6D7EFAFAC5.GetCustomDialogProperty( "ReturnValue" );
+// }} ""
+// {{{ 131 1 0 "6f72b11f_0a2b_47f0_86f59ff3fbdbf6c6" "{7C4EF7A7-39BE-406a-897F-71F3A35B4093}"
+Aliquot();
+// }} ""
+// {{ 132 1 0 "e41a56c5_dfc8_4ba9_8d6d5e527761677b" "{F07B0071-8EFC-11d4-A3BA-002035848439}"
+MECC::TraceComment(Translate("----------------------------------------------------------------------------------------------------------\n\n                                            Aliquot DONE\n\n\n-----------------------------------------------------------------------------------------------------------"));
+// }} ""
+// {{ 133 1 0 "e3eabf8e_3321_452c_b6ecd915e822dc31" "{998A7CCC-4374-484D-A6ED-E8A4F0EB71BA}"
+customDialog30E0FCA20F504088B5DC3F6E54EC5818.InitCustomDialog( "e3eabf8e_3321_452c_b6ecd915e822dc31" );
+customDialog30E0FCA20F504088B5DC3F6E54EC5818.ShowCustomDialog();
+t_varDialogue = customDialog30E0FCA20F504088B5DC3F6E54EC5818.GetCustomDialogProperty( "ReturnValue" );
+// }} ""
+// {{{ 134 1 0 "ec54aa92_efb6_455b_bd3c84c4fe68c96f" "{7C4EF7A7-39BE-406a-897F-71F3A35B4093}"
+STAR_TIP_TOOLS::TipCounter_Write(ML_STAR, ML_STAR.MlStar300ulStandardVolumeTipWithFilter, t_str300ulVolumeTips);
+// }} ""
+// {{ 135 1 0 "76168063_5b7e_497c_b45c81fb07f96b57" "{930D6C31-8EFB-11d4-A3BA-002035848439}"
+abort;
+// }} ""
+// {{ 2 "AutoExitBlock" ""
+STAR_TIP_TOOLS::_ExitLibrary();
+VISUAL_NTR_LIBRARY_NTRDISCARDEDITS::_ExitLibrary();
+// }} ""
+// {{{ 5 "main" "End"
+} }
+// }} ""
+// $$author=HTP$$valid=0$$time=2022-07-21 15:31$$checksum=92165240$$length=082$$
